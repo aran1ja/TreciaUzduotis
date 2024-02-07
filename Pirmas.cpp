@@ -7,7 +7,7 @@
 using namespace std;
 
 int s, nd;
-double vidurkis, galutinis;
+double suma, vidurkis, galutinis_vid, mediana;
 
 struct Duomenys {
     string vardas;
@@ -25,21 +25,33 @@ int main() {
 
     for (int i = 0; i < s; i++) {
 
+        suma = 0.00;
+
         cout << "Iveskite " << i+1 << " studento varda: "; cin >> studentas[i].vardas;
         cout << "Iveskite " << i+1 << " studento pavarde: "; cin >> studentas[i].pavarde;
 
         for (int j = 0; j < nd; j++) {
 
-            cout << "Iveskite studento pazymi uz " << j+1 << " namu darba: "; cin >> studentas[j].tarpiniai_rezultatai;
-        }
+            cout << "Studento pazymis uz " << j+1 << " namu darba: "; cin >> studentas[j].tarpiniai_rezultatai;
 
-        cout << "Iveskite " << i+1 << " studento egzamino rezultata: "; cin >> studentas[i].egzamino_rezultatas;
+            while (studentas[j].tarpiniai_rezultatai > 10 || studentas[j].tarpiniai_rezultatai < 1) {
+                cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
+                cout << "Studento pazymis uz " << j+1 << " namu darba: "; cin >> studentas[j].tarpiniai_rezultatai;
+            } 
+               suma += studentas[j].tarpiniai_rezultatai;
+               }
 
-        vidurkis = 1.00 * studentas[i].tarpiniai_rezultatai / nd;
-        galutinis = 0.4 * vidurkis + 0.6 * studentas[i].egzamino_rezultatas;
-        cout << "Vidurkis = " << vidurkis << endl; //Blogai skaiciuoja vidurki, del to kencia galutinis rezultatas
-        cout << "Galutinis (Vid.) = " << fixed << setprecision(2) << galutinis << endl;
-        //Padaryti taip, kad pazymis <= 10, bet >0 arba >=1
+            cout << "Studento egzamino rezultatas: "; cin >> studentas[i].egzamino_rezultatas;
+
+            while (studentas[i].egzamino_rezultatas > 10 || studentas[i].egzamino_rezultatas < 1) {
+                cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
+                cout << "Studento egzamino rezultatas: "; cin >> studentas[i].egzamino_rezultatas;
+                }
+
+        vidurkis = suma / nd * 1.00;
+        galutinis_vid = 0.4 * vidurkis + 0.6 * studentas[i].egzamino_rezultatas;
+        cout << "Vidurkis = " << vidurkis << endl; 
+        cout << "Galutinis (Vid.) = " << fixed << setprecision(2) << galutinis_vid << endl;
 
         cout << "---------------------------------------" << endl;
     }
