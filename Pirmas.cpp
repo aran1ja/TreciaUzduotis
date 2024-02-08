@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int s, nd;
+int s, nd, pasirinkimas;
 double suma, vidurkis, mediana;
 
 struct Studentas {
@@ -43,9 +43,8 @@ int main() {
                 cout << "Studento pazymis uz " << j+1 << " namu darba: "; cin >> pazymiai[i][j];
             } 
 
-
                suma += pazymiai[i][j]; //Skaiciuoja suma visu pazymiu  
-               //mediana = 0.5 * (pazymiai[i][(nd - 1) / 2] + pazymiai[i][nd / 2]); //Ne visada gerai skaiciuoja rezultata
+               
                }
             
             cout << "Studento egzamino rezultatas: "; cin >> studentas[i].egzamino_rezultatas;
@@ -55,12 +54,19 @@ int main() {
                 cout << "Studento egzamino rezultatas: "; cin >> studentas[i].egzamino_rezultatas;
                 }
 
+            //Tu ma byc mediana
+            //Porownac w pazymis i i j, oraz egzamino rezult.
+            //if ( i )
+            //mediana = 0.5 * (pazymiai[i][(nd - 1) / 2] + pazymiai[i][nd / 2]); //Ne visada gerai skaiciuoja rezultata
+
+        //Jeigu nebuvo jokiu namu darbu, galutinis vidurkis skaiciuojamas tik is egzamino rezultato
         if (nd == 0) {
             vidurkis = 0;
         } else {
             vidurkis = suma / nd * 1.00;
         }
         
+        //Galutinio vidurkio skaiciavimas
         studentas[i].galutinis_vid = 0.4 * vidurkis + 0.6 * studentas[i].egzamino_rezultatas;
         cout << "Vidurkis = " << fixed << setprecision(2) << vidurkis << endl; 
         //cout << "Galutinis (Med.) = " << fixed << setprecision(2) << mediana << endl; 
@@ -68,12 +74,35 @@ int main() {
         cout << "--------------------------------------------------" << endl;
     }
 
-        cout << "Vardas\t Pavarde\t Galutinis (Vid.)" << endl;
-        cout << "--------------------------------------------------" << endl;
+        //Vartotojas, ivedamas duomenis ranka, pats issirenka ka nori atvaizduoti: vidurki ar mediana
+        cout << "Ka programa turi atvaizduoti?" << endl;
+        cout << "Jeigu reikalingas vidurkis, spauskite 1.\nJeigu reikalinga mediana, spauskite 2." << endl;
+        cin >> pasirinkimas;
 
-        for (int i = 0; i < s; i++) {
-            cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
-            cout << fixed << setprecision(2) << studentas[i].galutinis_vid << endl;
-            //Istaisyti, kad visi duomenys butu graziai surasyti i linija
+        while (pasirinkimas != 1 || pasirinkimas != 2) {
+            cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
+            cout << "Spauskite 1 arba 2. "; cin >> pasirinkimas;
+
+            if (pasirinkimas == 1) {
+
+            cout << "Vardas\t Pavarde\t Galutinis (Vid.)" << endl;
+            cout << "--------------------------------------------------" << endl;
+
+             for (int i = 0; i < s; i++) {
+                 cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
+                cout << fixed << setprecision(2) << studentas[i].galutinis_vid << endl;
+            } break;
+        } else if (pasirinkimas == 2) {
+
+            cout << "Vardas\t Pavarde\t Galutinis (Med.)" << endl;
+            cout << "--------------------------------------------------" << endl;
+            
+            for (int i = 0; i < s; i++) {
+                 cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
+                cout << "Cia turi buti mediana" << endl;
+            } break;
         }
+        }
+
+        
 }
