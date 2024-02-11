@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <iomanip>
 #include <algorithm>
+#include <string>
+#include <cctype> // isdigit funkcijai
+#include <sstream> // istringstream funkcijai
 
 using namespace std;
 
@@ -25,14 +28,82 @@ double mediana(int arr[], int kiekis) {
     }
 }
 
+int StudentuKiekis() {
+
+    string ivestis_studentai;
+    int s;
+
+    while (true) {
+
+        cin >> ivestis_studentai;
+
+        istringstream iss(ivestis_studentai);
+
+        if (iss >> s) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Iveskite tik studentu skaiciu." << endl;
+            } else {
+                return s;
+            }
+        } else {
+            cout << "Klaida. Iveskite studentu skaiciu." << endl;
+        }
+    }
+}
+
+int NamuDarbuKiekis() {
+
+    string ivestis_namu_darbai;
+    int nd;
+
+    while (true) {
+
+        cin >> ivestis_namu_darbai;
+
+        istringstream iss(ivestis_namu_darbai);
+
+        if (iss >> nd) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Iveskite tik namu darbu skaiciu." << endl;
+            } else {
+                return nd;
+            }
+        } else {
+            cout << "Klaida. Iveskite namu darbu skaiciu." << endl;
+        }
+    }
+}
+
 int main() {
 
-    cout << "Kiek yra studentu? "; cin >> s;
+    /* 
+    Ivedama kiek yra studentu. Ju gali buti tik naturalusis skaicius.
+    Jeigu ivedama raide, atsiranda zinute "Klaida. Iveskite studentu skaiciu."
+    Jeigu ivedamas skaicius su raide, atsiranda zinute "Klaida. Iveskite tik studentu skaiciu."
+    */ 
+
+    string ivestis_studentai;
+
+    cout << "Kiek yra studentu? "; cin >> ivestis_studentai;
+    int s = StudentuKiekis();
+
     while (s <= 0) {
         cout << "Klaida. Bandykite ivesti kita kieki. "; cin >> s;
     }
 
-    cout << "Kiek namu darbu buvo uzduota? "; cin >> nd;
+    /* 
+    Ivedama kiek yra namu darbu. Ju gali buti 0 ir daugiau.
+    Jeigu ivedama raide, atsiranda zinute "Klaida. Iveskite namu darbu skaiciu."
+    Jeigu ivedamas skaicius su raide, atsiranda zinute "Klaida. Iveskite tik namu darbu skaiciu."
+    */
+
+    string ivestis_namu_darbai;
+
+    cout << "Kiek namu darbu buvo uzduota? "; cin >> ivestis_namu_darbai;
+    int nd = NamuDarbuKiekis();
+
     while (nd < 0) {
         cout << "Klaida. Bandykite ivesti kita kieki. "; cin >> nd;
     }
