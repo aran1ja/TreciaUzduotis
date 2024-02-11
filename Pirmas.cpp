@@ -13,8 +13,17 @@ double suma, vidurkis;
 struct Studentas {
     string vardas, pavarde;
     double galutinis_vid, mediana;
-    int pazymiai, egzamino_rezultatas;
+    int *pazymiai, egzamino_rezultatas;
 };
+
+double median(int arr[]) {
+    sort (arr, arr + nd);
+    if (nd % 2 == 0) {
+        return (arr[nd / 2 - 1] + arr[nd / 2]) / 2.0;
+    } else {
+        return arr[nd / 2];
+    }
+}
 
 int main() {
 
@@ -29,7 +38,6 @@ int main() {
     }
         
     Studentas *studentas = new Studentas[s];
-    int **pazymiai = new int*[s];
 
     for (int i = 0; i < s; i++) {
 
@@ -38,17 +46,18 @@ int main() {
         cout << "Iveskite " << i+1 << " studento varda: "; cin >> studentas[i].vardas;
         cout << "Iveskite " << i+1 << " studento pavarde: "; cin >> studentas[i].pavarde;
 
-        pazymiai[i] = new int[nd];
+        studentas[i].pazymiai = new int[nd];
 
         for (int j = 0; j < nd; j++) {
 
-            cout << "Studento pazymis uz " << j+1 << " namu darba: "; cin >> pazymiai[i][j];
+            cout << "Studento pazymis uz " << j+1 << " namu darba: "; cin >> studentas[i].pazymiai[j];
 
-            while (pazymiai[i][j] > 10 || pazymiai[i][j] < 1) {
+            while (studentas[i].pazymiai[j] > 10 || studentas[i].pazymiai[j] < 1) {
                 cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
-                cout << "Studento pazymis uz " << j+1 << " namu darba: "; cin >> pazymiai[i][j];
+                cout << "Studento pazymis uz " << j+1 << " namu darba: "; cin >> studentas[i].pazymiai[j];
             } 
-               suma += pazymiai[i][j]; //Skaiciuoja suma visu pazymiu  
+                //Skaiciuoja suma visu pazymiu 
+                suma += studentas[i].pazymiai[j];  
                }
             
             cout << "Studento egzamino rezultatas: "; cin >> studentas[i].egzamino_rezultatas;
@@ -59,7 +68,20 @@ int main() {
                 }
 
         //Mediana
-        studentas[i].mediana = 0.5 * (pazymiai[i][(nd - 1) / 2] + pazymiai[i][nd / 2]);
+         for (int a = 0; a < s; a++) {
+            int *visi_pazymiai = new int[nd + 1];
+            for (int b = 0; b < nd; b++) {
+                visi_pazymiai[b] = studentas[i].pazymiai[b];
+            }
+            visi_pazymiai[nd] = studentas[i].egzamino_rezultatas;
+
+            double mediana = median(visi_pazymiai);
+            studentas[i].mediana = mediana;
+
+            delete[] visi_pazymiai;
+         }
+        
+        //studentas[i].mediana = 0.5 * (pazymiai[i][(nd - 1) / 2] + pazymiai[i][nd / 2]);
         //Liczy mediane tylko z ocen, NIE z egzaminu wlacznie
         //Liczy tylko podany srodek - NIE MA sortowania cyfr od najmniejszej do najwiekszej
 
@@ -72,7 +94,8 @@ int main() {
         
         //Galutinio vidurkio skaiciavimas
         studentas[i].galutinis_vid = 0.4 * vidurkis + 0.6 * studentas[i].egzamino_rezultatas;
-        cout << "Vidurkis = " << fixed << setprecision(2) << vidurkis << endl; 
+
+        ////cout << "Vidurkis = " << fixed << setprecision(2) << vidurkis << endl;
         cout << "--------------------------------------------------" << endl;
     }
 
@@ -81,13 +104,9 @@ int main() {
         cout << "Jeigu reikalingas vidurkis, spauskite 1.\nJeigu reikalinga mediana, spauskite 2." << endl;
         cin >> pasirinkimas;
 
-
         while (pasirinkimas != 1 || pasirinkimas != 2) {
 
-            cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
-            cout << "Spauskite 1 arba 2. "; cin >> pasirinkimas;
-
-            if (pasirinkimas == 1) {
+        if (pasirinkimas == 1) {
 
             cout << "Vardas\t Pavarde\t Galutinis (Vid.)" << endl;
             cout << "--------------------------------------------------" << endl;
@@ -104,8 +123,18 @@ int main() {
 
             for (int i = 0; i < s; i++) {
                  cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
-                cout << "Cia turi buti mediana" << endl;
+                cout << fixed << setprecision(2) << studentas[i].mediana << endl;
             } break;
         }
+
+            cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
+            cout << "Spauskite 1 arba 2. "; cin >> pasirinkimas;
     }
+
+    for (int i = 0; i < s; i++) {
+        delete[] studentas[i].pazymiai;
+    }
+     delete[] studentas;
+
+     return 0;
 }
