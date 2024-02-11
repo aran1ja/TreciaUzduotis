@@ -16,12 +16,12 @@ struct Studentas {
     int *pazymiai, egzamino_rezultatas;
 };
 
-double median(int arr[]) {
-    sort (arr, arr + nd);
-    if (nd % 2 == 0) {
-        return (arr[nd / 2 - 1] + arr[nd / 2]) / 2.0;
+double mediana(int arr[], int kiekis) {
+    sort (arr, arr + kiekis);
+    if (kiekis % 2 == 0) {
+        return (arr[kiekis / 2 - 1] + arr[kiekis / 2]) / 2.0;
     } else {
-        return arr[nd / 2];
+        return arr[kiekis / 2];
     }
 }
 
@@ -67,24 +67,6 @@ int main() {
                 cout << "Studento egzamino rezultatas: "; cin >> studentas[i].egzamino_rezultatas;
                 }
 
-        //Mediana
-         for (int a = 0; a < s; a++) {
-            int *visi_pazymiai = new int[nd + 1];
-            for (int b = 0; b < nd; b++) {
-                visi_pazymiai[b] = studentas[i].pazymiai[b];
-            }
-            visi_pazymiai[nd] = studentas[i].egzamino_rezultatas;
-
-            double mediana = median(visi_pazymiai);
-            studentas[i].mediana = mediana;
-
-            delete[] visi_pazymiai;
-         }
-        
-        //studentas[i].mediana = 0.5 * (pazymiai[i][(nd - 1) / 2] + pazymiai[i][nd / 2]);
-        //Liczy mediane tylko z ocen, NIE z egzaminu wlacznie
-        //Liczy tylko podany srodek - NIE MA sortowania cyfr od najmniejszej do najwiekszej
-
         //Jeigu nebuvo jokiu namu darbu, galutinis vidurkis skaiciuojamas tik is egzamino rezultato
         if (nd == 0) {
             vidurkis = 0;
@@ -95,16 +77,32 @@ int main() {
         //Galutinio vidurkio skaiciavimas
         studentas[i].galutinis_vid = 0.4 * vidurkis + 0.6 * studentas[i].egzamino_rezultatas;
 
-        ////cout << "Vidurkis = " << fixed << setprecision(2) << vidurkis << endl;
+        //Mediana
+         for (int a = 0; a < s; a++) {
+
+            int *visi_pazymiai = new int[nd + 1];
+
+            for (int b = 0; b < nd; b++) {
+                visi_pazymiai[b] = studentas[i].pazymiai[b];
+            }
+            visi_pazymiai[nd] = studentas[i].egzamino_rezultatas;
+ 
+            studentas[i].mediana = mediana(visi_pazymiai, nd + 1);
+
+            delete[] visi_pazymiai;
+            }
+
         cout << "--------------------------------------------------" << endl;
     }
 
         //Vartotojas, ivedamas duomenis ranka, pats issirenka ka nori atvaizduoti: vidurki ar mediana
         cout << "Ka programa turi atvaizduoti?" << endl;
-        cout << "Jeigu reikalingas vidurkis, spauskite 1.\nJeigu reikalinga mediana, spauskite 2." << endl;
+        cout << "Jeigu reikalingas vidurkis, spauskite 1." << endl;
+        cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
+        cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
         cin >> pasirinkimas;
 
-        while (pasirinkimas != 1 || pasirinkimas != 2) {
+        while (pasirinkimas != 1 || pasirinkimas != 2 || pasirinkimas != 3) {
 
         if (pasirinkimas == 1) {
 
@@ -125,10 +123,21 @@ int main() {
                  cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
                 cout << fixed << setprecision(2) << studentas[i].mediana << endl;
             } break;
+
+        } else if (pasirinkimas == 3) {
+
+            cout << "Vardas\t Pavarde\t Galutinis (Vid.) / Galutinis (Med.)" << endl;
+            cout << "--------------------------------------------------" << endl;
+
+            for (int i = 0; i < s; i++) {
+                 cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
+                cout << fixed << setprecision(2) << studentas[i].galutinis_vid << "\t";
+                cout << fixed << setprecision(2) << studentas[i].mediana << endl;
+            } break;
         }
 
             cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
-            cout << "Spauskite 1 arba 2. "; cin >> pasirinkimas;
+            cout << "Spauskite 1, 2 arba 3. "; cin >> pasirinkimas;
     }
 
     for (int i = 0; i < s; i++) {
