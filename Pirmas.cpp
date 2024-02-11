@@ -28,50 +28,142 @@ double mediana(int arr[], int kiekis) {
     }
 }
 
-int StudentuKiekis() {
+int Studentai() {
 
     string ivestis_studentai;
     int s;
 
-    while (true) {
+    cout << "Kiek yra studentu? "; cin >> ivestis_studentai;
 
-        cin >> ivestis_studentai;
+    while (true) {
 
         istringstream iss(ivestis_studentai);
 
         if (iss >> s) {
             char remaining;
             if (iss >> remaining) {
-                cout << "Klaida. Iveskite tik studentu skaiciu." << endl;
+                cout << "Klaida. Iveskite tik studentu skaiciu. ";
+                cin >> ivestis_studentai;
             } else {
-                return s;
+                if (s <= 0) {
+                    cout << "Klaida. Bandykite ivesti kita kieki. ";
+                    cin >> ivestis_studentai;
+                } else {
+                  return s;  
+                }
             }
         } else {
-            cout << "Klaida. Iveskite studentu skaiciu." << endl;
+            cout << "Klaida. Iveskite studentu skaiciu. ";
+            cin >> ivestis_studentai;
         }
     }
 }
 
-int NamuDarbuKiekis() {
+int NamuDarbai() {
 
     string ivestis_namu_darbai;
     int nd;
 
-    while (true) {
+    cout << "Kiek namu darbu buvo uzduota? "; cin >> ivestis_namu_darbai;
 
-        cin >> ivestis_namu_darbai;
+    while (true) {
 
         istringstream iss(ivestis_namu_darbai);
 
         if (iss >> nd) {
             char remaining;
             if (iss >> remaining) {
-                cout << "Klaida. Iveskite tik namu darbu skaiciu." << endl;
+                cout << "Klaida. Iveskite tik namu darbu skaiciu. ";
+                cin >> ivestis_namu_darbai;
             } else {
-                return nd;
+                if (nd < 0) {  
+                    cout << "Klaida. Bandykite ivesti kita kieki. ";
+                    cin >> ivestis_namu_darbai;
+                } else {
+                    return nd;
+                }
             }
         } else {
-            cout << "Klaida. Iveskite namu darbu skaiciu." << endl;
+            cout << "Klaida. Iveskite namu darbu skaiciu. ";
+            cin >> ivestis_namu_darbai;
+        }
+    }
+}
+
+int Pazymiai() {
+
+    string ivestis_pazymiai;
+    int pazymiai;
+    
+    cin >> ivestis_pazymiai;
+
+    while (true) {
+
+        istringstream iss(ivestis_pazymiai);
+
+        if (iss >> pazymiai) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Iveskite pazymi tik skaiciaus pavidalu. ";
+                cin >> ivestis_pazymiai;
+            } else {
+                return pazymiai;
+            }
+        } else {
+            cout << "Klaida. Iveskite pazymi skaiciaus pavidalu. ";
+            cin >> ivestis_pazymiai;
+        }
+    }
+}
+
+int EgzaminoRezultatas() {
+
+    string ivestis_egzamino_rezultatas;
+    int rezultatas;
+    
+    cin >> ivestis_egzamino_rezultatas;
+
+    while (true) {
+
+        istringstream iss(ivestis_egzamino_rezultatas);
+
+        if (iss >> rezultatas) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Iveskite egzamino rezultata tik skaiciaus pavidalu. ";
+                cin >> ivestis_egzamino_rezultatas;
+            } else {
+                return rezultatas;
+            }
+        } else {
+            cout << "Klaida. Iveskite egzamino rezultata skaiciaus pavidalu. ";
+            cin >> ivestis_egzamino_rezultatas;
+        }
+    }
+}
+
+int Pasirinkimas() {
+
+    string pasirinkti_atsakyma;
+    int pasirinkimas;
+
+    cin >> pasirinkti_atsakyma;
+
+    while (true) {
+
+        istringstream iss(pasirinkti_atsakyma);
+
+        if (iss >> pasirinkimas) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Iveskite tik skaiciu (1, 2 arba 3). ";
+                cin >> pasirinkti_atsakyma;
+            } else {
+                    return pasirinkimas;
+                }
+        } else {
+            cout << "Klaida. Iveskite skaiciu (1, 2 arba 3). ";
+            cin >> pasirinkti_atsakyma;
         }
     }
 }
@@ -83,15 +175,8 @@ int main() {
     Jeigu ivedama raide, atsiranda zinute "Klaida. Iveskite studentu skaiciu."
     Jeigu ivedamas skaicius su raide, atsiranda zinute "Klaida. Iveskite tik studentu skaiciu."
     */ 
-
-    string ivestis_studentai;
-
-    cout << "Kiek yra studentu? "; cin >> ivestis_studentai;
-    int s = StudentuKiekis();
-
-    while (s <= 0) {
-        cout << "Klaida. Bandykite ivesti kita kieki. "; cin >> s;
-    }
+    
+    int s = Studentai();
 
     /* 
     Ivedama kiek yra namu darbu. Ju gali buti 0 ir daugiau.
@@ -99,14 +184,7 @@ int main() {
     Jeigu ivedamas skaicius su raide, atsiranda zinute "Klaida. Iveskite tik namu darbu skaiciu."
     */
 
-    string ivestis_namu_darbai;
-
-    cout << "Kiek namu darbu buvo uzduota? "; cin >> ivestis_namu_darbai;
-    int nd = NamuDarbuKiekis();
-
-    while (nd < 0) {
-        cout << "Klaida. Bandykite ivesti kita kieki. "; cin >> nd;
-    }
+    int nd = NamuDarbai();
         
     Studentas *studentas = new Studentas[s];
 
@@ -121,21 +199,43 @@ int main() {
 
         for (int j = 0; j < nd; j++) {
 
-            cout << "Studento pazymis uz " << j+1 << " namu darba: "; cin >> studentas[i].pazymiai[j];
+            /*
+            Ivedami studento pazymiai pagal 10 bale sistema. Jie gali buti nuo 1 iki 10.
+            Jeigu ivedama raide, atsiranda zinute "Klaida. Iveskite pazymi tik skaiciaus pavidalu."
+            Jeigu ivedamas skaicius su raide, atsiranda zinute "Klaida. Iveskite pazymi skaiciaus pavidalu."
+            */
+
+            string ivestis_pazymiai;
+            cout << "Studento pazymis uz " << j+1 << " namu darba: ";
+            int pazymiai = Pazymiai();
+            studentas[i].pazymiai[j] = pazymiai;
 
             while (studentas[i].pazymiai[j] > 10 || studentas[i].pazymiai[j] < 1) {
                 cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
-                cout << "Studento pazymis uz " << j+1 << " namu darba: "; cin >> studentas[i].pazymiai[j];
+                cout << "Studento pazymis uz " << j+1 << " namu darba: "; 
+                int pazymiai = Pazymiai();
+                studentas[i].pazymiai[j] = pazymiai;    
             } 
                 //Skaiciuoja suma visu pazymiu 
                 suma += studentas[i].pazymiai[j];  
                }
             
-            cout << "Studento egzamino rezultatas: "; cin >> studentas[i].egzamino_rezultatas;
+            /*
+            Ivedamas studento egzamino rezultatas pagal 10 bale sistema. Jis gali buti nuo 1 iki 10.
+            Jeigu ivedama raide, atsiranda zinute "Klaida. Iveskite egzamino rezultata tik skaiciaus pavidalu."
+            Jeigu ivedamas skaicius su raide, atsiranda zinute "Klaida. Iveskite egzamino rezultata skaiciaus pavidalu."
+            */
+
+            string ivestis_egzamino_rezultatas;
+            cout << "Studento egzamino rezultatas: "; 
+            int rezultatas = EgzaminoRezultatas();
+            studentas[i].egzamino_rezultatas = rezultatas;
 
             while (studentas[i].egzamino_rezultatas > 10 || studentas[i].egzamino_rezultatas < 1) {
                 cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
-                cout << "Studento egzamino rezultatas: "; cin >> studentas[i].egzamino_rezultatas;
+                cout << "Studento egzamino rezultatas: ";
+                int rezultatas = EgzaminoRezultatas();
+                studentas[i].egzamino_rezultatas = rezultatas;
                 }
 
         //Jeigu nebuvo jokiu namu darbu, galutinis vidurkis skaiciuojamas tik is egzamino rezultato
@@ -171,9 +271,13 @@ int main() {
         cout << "Jeigu reikalingas vidurkis, spauskite 1." << endl;
         cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
         cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
-        cin >> pasirinkimas;
+        int pasirinkimas = Pasirinkimas();
 
         while (pasirinkimas != 1 || pasirinkimas != 2 || pasirinkimas != 3) {
+
+            cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
+            cout << "Spauskite 1, 2 arba 3. "; 
+            int pasirinkimas = Pasirinkimas(); 
 
         if (pasirinkimas == 1) {
 
@@ -181,7 +285,7 @@ int main() {
             cout << "--------------------------------------------------" << endl;
 
              for (int i = 0; i < s; i++) {
-                 cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
+                cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
                 cout << fixed << setprecision(2) << studentas[i].galutinis_vid << endl;
             } break;
 
@@ -191,24 +295,23 @@ int main() {
             cout << "--------------------------------------------------" << endl;
 
             for (int i = 0; i < s; i++) {
-                 cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
+                cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
                 cout << fixed << setprecision(2) << studentas[i].mediana << endl;
             } break;
 
         } else if (pasirinkimas == 3) {
 
-            cout << "Vardas\t Pavarde\t Galutinis (Vid.) / Galutinis (Med.)" << endl;
+            cout << "Vardas\t Pavarde\t Galutinis (Vid.) Galutinis (Med.)" << endl;
             cout << "--------------------------------------------------" << endl;
 
             for (int i = 0; i < s; i++) {
-                 cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
-                cout << fixed << setprecision(2) << studentas[i].galutinis_vid << "\t";
+                cout << studentas[i].vardas << "\t " << studentas[i].pavarde << "\t ";
+                cout << fixed << setprecision(2) << studentas[i].galutinis_vid << "\t ";
                 cout << fixed << setprecision(2) << studentas[i].mediana << endl;
             } break;
-        }
+        } 
 
-            cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
-            cout << "Spauskite 1, 2 arba 3. "; cin >> pasirinkimas;
+                   
     }
 
     for (int i = 0; i < s; i++) {
