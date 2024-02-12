@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int m, n, variantas, pasirinkimas; // m - studentu skaicius, n - namu darbu skaicius
+int m, n, variantas_namu_darbas, variantas_studentas, pasirinkimas; // m - studentu skaicius, n - namu darbu skaicius
 double suma, vidurkis;
 
 struct Studentas {
@@ -167,24 +167,37 @@ int Pasirinkimas() {
 }
 
 int main() {
-
-    /**/ 
     
-    int m = Studentai();
+    int m = 0;
     
-    Studentas *studentas = new Studentas[m];
+    Studentas *studentas = nullptr;
 
-    for (int i = 0; i < m; i++) {
+    int variantas_studentas = 1;
+
+    while (variantas_studentas != 0) {
+
+        m++;
+
+        Studentas* naujas_studentas = new Studentas[m];
+
+        for (int i = 0; i < m - 1; i++) {
+            naujas_studentas[i] = studentas[i];
+        }
+
+        delete[] studentas;
+
+        studentas = naujas_studentas;
+
 
         suma = 0.00;
 
-        cout << "Iveskite " << i+1 << " studento varda: "; cin >> studentas[i].vardas;
-        cout << "Iveskite " << i+1 << " studento pavarde: "; cin >> studentas[i].pavarde;
+        cout << "Iveskite " << m << " studento varda: "; cin >> studentas[m - 1].vardas;
+        cout << "Iveskite " << m << " studento pavarde: "; cin >> studentas[m - 1].pavarde;
         cout << "Iveskite kiek namu darbu pazymiu norite ivesti. ";
 
         int n = NamuDarbai();
 
-        studentas[i].pazymiai = new int[n];
+        studentas[m - 1].pazymiai = new int[n];
 
         for (int j = 0; j < n; j++) {
 
@@ -192,30 +205,30 @@ int main() {
 
             cout << "Studento pazymis uz " << j+1 << " namu darba: ";
             int pazymiai = Pazymiai();
-            studentas[i].pazymiai[j] = pazymiai;
+            studentas[m - 1].pazymiai[j] = pazymiai;
 
-            while (studentas[i].pazymiai[j] > 10 || studentas[i].pazymiai[j] < 1) {
+            while (studentas[m - 1].pazymiai[j] > 10 || studentas[m - 1].pazymiai[j] < 1) {
                 cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
                 cout << "Studento pazymis uz " << j+1 << " namu darba: "; 
                 int pazymiai = Pazymiai();
-                studentas[i].pazymiai[j] = pazymiai;    
+                studentas[m - 1].pazymiai[j] = pazymiai;    
             } 
                 //Skaiciuoja suma visu pazymiu 
-                suma += studentas[i].pazymiai[j];  
+                suma += studentas[m - 1].pazymiai[j];  
                }
             
             // Ciklas, kuris uzduoda klausima, ar vartotojas nori ivesti dar viena namu darbo rezultata
             do {
 
                 cout << "Ar norite ivesti dar vieno namu darbo pazymi?\nJeigu ne, spauskite 0.\nJeigu taip, spauskite 1. ";
-                cin >> variantas; 
+                cin >> variantas_namu_darbas; 
 
-                while (variantas != 0 && variantas != 1) {
+                while (variantas_namu_darbas != 0 && variantas_namu_darbas != 1) {
                     cout << "Ivyko klaida. Bandykite ivesti kita skaiciu (0 arba 1). ";
-                    cin >> variantas;
+                    cin >> variantas_namu_darbas;
                 }
 
-                if (variantas == 1) {
+                if (variantas_namu_darbas == 1) {
                     n++;
 
                     cout << "Iveskite pazymi uz " << n << " namu darba: ";
@@ -227,11 +240,11 @@ int main() {
                         int pazymiai = Pazymiai();
                         
                     }
-                    studentas[i].pazymiai[n - 1] = pazymiai;
-                    suma += studentas[i].pazymiai[n - 1];
+                    studentas[m - 1].pazymiai[n - 1] = pazymiai;
+                    suma += studentas[m - 1].pazymiai[n - 1];
                 }
 
-            } while (variantas != 0);
+            } while (variantas_namu_darbas != 0);
 
             
             cout << "suma: " << suma << endl;
@@ -240,13 +253,13 @@ int main() {
 
             cout << "Studento egzamino rezultatas: "; 
             int rezultatas = EgzaminoRezultatas();
-            studentas[i].egzamino_rezultatas = rezultatas;
+            studentas[m - 1].egzamino_rezultatas = rezultatas;
 
-            while (studentas[i].egzamino_rezultatas > 10 || studentas[i].egzamino_rezultatas < 1) {
+            while (studentas[m - 1].egzamino_rezultatas > 10 || studentas[m - 1].egzamino_rezultatas < 1) {
                 cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
                 cout << "Studento egzamino rezultatas: ";
                 int rezultatas = EgzaminoRezultatas();
-                studentas[i].egzamino_rezultatas = rezultatas;
+                studentas[m - 1].egzamino_rezultatas = rezultatas;
                 }
 
 
@@ -258,7 +271,7 @@ int main() {
         }
         
         //Galutinio vidurkio skaiciavimas
-        studentas[i].galutinis_vid = 0.4 * vidurkis + 0.6 * studentas[i].egzamino_rezultatas;
+        studentas[m - 1].galutinis_vid = 0.4 * vidurkis + 0.6 * studentas[m - 1].egzamino_rezultatas;
 
         //Mediana
          for (int a = 0; a < m; a++) {
@@ -266,16 +279,23 @@ int main() {
             int *visi_pazymiai = new int[n + 1];
 
             for (int b = 0; b < n; b++) {
-                visi_pazymiai[b] = studentas[i].pazymiai[b];
+                visi_pazymiai[b] = studentas[m - 1].pazymiai[b];
             }
-            visi_pazymiai[n] = studentas[i].egzamino_rezultatas;
+            visi_pazymiai[n] = studentas[m - 1].egzamino_rezultatas;
  
-            studentas[i].mediana = mediana(visi_pazymiai, n + 1);
+            studentas[m - 1].mediana = mediana(visi_pazymiai, n + 1);
 
             delete[] visi_pazymiai;
             }
 
         cout << "--------------------------------------------------" << endl;
+
+        cout << "Ar norite prideti dar vieno studento duomenis?" << endl;
+        cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite 1.";
+        cin >> variantas_studentas;
+
+        if (variantas_studentas == 0)
+            break;
     }
 
         //Vartotojas, ivedamas duomenis ranka, pats issirenka ka nori atvaizduoti: vidurki ar mediana
