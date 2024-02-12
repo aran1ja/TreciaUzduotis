@@ -180,7 +180,7 @@ int main() {
 
         Studentas* naujas_studentas = new Studentas[m];
 
-        for (int i = 0; i < m - 1; i++) {
+        for (int i = 0; i < m -1; i++) {
             naujas_studentas[i] = studentas[i];
         }
 
@@ -274,9 +274,7 @@ int main() {
         studentas[m - 1].galutinis_vid = 0.4 * vidurkis + 0.6 * studentas[m - 1].egzamino_rezultatas;
 
         //Mediana
-         for (int a = 0; a < m; a++) {
-
-            int *visi_pazymiai = new int[n + 1];
+        int *visi_pazymiai = new int[n + 1];          
 
             for (int b = 0; b < n; b++) {
                 visi_pazymiai[b] = studentas[m - 1].pazymiai[b];
@@ -286,7 +284,7 @@ int main() {
             studentas[m - 1].mediana = mediana(visi_pazymiai, n + 1);
 
             delete[] visi_pazymiai;
-            }
+        
 
         cout << "--------------------------------------------------" << endl;
 
