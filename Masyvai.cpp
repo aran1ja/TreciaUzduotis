@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int m, n, pasirinkimas; // m - studentu skaicius, n - namu darbu skaicius
+int m, n, variantas, pasirinkimas; // m - studentu skaicius, n - namu darbu skaicius
 double suma, vidurkis;
 
 struct Studentas {
@@ -168,11 +168,7 @@ int Pasirinkimas() {
 
 int main() {
 
-    /* 
-    Ivedama kiek yra studentu. Ju gali buti tik naturalusis skaicius.
-    Jeigu ivedama raide, atsiranda zinute "Klaida. Iveskite studentu skaiciu."
-    Jeigu ivedamas skaicius su raide, atsiranda zinute "Klaida. Iveskite tik studentu skaiciu."
-    */ 
+    /**/ 
     
     int m = Studentai();
     
@@ -192,13 +188,8 @@ int main() {
 
         for (int j = 0; j < n; j++) {
 
-            /*
-            Ivedami studento pazymiai pagal 10 bale sistema. Jie gali buti nuo 1 iki 10.
-            Jeigu ivedama raide, atsiranda zinute "Klaida. Iveskite pazymi tik skaiciaus pavidalu."
-            Jeigu ivedamas skaicius su raide, atsiranda zinute "Klaida. Iveskite pazymi skaiciaus pavidalu."
-            */
+            /**/
 
-            string ivestis_pazymiai;
             cout << "Studento pazymis uz " << j+1 << " namu darba: ";
             int pazymiai = Pazymiai();
             studentas[i].pazymiai[j] = pazymiai;
@@ -213,13 +204,40 @@ int main() {
                 suma += studentas[i].pazymiai[j];  
                }
             
-            /*
-            Ivedamas studento egzamino rezultatas pagal 10 bale sistema. Jis gali buti nuo 1 iki 10.
-            Jeigu ivedama raide, atsiranda zinute "Klaida. Iveskite egzamino rezultata tik skaiciaus pavidalu."
-            Jeigu ivedamas skaicius su raide, atsiranda zinute "Klaida. Iveskite egzamino rezultata skaiciaus pavidalu."
-            */
+            // Ciklas, kuris uzduoda klausima, ar vartotojas nori ivesti dar viena namu darbo rezultata
+            do {
 
-            string ivestis_egzamino_rezultatas;
+                cout << "Ar norite ivesti dar vieno namu darbo pazymi?\nJeigu ne, spauskite 0.\nJeigu taip, spauskite 1. ";
+                cin >> variantas; 
+
+                while (variantas != 0 && variantas != 1) {
+                    cout << "Ivyko klaida. Bandykite ivesti kita skaiciu (0 arba 1). ";
+                    cin >> variantas;
+                }
+
+                if (variantas == 1) {
+                    n++;
+
+                    cout << "Iveskite pazymi uz " << n << " namu darba: ";
+                    int pazymiai = Pazymiai();
+
+                    while (pazymiai > 10 || pazymiai < 1) {
+                        cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
+                        cout << "Studento pazymis uz " << n << " namu darba: "; 
+                        int pazymiai = Pazymiai();
+                        
+                    }
+                    studentas[i].pazymiai[n - 1] = pazymiai;
+                    suma += studentas[i].pazymiai[n - 1];
+                }
+
+            } while (variantas != 0);
+
+            
+            cout << "suma: " << suma << endl;
+            
+            /**/
+
             cout << "Studento egzamino rezultatas: "; 
             int rezultatas = EgzaminoRezultatas();
             studentas[i].egzamino_rezultatas = rezultatas;
@@ -230,6 +248,7 @@ int main() {
                 int rezultatas = EgzaminoRezultatas();
                 studentas[i].egzamino_rezultatas = rezultatas;
                 }
+
 
         //Jeigu nebuvo jokiu namu darbu, galutinis vidurkis skaiciuojamas tik is egzamino rezultato
         if (n == 0) {
@@ -258,8 +277,6 @@ int main() {
 
         cout << "--------------------------------------------------" << endl;
     }
-
-        //Palikti kaip yra
 
         //Vartotojas, ivedamas duomenis ranka, pats issirenka ka nori atvaizduoti: vidurki ar mediana
         cout << "Ka programa turi atvaizduoti?" << endl;
