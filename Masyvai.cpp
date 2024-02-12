@@ -5,10 +5,13 @@
 #include <string>
 #include <algorithm>
 #include <sstream> // istringstream funkcijai
+#include <cstdlib> // random number generacijai
+#include <ctime>
 
 using namespace std;
 
-int m, n, variantas_namu_darbas, variantas_studentas, pasirinkimas; // m - studentu skaicius, n - namu darbu skaicius
+int m, n, menu; // m - studentu skaicius, n - namu darbu skaicius
+int variantas_namu_darbas, variantas_studentas, pasirinkimas; 
 double suma, vidurkis;
 
 struct Studentas {
@@ -61,7 +64,7 @@ int Pazymiai() {
 
     string ivestis_pazymiai;
     int pazymiai;
-    
+
     cin >> ivestis_pazymiai;
 
     while (true) {
@@ -87,7 +90,7 @@ int EgzaminoRezultatas() {
 
     string ivestis_egzamino_rezultatas;
     int rezultatas;
-    
+
     cin >> ivestis_egzamino_rezultatas;
 
     while (true) {
@@ -139,7 +142,7 @@ int VariantasNamuDarbas() {
 
     string ivestis_variantas_nd;
     int variantas_namu_darbas;
-    
+
     cin >> ivestis_variantas_nd;
 
     while (true) {
@@ -166,7 +169,7 @@ int VariantasStudentas() {
 
     string ivestis_variantas_studentas;
     int variantas_studentas;
-    
+
     cin >> ivestis_variantas_studentas;
 
     while (true) {
@@ -189,7 +192,21 @@ int VariantasStudentas() {
 }
 
 int main() {
-    
+
+    while (true) {
+
+    cout << "Isrinkite programos eigos buda paspaudus nurodyta skaiciu." << endl;
+    cout << "1. Visi duomenys ivedami ranka. " << endl;
+    cout << "2. Studento duomenys ivedami ranka, o pazymiai generuojami programos. " << endl;
+    cout << "3. Visa informacija yra programos generuojama." << endl;
+    cout << "4. Baigti darba." << endl;
+    cout << "Jusu pasirinkimas: "; cin >> menu;
+
+    if (menu == 1 || menu == 2 || menu == 3 || menu == 4) {
+
+    // MENU 1
+    if (menu == 1) {
+
     int m = 0;
     int variantas_studentas = 1;
 
@@ -201,7 +218,7 @@ int main() {
 
         Studentas* naujas_studentas = new Studentas[m];
 
-        for (int i = 0; i < m -1; i++) {
+        for (int i = 0; i < m - 1; i++) {
             naujas_studentas[i] = studentas[i];
         }
 
@@ -234,7 +251,7 @@ int main() {
                 //Skaiciuoja suma visu pazymiu 
                 suma += studentas[m - 1].pazymiai[j];  
                }
-            
+
             // Ciklas, kuris uzduoda klausima, ar vartotojas nori ivesti dar viena namu darbo rezultata
             do {
 
@@ -256,7 +273,7 @@ int main() {
                         cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
                         cout << "Studento pazymis uz " << n << " namu darba: "; 
                         int pazymiai = Pazymiai();
-                        
+
                     }
                     studentas[m - 1].pazymiai[n - 1] = pazymiai;
                     suma += studentas[m - 1].pazymiai[n - 1];
@@ -282,7 +299,7 @@ int main() {
         } else {
             vidurkis = suma / n * 1.00;
         }
-        
+
         //Galutinio vidurkio skaiciavimas
         studentas[m - 1].galutinis_vid = 0.4 * vidurkis + 0.6 * studentas[m - 1].egzamino_rezultatas;
 
@@ -293,11 +310,11 @@ int main() {
                 visi_pazymiai[b] = studentas[m - 1].pazymiai[b];
             }
             visi_pazymiai[n] = studentas[m - 1].egzamino_rezultatas;
- 
+
             studentas[m - 1].mediana = mediana(visi_pazymiai, n + 1);
 
             delete[] visi_pazymiai;
-        
+
 
         cout << "--------------------------------------------------" << endl;
 
@@ -355,10 +372,191 @@ int main() {
             int pasirinkimas = Pasirinkimas(); 
     }
 
+
     for (int i = 0; i < m; i++) {
         delete[] studentas[i].pazymiai;
     }
      delete[] studentas;
 
      return 0;
+
+    // MENU 2
+    } else if (menu == 2) {
+
+    srand(time(0));
+
+    int m = 0;
+    int variantas_studentas = 1;
+
+    Studentas *studentas = nullptr;
+
+    //Ciklas studentams prideti
+    while (variantas_studentas != 0) {
+
+        m++;
+
+        Studentas* naujas_studentas = new Studentas[m];
+
+        for (int i = 0; i < m - 1; i++) {
+            naujas_studentas[i] = studentas[i];
+        }
+
+        delete[] studentas;
+
+        studentas = naujas_studentas;
+
+        suma = 0.00;
+
+        cout << "Iveskite " << m << " studento varda: "; cin >> studentas[m - 1].vardas;
+        cout << "Iveskite " << m << " studento pavarde: "; cin >> studentas[m - 1].pavarde;
+        cout << "Iveskite kiek namu darbu pazymiu norite ivesti. ";
+
+        int n = NamuDarbai();
+
+        studentas[m - 1].pazymiai = new int[n];
+
+        for (int j = 0; j < n; j++) {
+
+            // Generuojama savaime
+
+            cout << "Studento pazymis uz " << j+1 << " namu darba: ";
+            int pazymiai = (rand() % 10) + 1;
+            cout << pazymiai << endl;
+            studentas[m - 1].pazymiai[j] = pazymiai;
+ 
+                //Skaiciuoja suma visu pazymiu 
+                suma += studentas[m - 1].pazymiai[j];  
+               }
+
+            // Ciklas, kuris uzduoda klausima, ar vartotojas nori ivesti dar viena namu darbo rezultata
+            do {
+
+                cout << "Ar norite ivesti dar vieno namu darbo pazymi?\nJeigu ne, spauskite 0.\nJeigu taip, spauskite 1. ";
+                variantas_namu_darbas = VariantasNamuDarbas(); 
+
+                while (variantas_namu_darbas != 0 && variantas_namu_darbas != 1) {
+                    cout << "Ivyko klaida. Bandykite ivesti kita skaiciu (0 arba 1). ";
+                    variantas_namu_darbas = VariantasNamuDarbas();
+                }
+
+                if (variantas_namu_darbas == 1) {
+                    n++;
+
+                    cout << "Studento pazymis uz " << n << " namu darba: ";
+                    int pazymiai = (rand() % 10) + 1;
+                    cout << pazymiai << endl;
+
+                    studentas[m - 1].pazymiai[n - 1] = pazymiai;
+                    suma += studentas[m - 1].pazymiai[n - 1];
+                }
+
+            } while (variantas_namu_darbas != 0);
+
+            //Generuojama savaime
+            cout << "Studento egzamino rezultatas: "; 
+            int rezultatas = (rand() % 10 + 1);
+            cout << rezultatas << endl;
+            studentas[m - 1].egzamino_rezultatas = rezultatas;
+
+
+        //Jeigu nebuvo jokiu namu darbu, galutinis vidurkis skaiciuojamas tik is egzamino rezultato
+        if (n == 0) {
+            vidurkis = 0;
+        } else {
+            vidurkis = suma / n * 1.00;
+        }
+
+        //Galutinio vidurkio skaiciavimas
+        studentas[m - 1].galutinis_vid = 0.4 * vidurkis + 0.6 * studentas[m - 1].egzamino_rezultatas;
+
+        //Mediana
+        int *visi_pazymiai = new int[n + 1];          
+
+            for (int b = 0; b < n; b++) {
+                visi_pazymiai[b] = studentas[m - 1].pazymiai[b];
+            }
+            visi_pazymiai[n] = studentas[m - 1].egzamino_rezultatas;
+
+            studentas[m - 1].mediana = mediana(visi_pazymiai, n + 1);
+
+            delete[] visi_pazymiai;
+
+
+        cout << "--------------------------------------------------" << endl;
+
+        cout << "Ar norite prideti dar vieno studento duomenis?" << endl;
+        cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite 1.";
+        variantas_studentas = VariantasStudentas();
+
+        if (variantas_studentas == 0)
+            break;
+    }
+
+        //Vartotojas, ivedamas duomenis ranka, pats issirenka ka nori atvaizduoti: vidurki ar mediana
+        cout << "Ka programa turi atvaizduoti?" << endl;
+        cout << "Jeigu reikalingas vidurkis, spauskite 1." << endl;
+        cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
+        cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
+        int pasirinkimas = Pasirinkimas();
+
+        while (pasirinkimas != 1 || pasirinkimas != 2 || pasirinkimas != 3) {
+
+        if (pasirinkimas == 1) {
+
+            cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
+            cout << "--------------------------------------------------" << endl;
+
+             for (int i = 0; i < m; i++) {
+                cout << left << setw(15) << studentas[i].vardas << setw(15) << studentas[i].pavarde << setw(15);
+                cout << fixed << setprecision(2) << studentas[i].galutinis_vid << endl;
+            } break;
+
+        } else if (pasirinkimas == 2) {
+
+            cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Med.)" << endl;
+            cout << "--------------------------------------------------" << endl;
+
+            for (int i = 0; i < m; i++) {
+                cout << left << setw(15) << studentas[i].vardas << setw(15) << studentas[i].pavarde << setw(15);
+                cout << fixed << setprecision(2) << studentas[i].mediana << endl;
+            } break;
+
+        } else if (pasirinkimas == 3) {
+
+            cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+            cout << "-----------------------------------------------------------------" << endl;
+
+            for (int i = 0; i < m; i++) {
+                cout << left << setw(15) << studentas[i].vardas << setw(15) << studentas[i].pavarde << setw(15);
+                cout << fixed << setprecision(2) << studentas[i].galutinis_vid << setw(30);
+                cout << fixed << setprecision(2) << studentas[i].mediana << endl;
+            } break;
+        }              
+
+            cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
+            cout << "Spauskite 1, 2 arba 3. "; 
+            int pasirinkimas = Pasirinkimas(); 
+    }
+
+
+    for (int i = 0; i < m; i++) {
+        delete[] studentas[i].pazymiai;
+    }
+     delete[] studentas;
+
+     return 0;
+
+    // MENU 3
+    } else if (menu == 3) {
+
+    // MENU 4
+    } else if (menu == 4) {
+        cout << "Darbas baigtas." << endl;
+    } break;
+
+    } else {
+
+        cout << "Ivyko klaida. Bandykite ivesti kita skaiciu. "; cin >> menu;
+    }
+}
 }
