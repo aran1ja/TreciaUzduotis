@@ -26,37 +26,6 @@ double mediana(int arr[], int kiekis) {
     }
 }
 
-int Studentai() {
-
-    string ivestis_studentai;
-    int m;
-
-    cout << "Kiek yra studentu? "; cin >> ivestis_studentai;
-
-    while (true) {
-
-        istringstream iss(ivestis_studentai);
-
-        if (iss >> m) {
-            char remaining;
-            if (iss >> remaining) {
-                cout << "Klaida. Iveskite tik studentu skaiciu. ";
-                cin >> ivestis_studentai;
-            } else {
-                if (m <= 0) {
-                    cout << "Klaida. Bandykite ivesti kita kieki. ";
-                    cin >> ivestis_studentai;
-                } else {
-                  return m;  
-                }
-            }
-        } else {
-            cout << "Klaida. Iveskite studentu skaiciu. ";
-            cin >> ivestis_studentai;
-        }
-    }
-}
-
 int NamuDarbai() {
 
     string ivestis_namu_darbai;
@@ -166,13 +135,65 @@ int Pasirinkimas() {
     }
 }
 
+int VariantasNamuDarbas() {
+
+    string ivestis_variantas_nd;
+    int variantas_namu_darbas;
+    
+    cin >> ivestis_variantas_nd;
+
+    while (true) {
+
+        istringstream iss(ivestis_variantas_nd);
+
+        if (iss >> variantas_namu_darbas) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Iveskite pazymi tik skaiciaus pavidalu. ";
+                cin >> ivestis_variantas_nd;
+            } else {
+                return variantas_namu_darbas;
+            }
+        } else {
+            cout << "Klaida. Iveskite pazymi skaiciaus pavidalu. ";
+            cin >> ivestis_variantas_nd;
+        }
+    }
+
+}
+
+int VariantasStudentas() {
+
+    string ivestis_variantas_studentas;
+    int variantas_studentas;
+    
+    cin >> ivestis_variantas_studentas;
+
+    while (true) {
+
+        istringstream iss(ivestis_variantas_studentas);
+
+        if (iss >> variantas_studentas) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Iveskite pazymi tik skaiciaus pavidalu. ";
+                cin >> ivestis_variantas_studentas;
+            } else {
+                return variantas_studentas;
+            }
+        } else {
+            cout << "Klaida. Iveskite pazymi skaiciaus pavidalu. ";
+            cin >> ivestis_variantas_studentas;
+        }
+    }
+}
+
 int main() {
     
     int m = 0;
-    
-    Studentas *studentas = nullptr;
-
     int variantas_studentas = 1;
+
+    Studentas *studentas = nullptr;
 
     while (variantas_studentas != 0) {
 
@@ -188,7 +209,6 @@ int main() {
 
         studentas = naujas_studentas;
 
-
         suma = 0.00;
 
         cout << "Iveskite " << m << " studento varda: "; cin >> studentas[m - 1].vardas;
@@ -200,8 +220,6 @@ int main() {
         studentas[m - 1].pazymiai = new int[n];
 
         for (int j = 0; j < n; j++) {
-
-            /**/
 
             cout << "Studento pazymis uz " << j+1 << " namu darba: ";
             int pazymiai = Pazymiai();
@@ -221,11 +239,11 @@ int main() {
             do {
 
                 cout << "Ar norite ivesti dar vieno namu darbo pazymi?\nJeigu ne, spauskite 0.\nJeigu taip, spauskite 1. ";
-                cin >> variantas_namu_darbas; 
+                variantas_namu_darbas = VariantasNamuDarbas(); 
 
                 while (variantas_namu_darbas != 0 && variantas_namu_darbas != 1) {
                     cout << "Ivyko klaida. Bandykite ivesti kita skaiciu (0 arba 1). ";
-                    cin >> variantas_namu_darbas;
+                    variantas_namu_darbas = VariantasNamuDarbas();
                 }
 
                 if (variantas_namu_darbas == 1) {
@@ -245,11 +263,6 @@ int main() {
                 }
 
             } while (variantas_namu_darbas != 0);
-
-            
-            cout << "suma: " << suma << endl;
-            
-            /**/
 
             cout << "Studento egzamino rezultatas: "; 
             int rezultatas = EgzaminoRezultatas();
@@ -290,7 +303,7 @@ int main() {
 
         cout << "Ar norite prideti dar vieno studento duomenis?" << endl;
         cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite 1.";
-        cin >> variantas_studentas;
+        variantas_studentas = VariantasStudentas();
 
         if (variantas_studentas == 0)
             break;
