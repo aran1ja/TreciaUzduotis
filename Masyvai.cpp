@@ -367,7 +367,7 @@ int main() {
         cout << "--------------------------------------------------" << endl;
 
         cout << "Ar norite prideti dar vieno studento duomenis?" << endl;
-        cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite 1.";
+        cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite bet koki kita skaiciu. ";
         variantas_studentas = VariantasStudentas();
 
         if (variantas_studentas == 0)
@@ -414,13 +414,14 @@ int main() {
                 cout << fixed << setprecision(2) << studentas[i].galutinis_vid << setw(30);
                 cout << fixed << setprecision(2) << studentas[i].mediana << endl;
             } break;
-        }              
+
+        } else if (pasirinkimas != 1 || pasirinkimas != 2 || pasirinkimas != 3) {
 
             cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
             cout << "Spauskite 1, 2 arba 3. "; 
             int pasirinkimas = Pasirinkimas(); 
+        }              
     }
-
 
     for (int i = 0; i < m; i++) {
         delete[] studentas[i].pazymiai;
@@ -534,7 +535,7 @@ int main() {
         cout << "--------------------------------------------------" << endl;
 
         cout << "Ar norite prideti dar vieno studento duomenis?" << endl;
-        cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite 1.";
+        cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite bet koki kita skaiciu. ";
         variantas_studentas = VariantasStudentas();
 
         if (variantas_studentas == 0)
@@ -581,13 +582,14 @@ int main() {
                 cout << fixed << setprecision(2) << studentas[i].galutinis_vid << setw(30);
                 cout << fixed << setprecision(2) << studentas[i].mediana << endl;
             } break;
-        }              
+
+        } else if (pasirinkimas != 1 || pasirinkimas != 2 || pasirinkimas != 3) {
 
             cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
             cout << "Spauskite 1, 2 arba 3. "; 
             int pasirinkimas = Pasirinkimas(); 
+        }
     }
-
 
     for (int i = 0; i < m; i++) {
         delete[] studentas[i].pazymiai;
@@ -601,8 +603,10 @@ int main() {
 
     srand(time(NULL));
 
+    string vardai[] = {"Adriana", "Emil", "Milana", "Diana", "Andrej", "Marta", "Paulius", "Edita", "Gabriele", "Dominikas"};
+    string pavardes[] = {"Sirokyte", "Voisvilo", "Demesko", "Pipilevic", "Machnicka", "Voitkevic", "Podgaiska", "Sakson", "Juneviciute", "Petkeviciene"};
+
     int m = 0;
-    int ch = 10;
     int variantas_studentas = 1;
 
     Studentas *studentas = nullptr;
@@ -616,6 +620,7 @@ int main() {
 
         for (int i = 0; i < m - 1; i++) {
             naujas_studentas[i] = studentas[i];
+
         }
 
         delete[] studentas;
@@ -624,14 +629,12 @@ int main() {
 
         suma = 0.00;
 
-        cout << m << " studento vardas: "; 
-        cout << RandomString(ch) << endl; 
-        studentas[m - 1].vardas = RandomString(ch);
-
-        cout << m << " studento pavarde: "; 
-        cout << RandomString(ch) << endl;
-        studentas[m - 1].pavarde = RandomString(ch);
-
+        studentas[m - 1].vardas = vardai[rand() % 10];
+        cout << m << " studento vardas: " << studentas[m - 1].vardas << endl;
+        
+        studentas[m - 1].pavarde = pavardes[rand() % 10];
+        cout << m << " studento pavarde: " << studentas[m - 1].pavarde << endl;
+        
         cout << "Iveskite kiek namu darbu pazymiu norite ivesti. ";
 
         int n = NamuDarbai();
@@ -708,7 +711,7 @@ int main() {
         cout << "--------------------------------------------------" << endl;
 
         cout << "Ar norite prideti dar vieno studento duomenis?" << endl;
-        cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite 1.";
+        cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite bet koki kita skaiciu. ";
         variantas_studentas = VariantasStudentas();
 
         if (variantas_studentas == 0)
@@ -755,12 +758,14 @@ int main() {
                 cout << fixed << setprecision(2) << studentas[i].galutinis_vid << setw(30);
                 cout << fixed << setprecision(2) << studentas[i].mediana << endl;
             } break;
-        }              
+
+        } else if (pasirinkimas != 1 || pasirinkimas != 2 || pasirinkimas != 3) {
 
             cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
             cout << "Spauskite 1, 2 arba 3. "; 
             int pasirinkimas = Pasirinkimas(); 
     }
+}
 
 
     for (int i = 0; i < m; i++) {
@@ -771,6 +776,8 @@ int main() {
      return 0;
 
     // MENU 4
+
+    
     } else if (menu == 4) {
         cout << "Darbas baigtas." << endl;
     } break;
@@ -779,6 +786,6 @@ int main() {
 
         cout << "Ivyko klaida. Bandykite ivesti kita skaiciu. "; 
         menu = Menu();
+        }
     }
-}
 }
