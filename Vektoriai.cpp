@@ -16,19 +16,20 @@ int variantas_namu_darbas, variantas_studentas, pasirinkimas;
 double suma, vidurkis;
 
 struct Studentas {
-    string vardas, pavarde;
-    double galutinis_vid, mediana;
     vector<int> pazymiai;
+    string vardas, pavarde;
     int egzamino_rezultatas;
+    double galutinis_vid, mediana;
 };
 
-double mediana(vector<int>& arr) {
-    sort (arr.begin(), arr.end());
-    int kiekis = arr.size();
+double mediana(vector<int>& pazymiai, int egzamino_rezultatas) {
+    pazymiai.push_back(egzamino_rezultatas); // Pridedamas egzamino rezultatas prie pazymiu
+    sort (pazymiai.begin(), pazymiai.end());
+    int kiekis = pazymiai.size();
     if (kiekis % 2 == 0) {
-        return (arr[kiekis / 2 - 1] + arr[kiekis / 2]) / 2.0;
+        return (pazymiai[kiekis / 2 - 1] + pazymiai[kiekis / 2]) / 2.0;
     } else {
-        return arr[kiekis / 2];
+        return pazymiai[kiekis / 2];
     }
 }
 
@@ -194,48 +195,60 @@ int VariantasStudentas() {
     }
 }
 
-int Menu() {
-
-    string ivestis_menu;
-    int menu;
-
-    cin >> ivestis_menu;
-
-    while (true) {
-
-        istringstream iss(ivestis_menu);
-
-        if (iss >> menu) {
-            char remaining;
-            if (iss >> remaining) {
-                cout << "Klaida. Iveskite pazymi tik skaiciaus pavidalu. ";
-                cin >> ivestis_menu;
-            } else {
-                return menu;
-            }
-        } else {
-            cout << "Klaida. Iveskite pazymi skaiciaus pavidalu. ";
-            cin >> ivestis_menu;
-        }
-    }
-
-}
-
 // Vardus ir pavardes generuoti
-const int ch_MAX = 52;
 string RandomString(int ch) {
-    char gener[ch_MAX] = {'A', 'B', 'C', 'D', 'E', 'F', 'G',
-                          'H', 'I', 'J', 'K', 'L', 'M', 'N',
-                          'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-                          'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 
-                          'c', 'd', 'e', 'f', 'g', 'h', 'i', 
-                          'j', 'k', 'l', 'm', 'n', 'o', 'p', 
-                          'q', 'r', 's', 't', 'u', 'v', 'w', 
-                          'x', 'y', 'z'};
+    const string abecele = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const int abecelesDydis = abecele.size();
 
         string rezultatas = "";
+        srand(time(nullptr)); 
+
         for (int i = 0; i < ch; i++)
-            rezultatas = rezultatas + gener[rand() % ch_MAX];
+            rezultatas += abecele[rand() % abecelesDydis];
         
         return rezultatas;
+}
+
+int main() {
+
+    vector <Studentas> A;
+    int n;
+    int menu;
+    while (true) {
+
+        //Bandyti parasyti koda nauduojant maziau eiluciu
+
+        cout << "Isrinkite programos eigos buda paspaudus nurodyta skaiciu." << endl;
+        cout << "1. Visi duomenys ivedami ranka. " << endl;
+        cout << "2. Studento duomenys ivedami ranka, o pazymiai generuojami programos. " << endl;
+        cout << "3. Visa informacija yra programos generuojama." << endl;
+        cout << "4. Baigti darba." << endl;
+        cout << "Jusu pasirinkimas: "; 
+        cin >> menu;
+
+        switch (menu) {
+            case 1:
+            {
+
+            }
+            case 2:
+            {
+
+            }
+            case 3:
+            {
+
+            }
+            case 4:
+            {
+                cout << "Darbas baigtas." << endl;
+                return 0;
+            }
+            default :
+            {
+                cout << "Ivyko klaida. Bandykite ivesti kita skaiciu. ";
+                break;
+            }
+        }
+    }
 }
