@@ -218,25 +218,6 @@ int Menu() {
 
 }
 
-// Vardus ir pavardes generuoti
-const int ch_MAX = 52;
-string RandomString(int ch) {
-    char gener[ch_MAX] = {'A', 'B', 'C', 'D', 'E', 'F', 'G',
-                          'H', 'I', 'J', 'K', 'L', 'M', 'N',
-                          'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-                          'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 
-                          'c', 'd', 'e', 'f', 'g', 'h', 'i', 
-                          'j', 'k', 'l', 'm', 'n', 'o', 'p', 
-                          'q', 'r', 's', 't', 'u', 'v', 'w', 
-                          'x', 'y', 'z'};
-
-        string rezultatas = "";
-        for (int i = 0; i < ch; i++)
-            rezultatas = rezultatas + gener[rand() % ch_MAX];
-        
-        return rezultatas;
-}
-
 int main() {
 
     while (true) {
@@ -257,7 +238,7 @@ int main() {
     int m = 0;
     int variantas_studentas = 1;
 
-    Studentas *studentas = nullptr;
+    Studentas *studentas = new Studentas[20];
 
     //Ciklas studentams prideti
     while (variantas_studentas != 0) {
@@ -438,7 +419,7 @@ int main() {
     int m = 0;
     int variantas_studentas = 1;
 
-    Studentas *studentas = nullptr;
+    Studentas *studentas = new Studentas[20];
 
     //Ciklas studentams prideti
     while (variantas_studentas != 0) {
@@ -609,7 +590,7 @@ int main() {
     int m = 0;
     int variantas_studentas = 1;
 
-    Studentas *studentas = nullptr;
+    Studentas *studentas = new Studentas[20];
 
     //Ciklas studentams prideti
     while (variantas_studentas != 0) {
@@ -776,8 +757,6 @@ int main() {
      return 0;
 
     // MENU 4
-
-    
     } else if (menu == 4) {
         cout << "Darbas baigtas." << endl;
     } break;
