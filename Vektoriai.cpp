@@ -270,10 +270,54 @@ int main() {
                 int n = NamuDarbai();
 
                 for (int j = 0; j < n; j++) {
-                    cout << "Studento pazymis uz " << j + 1 << " namu darba: ";
-                    int pazymiai = Pazymiai();
+                int pazymiai;
+
+                    do {
+                        cout << "Studento pazymis uz " << j + 1 << " namu darba: ";
+                        pazymiai = Pazymiai();
+
+                        if (pazymiai > 10 || pazymiai < 1) {
+                            cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
+                        }
+                    } while (pazymiai > 10 || pazymiai < 1);
+
                     naujas_studentas.pazymiai.push_back(pazymiai);
-                }
+                } 
+
+                do {
+
+                    cout << "Ar norite ivesti dar vieno namu darbo pazymi?\nJeigu ne, spauskite 0.\nJeigu taip, spauskite 1. ";
+                    variantas_studentas = VariantasNamuDarbas(); 
+
+                    while (variantas_studentas != 0 && variantas_studentas != 1) {
+                        cout << "Ivyko klaida. Bandykite ivesti kita skaiciu (0 arba 1). ";
+                        variantas_studentas = VariantasNamuDarbas();
+                    }
+
+                    if (variantas_studentas == 1) {
+                        n++;
+                        int pazymiai;
+
+                        
+                        cout << "Studento pazymis uz " << n << " namu darba: ";
+                        pazymiai = Pazymiai();
+
+                        if (pazymiai > 10 || pazymiai < 1) {
+                            cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
+                            cout << "Studento pazymis uz " << n << " namu darba: ";
+                            pazymiai = Pazymiai();
+                        }
+
+                            naujas_studentas.pazymiai.push_back(pazymiai); // Pazymis pridedamas prie pazymiu vektoriu
+
+                            suma += pazymiai;
+                        }
+
+                        naujas_studentas.galutinis_vid = vidurkis_galutinis(suma, n, naujas_studentas.egzamino_rezultatas);
+                        naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+                    
+                    
+                    } while (variantas_studentas != 0);
 
                 cout << "Studento egzamino rezultatas: ";
                 int rezultatas = EgzaminoRezultatas();
@@ -379,6 +423,35 @@ int main() {
                     cout << pazymiai << endl;
                     naujas_studentas.pazymiai.push_back(pazymiai);
                 }
+
+                do {
+
+                cout << "Ar norite ivesti dar vieno namu darbo pazymi?\nJeigu ne, spauskite 0.\nJeigu taip, spauskite 1. ";
+                variantas_studentas = VariantasNamuDarbas(); 
+
+                while (variantas_studentas != 0 && variantas_studentas != 1) {
+                    cout << "Ivyko klaida. Bandykite ivesti kita skaiciu (0 arba 1). ";
+                    variantas_studentas = VariantasNamuDarbas();
+                }
+
+                if (variantas_studentas == 1) {
+                    n++;
+
+                    cout << "Pazymis uz " << n << " namu darba: ";
+                    int pazymiai = (rand() % 10) + 1;
+                    cout << pazymiai << endl;
+
+                    naujas_studentas.pazymiai.push_back(pazymiai); // Pazymis pridedamas prie pazymiu vektoriu
+
+                    
+                    suma += pazymiai;
+                    
+                    naujas_studentas.galutinis_vid = vidurkis_galutinis(suma, n, naujas_studentas.egzamino_rezultatas);
+                    
+                    naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+                }
+
+                } while (variantas_studentas != 0);
 
                 cout << "Studento egzamino rezultatas: ";
                 int rezultatas = (rand() % 10 + 1);
@@ -494,6 +567,36 @@ int main() {
                     naujas_studentas.pazymiai.push_back(pazymiai);
                 }
 
+                do {
+
+                cout << "Ar norite ivesti dar vieno namu darbo pazymi?\nJeigu ne, spauskite 0.\nJeigu taip, spauskite 1. ";
+                variantas_studentas = VariantasNamuDarbas(); 
+
+                while (variantas_studentas != 0 && variantas_studentas != 1) {
+                    cout << "Ivyko klaida. Bandykite ivesti kita skaiciu (0 arba 1). ";
+                    variantas_studentas = VariantasNamuDarbas();
+                }
+
+                if (variantas_studentas == 1) {
+                    n++;
+
+                    cout << "Pazymis uz " << n << " namu darba: ";
+                    int pazymiai = (rand() % 10) + 1;
+                    cout << pazymiai << endl;
+
+                    naujas_studentas.pazymiai.push_back(pazymiai); // Pazymis pridedamas prie pazymiu vektoriu
+
+                    
+                    suma += pazymiai;
+                    
+                    naujas_studentas.galutinis_vid = vidurkis_galutinis(suma, n, naujas_studentas.egzamino_rezultatas);
+                    
+                    naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+                }
+
+                } while (variantas_studentas != 0);
+
+        
                 cout << "Studento egzamino rezultatas: ";
                 int rezultatas = (rand() % 10 + 1);
                 cout << rezultatas << endl;
