@@ -184,6 +184,32 @@ int VariantasStudentas() {
     }
 }
 
+int Menu() {
+
+    string ivestis_menu;
+    int menu;
+
+    cin >> ivestis_menu;
+
+    while (true) {
+
+        istringstream iss(ivestis_menu);
+
+        if (iss >> menu) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Iveskite pazymi tik skaiciaus pavidalu. ";
+                cin >> ivestis_menu;
+            } else {
+                return menu;
+            }
+        } else {
+            cout << "Klaida. Iveskite pazymi skaiciaus pavidalu. ";
+            cin >> ivestis_menu;
+        }
+    }
+}
+
 // Mediana
 double mediana(vector<int> pazymiai, int egzamino_rezultatas) {
     pazymiai.push_back(egzamino_rezultatas);
@@ -197,6 +223,7 @@ double mediana(vector<int> pazymiai, int egzamino_rezultatas) {
     }
 }
 
+// Vidurkis
 double vidurkis_galutinis(double suma, int n, int egzamino_rezultatas) {
     if (n == 0) {
         return 0.6 * egzamino_rezultatas;
@@ -219,13 +246,110 @@ int main() {
         cout << "3. Visa informacija yra programos generuojama." << endl;
         cout << "4. Baigti darba." << endl;
         cout << "Jusu pasirinkimas: "; 
-        cin >> menu;
+        int menu = Menu();
 
         switch (menu) {
             case 1:
             {
-                cout << "Case 1." << endl;
+                
+            vector<Studentas> studentai;
+
+            int m = 0;
+            int variantas_studentas = 1;
+
+            // Pridedami studentai
+            while (variantas_studentas != 0) {
+                m++;
+
+                Studentas naujas_studentas;
+
+                cout << "Irasykite " << m << " studento varda: "; cin >> naujas_studentas.vardas;
+                cout << "Irasykite " << m << " studento pavarde: "; cin >> naujas_studentas.pavarde;
+
+                cout << "Iveskite kiek namu darbu pazymiu norite ivesti. ";
+                int n = NamuDarbai();
+
+                for (int j = 0; j < n; j++) {
+                    cout << "Studento pazymis uz " << j + 1 << " namu darba: ";
+                    int pazymiai = Pazymiai();
+                    naujas_studentas.pazymiai.push_back(pazymiai);
+                }
+
+                cout << "Studento egzamino rezultatas: ";
+                int rezultatas = EgzaminoRezultatas();
+                naujas_studentas.egzamino_rezultatas = rezultatas;
+
+                // Skaiciuoja suma visu pazymiu 
+                double suma = 0.0;
+                for (int pazymis : naujas_studentas.pazymiai) {
+                    suma += pazymis;
+                }
+
+                // Galutinio vidurkio skaiciavimas
+                naujas_studentas.galutinis_vid = vidurkis_galutinis(suma, n, naujas_studentas.egzamino_rezultatas);
+
+                // Mediana
+                naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+
+                studentai.push_back(naujas_studentas);
+
+                cout << "--------------------------------------------------" << endl;
+                cout << "Ar norite prideti dar vieno studento duomenis?" << endl;
+                cout << "Jeigu ne, spauskite 0. Jeigu taip, spauskite bet koki kita skaiciu. ";
+                variantas_studentas = VariantasStudentas();
+
+                if (variantas_studentas == 0)
+                    break;
+                }
+
+                //Pasirinkimas
+                // Vartotojas, ivedamas duomenis ranka, pats issirenka ka nori atvaizduoti: vidurki ar mediana
+            cout << "Ka programa turi atvaizduoti?" << endl;
+            cout << "Jeigu reikalingas vidurkis, spauskite 1." << endl;
+            cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
+            cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
+            cout << "Jusu pasirinkimas: ";
+            int pasirinkimas = Pasirinkimas();
+
+            while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3) {
+                cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
+                cout << "Spauskite 1, 2 arba 3. ";
+                pasirinkimas = Pasirinkimas();
+            }
+
+        // Atvaizdavimas pagal vartotojo pasirinkima
+        switch (pasirinkimas) {
+            case 1:
+                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
+                cout << "--------------------------------------------------" << endl;
+
+                for (const auto& studentas : studentai) {
+                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    cout << fixed << setprecision(2) << studentas.galutinis_vid << endl;
+                }
                 break;
+            case 2:
+                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Med.)" << endl;
+                cout << "--------------------------------------------------" << endl;
+
+                for (const auto& studentas : studentai) {
+                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    cout << fixed << setprecision(2) << studentas.mediana << endl;
+                }
+                break;
+            case 3:
+                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+                cout << "-----------------------------------------------------------------" << endl;
+
+                for (const auto& studentas : studentai) {
+                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    cout << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
+                    cout << fixed << setprecision(2) << studentas.mediana << endl;
+                }
+                break;
+        }
+         break;
+
             } 
             case 2:
             {
@@ -333,9 +457,7 @@ int main() {
          break;
 
             }
-
             case 3:
-
             {
 
             srand(time(NULL));
@@ -457,7 +579,7 @@ int main() {
             default :
             {
 
-                cout << "Ivyko klaida. Bandykite ivesti kita skaiciu. ";
+                cout << "Ivyko klaida. Bandykite ivesti kita skaiciu. " << endl;
                 break;
             }
         }
