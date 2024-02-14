@@ -238,7 +238,7 @@ int main() {
     int m = 0;
     int variantas_studentas = 1;
 
-    Studentas *studentas = new Studentas[20];
+    Studentas *studentas = new Studentas[m];
 
     //Ciklas studentams prideti
     while (variantas_studentas != 0) {
@@ -419,7 +419,7 @@ int main() {
     int m = 0;
     int variantas_studentas = 1;
 
-    Studentas *studentas = new Studentas[20];
+    Studentas *studentas = new Studentas[m];
 
     //Ciklas studentams prideti
     while (variantas_studentas != 0) {
@@ -590,7 +590,7 @@ int main() {
     int m = 0;
     int variantas_studentas = 1;
 
-    Studentas *studentas = new Studentas[20];
+    Studentas *studentas = new Studentas[m];
 
     //Ciklas studentams prideti
     while (variantas_studentas != 0) {
