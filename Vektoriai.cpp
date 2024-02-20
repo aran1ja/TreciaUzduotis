@@ -277,7 +277,8 @@ int main() {
         cout << "1. Visi duomenys ivedami ranka. " << endl;
         cout << "2. Studento duomenys ivedami ranka, o pazymiai generuojami programos. " << endl;
         cout << "3. Visa informacija yra programos generuojama." << endl;
-        cout << "4. Baigti darba." << endl;
+        cout << "4. Nuskaityti duomenis is failo. " << endl;
+        cout << "5. Baigti darba." << endl;
         cout << "Jusu pasirinkimas: "; 
         int menu = Menu();
 
@@ -616,7 +617,14 @@ int main() {
             }
 
             // Menu 4
-            case 4:
+            case 4: 
+            {
+                cout << "Nuskaitomi duomenys" << endl;
+                return 0;
+            }
+
+            // Menu 5
+            case 5:
             {
                 cout << "Darbas baigtas." << endl;
                 return 0;
