@@ -642,7 +642,7 @@ int main() {
 
                     if (!fileName.is_open()) {
                         cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                        return 1;
+                        return 0;
                     }
 
                     auto start = chrono::steady_clock::now();
@@ -658,12 +658,24 @@ int main() {
 
                     for (int i = 0; i < 15; i++) {
                         ss >> pazymiai;
+                        //Tikrinama ar vietoj skaiciaus nera raides
+                        if (!isdigit(pazymiai)) {
+                            cout << "Rasta raide namu darbu pazymiuose. Nera galimybes perskaityti teksto." << endl;
+                            return 0;
+                        }
+
                         naujas_studentas.pazymiai.push_back(pazymiai);
                         suma += pazymiai;
                     }
 
                     // Egzamino rezultatas
                     ss >> naujas_studentas.egzamino_rezultatas;
+
+                    //Tikrinama ar vietoj skaiciaus nera raides
+                    if (!isdigit(naujas_studentas.egzamino_rezultatas)) {
+                            cout << "Rasta raide egzaminu pazymiuose. Nera galimybes perskaityti teksto." << endl;
+                            return 0;
+                        }
 
                     // Galutinio vidurkio ir medianos skaiciavimai
                     naujas_studentas.galutinis_vid = (1.00 * suma / 15) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
@@ -705,7 +717,7 @@ int main() {
 
                     if (!fileName.is_open()) {
                         cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                        return 1;
+                        return 0;
                     }
 
                     auto start = chrono::steady_clock::now();
@@ -721,12 +733,24 @@ int main() {
 
                     for (int i = 0; i < 20; i++) {
                         ss >> pazymiai;
+                        //Tikrinama ar vietoj skaiciaus nera raides
+                        if (!isdigit(pazymiai)) {
+                            cout << "Rasta raide namu darbu pazymiuose. Nera galimybes perskaityti teksto." << endl;
+                            return 0;
+                        }
+
                         naujas_studentas.pazymiai.push_back(pazymiai);
                         suma += pazymiai;
                     }
 
                     // Egzamino rezultatas
                     ss >> naujas_studentas.egzamino_rezultatas;
+
+                    //Tikrinama ar vietoj skaiciaus nera raides
+                    if (!isdigit(naujas_studentas.egzamino_rezultatas)) {
+                            cout << "Rasta raide egzaminu pazymiuose. Nera galimybes perskaityti teksto." << endl;
+                            return 0;
+                        }
 
                     // Galutinio vidurkio ir medianos skaiciavimai
                     naujas_studentas.galutinis_vid = (1.00 * suma / 20) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
@@ -768,7 +792,7 @@ int main() {
 
                     if (!fileName.is_open()) {
                         cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                        return 1;
+                        return 0;
                     }
 
                     auto start = chrono::steady_clock::now();
@@ -784,12 +808,24 @@ int main() {
 
                     for (int i = 0; i < 7; i++) {
                         ss >> pazymiai;
+                        //Tikrinama ar vietoj skaiciaus nera raides
+                        if (!isdigit(pazymiai)) {
+                            cout << "Rasta raide namu darbu pazymiuose. Nera galimybes perskaityti teksto." << endl;
+                            return 0;
+                        }
+
                         naujas_studentas.pazymiai.push_back(pazymiai);
                         suma += pazymiai;
                     }
 
                     // Egzamino rezultatas
                     ss >> naujas_studentas.egzamino_rezultatas;
+
+                    //Tikrinama ar vietoj skaiciaus nera raides
+                    if (!isdigit(naujas_studentas.egzamino_rezultatas)) {
+                            cout << "Rasta raide egzaminu pazymiuose. Nera galimybes perskaityti teksto." << endl;
+                            return 0;
+                        }
 
                     // Galutinio vidurkio ir medianos skaiciavimai
                     naujas_studentas.galutinis_vid = (1.00 * suma / 7) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
