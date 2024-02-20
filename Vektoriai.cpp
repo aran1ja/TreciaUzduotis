@@ -621,29 +621,33 @@ int main() {
             // Menu 4
             case 4: 
             {
-                int pasirinkimas2;
-                cout << "Koki faila programa turi nuskaityti?" << endl;
-                cout << "1. studentai10000." << endl;
-                cout << "2. studentai100000." << endl;
-                cout << "3. studentai1000000." << endl;
-                cout << "Jusu pasirinkimas: "; cin >> pasirinkimas2;
+                
+            vector<double> laikai;
+            int pasirinkimas2 = 0;
+            do {
+
+            cout << "Koki faila programa turi nuskaityti?" << endl;
+            cout << "1. studentai10000.txt" << endl;
+            cout << "2. studentai100000.txt" << endl;
+            cout << "3. studentai1000000.txt" << endl;
+            cout << "0. Pabaigti." << endl;
+            cout << "Jusu pasirinkimas: "; cin >> pasirinkimas2;
 
             switch (pasirinkimas2) {
-            case 1:
-            {
-                vector<Studentas> studentai;
-                ifstream fileName("studentai10000.txt");
-                string eilute;
+                case 1: 
+                {
+                    vector<Studentas> studentai;
+                    ifstream fileName("studentai10000.txt");
+                    string eilute;
 
-                if (!fileName.is_open()) {
-                    cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                    return 1;
-                }
+                    if (!fileName.is_open()) {
+                        cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+                        return 1;
+                    }
 
-                //Pradedamas laiko skaiciavimas
-                auto start = chrono::steady_clock::now();
+                    auto start = chrono::steady_clock::now();
 
-                // Neskaitoma pirma eilute is failo
+                    // Neskaitoma pirma eilute is failo
                 getline(fileName, eilute);
 
                 while (getline(fileName, eilute)) {
@@ -686,31 +690,27 @@ int main() {
 
                 fileName1.close();
 
-                // Uzbaigiamas laiko skaiciavimas
-                auto end = chrono::steady_clock::now();
-                // Skaiciuojamas laikas tarp start ir end
-                auto diff = end - start;
-                double laikas = chrono::duration <double> (diff).count();
-                cout << "Trukme: " << laikas << " s" << endl;
+                    auto end = chrono::steady_clock::now();
+                    double laikas = chrono::duration <double> (end - start).count();
+                    laikai.push_back(laikas);
 
-                break;
-            }
-            case 2:
-            {
-                
-                vector<Studentas> studentai;
-                ifstream fileName("studentai100000.txt");
-                string eilute;
-
-                if (!fileName.is_open()) {
-                    cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                    return 1;
+                    cout << "Trukme: " << laikas << " s" << endl;
+                    break;
                 }
+                case 2: 
+                {
+                    vector<Studentas> studentai;
+                    ifstream fileName("studentai100000.txt");
+                    string eilute;
 
-                //Pradedamas laiko skaiciavimas
-                auto start = chrono::steady_clock::now();
+                    if (!fileName.is_open()) {
+                        cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+                        return 1;
+                    }
 
-                // Neskaitoma pirma eilute is failo
+                    auto start = chrono::steady_clock::now();
+
+                    // Neskaitoma pirma eilute is failo
                 getline(fileName, eilute);
 
                 while (getline(fileName, eilute)) {
@@ -753,32 +753,27 @@ int main() {
 
                 fileName1.close();
 
-                // Uzbaigiamas laiko skaiciavimas
-                auto end = chrono::steady_clock::now();
-                // Skaiciuojamas laikas tarp start ir end
-                auto diff = end - start;
-                double laikas = chrono::duration <double> (diff).count();
-                cout << "Trukme: " << laikas << " s" << endl;
+                    auto end = chrono::steady_clock::now();
+                    double laikas = chrono::duration <double> (end - start).count();
+                    laikai.push_back(laikas);
 
-                break;
-            }
-                
-                
-            case 3:
-            {
-                vector<Studentas> studentai;
-                ifstream fileName("studentai1000000.txt");
-                string eilute;
-
-                if (!fileName.is_open()) {
-                    cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                    return 1;
+                    cout << "Trukme: " << laikas << " s" << endl;
+                    break;
                 }
+                case 3: 
+                {
+                    vector<Studentas> studentai;
+                    ifstream fileName("studentai1000000.txt");
+                    string eilute;
 
-                //Pradedamas laiko skaiciavimas
-                auto start = chrono::steady_clock::now();
+                    if (!fileName.is_open()) {
+                        cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+                        return 1;
+                    }
 
-                // Neskaitoma pirma eilute is failo
+                    auto start = chrono::steady_clock::now();
+
+                    // Neskaitoma pirma eilute is failo
                 getline(fileName, eilute);
 
                 while (getline(fileName, eilute)) {
@@ -821,25 +816,32 @@ int main() {
 
                 fileName1.close();
 
-                // Uzbaigiamas laiko skaiciavimas
-                auto end = chrono::steady_clock::now();
-                // Skaiciuojamas laikas tarp start ir end
-                auto diff = end - start;
-                double laikas = chrono::duration <double> (diff).count();
-                cout << "Trukme: " << laikas << " s" << endl;
+                    auto end = chrono::steady_clock::now();
+                    double laikas = chrono::duration <double> (end - start).count();
+                    laikai.push_back(laikas);
 
-                break; 
+                    cout << "Trukme: " << laikas << " s" << endl;
+                    break;
+                }
+                case 0:
+                    break;
+
+                default:
+                    cout << "Klaida. Bandykite ivesti kita skaiciu." << endl;
+                    break;
             }
-            default:
-            {
-                cout << "Ivyko klaida. Bandykite ivesti kita skaiciu" << endl;
-                break;
-            }
-                
+        } while (pasirinkimas2 != 0);
+
+        // Skaiciuojamas vidutine truke
+        double laiku_suma = 0.0;
+        for (auto laikas : laikai) {
+            laiku_suma += laikas;
         }
-         break;
+        double laiku_vidurkis = (laikai.size() > 0) ? (laiku_suma / laikai.size()) : 0.0;
 
-            break;
+        cout << "Vidutine trukme: " << laiku_vidurkis << " s" << endl;
+
+        break;
 
             }
 
