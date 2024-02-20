@@ -9,6 +9,7 @@
 #include <ctime>
 #include <vector>
 #include <fstream>
+#include <chrono>  //Laiko matavimui
 
 using namespace std;
 
@@ -639,6 +640,9 @@ int main() {
                     return 1;
                 }
 
+                //Pradedamas laiko skaiciavimas
+                auto start = chrono::steady_clock::now();
+
                 // Neskaitoma pirma eilute is failo
                 getline(fileName, eilute);
 
@@ -681,6 +685,14 @@ int main() {
                 }
 
                 fileName1.close();
+
+                // Uzbaigiamas laiko skaiciavimas
+                auto end = chrono::steady_clock::now();
+                // Skaiciuojamas laikas tarp start ir end
+                auto diff = end - start;
+                double laikas = chrono::duration <double> (diff).count();
+                cout << "Trukme: " << laikas << " s" << endl;
+
                 break;
             }
             case 2:
@@ -694,6 +706,9 @@ int main() {
                     cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
                     return 1;
                 }
+
+                //Pradedamas laiko skaiciavimas
+                auto start = chrono::steady_clock::now();
 
                 // Neskaitoma pirma eilute is failo
                 getline(fileName, eilute);
@@ -737,6 +752,14 @@ int main() {
                 }
 
                 fileName1.close();
+
+                // Uzbaigiamas laiko skaiciavimas
+                auto end = chrono::steady_clock::now();
+                // Skaiciuojamas laikas tarp start ir end
+                auto diff = end - start;
+                double laikas = chrono::duration <double> (diff).count();
+                cout << "Trukme: " << laikas << " s" << endl;
+
                 break;
             }
                 
@@ -751,6 +774,9 @@ int main() {
                     cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
                     return 1;
                 }
+
+                //Pradedamas laiko skaiciavimas
+                auto start = chrono::steady_clock::now();
 
                 // Neskaitoma pirma eilute is failo
                 getline(fileName, eilute);
@@ -794,6 +820,14 @@ int main() {
                 }
 
                 fileName1.close();
+
+                // Uzbaigiamas laiko skaiciavimas
+                auto end = chrono::steady_clock::now();
+                // Skaiciuojamas laikas tarp start ir end
+                auto diff = end - start;
+                double laikas = chrono::duration <double> (diff).count();
+                cout << "Trukme: " << laikas << " s" << endl;
+
                 break; 
             }
             default:
