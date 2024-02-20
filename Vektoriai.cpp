@@ -687,19 +687,21 @@ int main() {
 
                 // Pasirenkame pagal kokia kriterija ruosiosime
                 int pasirinkimas3;
-                cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
-                cout << "1. Rusiuoti pagal galutini vidurki." << endl;
-                cout << "2. Rusiuoti pagal mediana." << endl;
-                cin >> pasirinkimas3;
-
-                if (pasirinkimas3 == 1) {
-                    sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
-                } else if (pasirinkimas3 == 2) {
-                    sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
-                } else {
-                    cout << "Neteisingas skaicius. Isrinkite kita.";
+                
+                do {
+                    cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
+                    cout << "1. Rusiuoti pagal galutini vidurki." << endl;
+                    cout << "2. Rusiuoti pagal mediana." << endl;
                     cin >> pasirinkimas3;
-                }
+
+                    if (pasirinkimas3 == 1) {
+                        sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
+                    } else if (pasirinkimas3 == 2) {
+                        sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
+                    } else {
+                        cout << "Neteisingas skaicius. Bandykite dar karta." << endl;
+                    }
+                } while (pasirinkimas3 != 1 && pasirinkimas3 != 2);
 
                 // Duomenu irasymas i faila "kursiokai.txt"
                 ofstream fileName1("kursiokai.txt");
@@ -766,21 +768,21 @@ int main() {
 
                 int pasirinkimas3;
 
-                
                 // Pasirenkame pagal kokia kriterija ruosiosime
-                cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
-                cout << "1. Rusiuoti pagal galutini vidurki." << endl;
-                cout << "2. Rusiuoti pagal mediana." << endl;
-                cin >> pasirinkimas3;
-
-                if (pasirinkimas3 == 1) {
-                    sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
-                } else if (pasirinkimas3 == 2) {
-                    sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
-                } else {
-                    cout << "Neteisingas skaicius. Isrinkite kita.";
+                do {
+                    cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
+                    cout << "1. Rusiuoti pagal galutini vidurki." << endl;
+                    cout << "2. Rusiuoti pagal mediana." << endl;
                     cin >> pasirinkimas3;
-                }
+
+                    if (pasirinkimas3 == 1) {
+                        sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
+                    } else if (pasirinkimas3 == 2) {
+                        sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
+                    } else {
+                        cout << "Neteisingas skaicius. Bandykite dar karta." << endl;
+                    }
+                } while (pasirinkimas3 != 1 && pasirinkimas3 != 2);
 
                 // Duomenu irasymas i faila "kursiokai.txt"
                 ofstream fileName1("kursiokai.txt");
@@ -847,19 +849,20 @@ int main() {
 
                 // Pasirenkame pagal kokia kriterija ruosiosime
                 int pasirinkimas3;
-                cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
-                cout << "1. Rusiuoti pagal galutini vidurki." << endl;
-                cout << "2. Rusiuoti pagal mediana." << endl;
-                cin >> pasirinkimas3;
-
-                if (pasirinkimas3 == 1) {
-                    sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
-                } else if (pasirinkimas3 == 2) {
-                    sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
-                } else {
-                    cout << "Neteisingas skaicius. Isrinkite kita.";
+                do {
+                    cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
+                    cout << "1. Rusiuoti pagal galutini vidurki." << endl;
+                    cout << "2. Rusiuoti pagal mediana." << endl;
                     cin >> pasirinkimas3;
-                }
+
+                    if (pasirinkimas3 == 1) {
+                        sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
+                    } else if (pasirinkimas3 == 2) {
+                        sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
+                    } else {
+                        cout << "Neteisingas skaicius. Bandykite dar karta." << endl;
+                    }
+                } while (pasirinkimas3 != 1 && pasirinkimas3 != 2);
 
                 // Duomenu irasymas i faila "kursiokai.txt"
                 ofstream fileName1("kursiokai.txt");
