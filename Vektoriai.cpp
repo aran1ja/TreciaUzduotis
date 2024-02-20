@@ -620,58 +620,190 @@ int main() {
             // Menu 4
             case 4: 
             {
+                int pasirinkimas2;
+                cout << "Koki faila programa turi nuskaityti?" << endl;
+                cout << "1. studentai10000." << endl;
+                cout << "2. studentai100000." << endl;
+                cout << "3. studentai1000000." << endl;
+                cout << "Jusu pasirinkimas: "; cin >> pasirinkimas2;
 
-            vector<Studentas> studentai;
-            ifstream fileName("studentai10000.txt");
-            string eilute;
+            switch (pasirinkimas2) {
+            case 1:
+            {
+                vector<Studentas> studentai;
+                ifstream fileName("studentai10000.txt");
+                string eilute;
 
-            if (!fileName.is_open()) {
-                cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                return 1;
-            }
-
-            // Neskaitoma pirma eilute is failo
-            getline(fileName, eilute);
-
-            while (getline(fileName, eilute)) {
-                stringstream ss(eilute);
-                Studentas naujas_studentas;
-                int pazymiai, suma = 0;
-                ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
-
-                for (int i = 0; i < 15; i++) {
-                    ss >> pazymiai;
-                    naujas_studentas.pazymiai.push_back(pazymiai);
-                    suma += pazymiai;
+                if (!fileName.is_open()) {
+                    cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+                    return 1;
                 }
 
-                // Egzamino rezultatas
-                ss >> naujas_studentas.egzamino_rezultatas;
+                // Neskaitoma pirma eilute is failo
+                getline(fileName, eilute);
 
-                // Galutinio vidurkio ir medianos skaiciavimai
-                naujas_studentas.galutinis_vid = (1.00 * suma / 15) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
-                naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+                while (getline(fileName, eilute)) {
+                    stringstream ss(eilute);
+                    Studentas naujas_studentas;
+                    int pazymiai, suma = 0;
+                    ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
 
-                // Pridedamas studentas
-                studentai.push_back(naujas_studentas);
+                    for (int i = 0; i < 15; i++) {
+                        ss >> pazymiai;
+                        naujas_studentas.pazymiai.push_back(pazymiai);
+                        suma += pazymiai;
+                    }
+
+                    // Egzamino rezultatas
+                    ss >> naujas_studentas.egzamino_rezultatas;
+
+                    // Galutinio vidurkio ir medianos skaiciavimai
+                    naujas_studentas.galutinis_vid = (1.00 * suma / 15) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
+                    naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+
+                    // Pridedamas studentas
+                    studentai.push_back(naujas_studentas);
+                }
+
+                fileName.close();
+
+                // Duomenu irasymas i faila "kursiokai.txt"
+                ofstream fileName1("kursiokai.txt");
+
+                fileName1 << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+                fileName1 << "-----------------------------------------------------------------" << endl;
+
+                // Duomenu isvedimas
+                for (const auto& studentas : studentai) {
+                    fileName1 << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    fileName1 << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
+                    fileName1 << fixed << setprecision(2) << studentas.mediana << endl;
+                }
+
+                fileName1.close();
+                break;
             }
+            case 2:
+            {
+                
+                vector<Studentas> studentai;
+                ifstream fileName("studentai100000.txt");
+                string eilute;
 
-            fileName.close();
+                if (!fileName.is_open()) {
+                    cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+                    return 1;
+                }
 
-            // Duomenu irasymas i faila "kursiokai.txt"
-            ofstream fileName1("kursiokai.txt");
+                // Neskaitoma pirma eilute is failo
+                getline(fileName, eilute);
 
-            fileName1 << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
-            fileName1 << "-----------------------------------------------------------------" << endl;
+                while (getline(fileName, eilute)) {
+                    stringstream ss(eilute);
+                    Studentas naujas_studentas;
+                    int pazymiai, suma = 0;
+                    ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
 
-            // Duomenu isvedimas
-            for (const auto& studentas : studentai) {
-                fileName1 << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                fileName1 << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
-                fileName1 << fixed << setprecision(2) << studentas.mediana << endl;
+                    for (int i = 0; i < 20; i++) {
+                        ss >> pazymiai;
+                        naujas_studentas.pazymiai.push_back(pazymiai);
+                        suma += pazymiai;
+                    }
+
+                    // Egzamino rezultatas
+                    ss >> naujas_studentas.egzamino_rezultatas;
+
+                    // Galutinio vidurkio ir medianos skaiciavimai
+                    naujas_studentas.galutinis_vid = (1.00 * suma / 20) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
+                    naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+
+                    // Pridedamas studentas
+                    studentai.push_back(naujas_studentas);
+                }
+
+                fileName.close();
+
+                // Duomenu irasymas i faila "kursiokai.txt"
+                ofstream fileName1("kursiokai.txt");
+
+                fileName1 << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+                fileName1 << "-----------------------------------------------------------------" << endl;
+
+                // Duomenu isvedimas
+                for (const auto& studentas : studentai) {
+                    fileName1 << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    fileName1 << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
+                    fileName1 << fixed << setprecision(2) << studentas.mediana << endl;
+                }
+
+                fileName1.close();
+                break;
             }
+                
+                
+            case 3:
+            {
+                vector<Studentas> studentai;
+                ifstream fileName("studentai1000000.txt");
+                string eilute;
 
-            fileName1.close();
+                if (!fileName.is_open()) {
+                    cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+                    return 1;
+                }
+
+                // Neskaitoma pirma eilute is failo
+                getline(fileName, eilute);
+
+                while (getline(fileName, eilute)) {
+                    stringstream ss(eilute);
+                    Studentas naujas_studentas;
+                    int pazymiai, suma = 0;
+                    ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
+
+                    for (int i = 0; i < 7; i++) {
+                        ss >> pazymiai;
+                        naujas_studentas.pazymiai.push_back(pazymiai);
+                        suma += pazymiai;
+                    }
+
+                    // Egzamino rezultatas
+                    ss >> naujas_studentas.egzamino_rezultatas;
+
+                    // Galutinio vidurkio ir medianos skaiciavimai
+                    naujas_studentas.galutinis_vid = (1.00 * suma / 7) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
+                    naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+
+                    // Pridedamas studentas
+                    studentai.push_back(naujas_studentas);
+                }
+
+                fileName.close();
+
+                // Duomenu irasymas i faila "kursiokai.txt"
+                ofstream fileName1("kursiokai.txt");
+
+                fileName1 << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+                fileName1 << "-----------------------------------------------------------------" << endl;
+
+                // Duomenu isvedimas
+                for (const auto& studentas : studentai) {
+                    fileName1 << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    fileName1 << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
+                    fileName1 << fixed << setprecision(2) << studentas.mediana << endl;
+                }
+
+                fileName1.close();
+                break; 
+            }
+            default:
+            {
+                cout << "Ivyko klaida. Bandykite ivesti kita skaiciu" << endl;
+                break;
+            }
+                
+        }
+         break;
 
             break;
 
