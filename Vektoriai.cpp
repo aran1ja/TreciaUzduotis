@@ -8,6 +8,7 @@
 #include <cstdlib> // random number generacijai
 #include <ctime>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -619,8 +620,61 @@ int main() {
             // Menu 4
             case 4: 
             {
-                cout << "Nuskaitomi duomenys" << endl;
-                return 0;
+
+            vector<Studentas> studentai;
+            ifstream fileName("studentai10000.txt");
+            string eilute;
+
+            if (!fileName.is_open()) {
+                cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+                return 1;
+            }
+
+            // Neskaitoma pirma eilute is failo
+            getline(fileName, eilute);
+
+            while (getline(fileName, eilute)) {
+                stringstream ss(eilute);
+                Studentas naujas_studentas;
+                int pazymiai, suma = 0;
+                ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
+
+                for (int i = 0; i < 15; i++) {
+                    ss >> pazymiai;
+                    naujas_studentas.pazymiai.push_back(pazymiai);
+                    suma += pazymiai;
+                }
+
+                // Egzamino rezultatas
+                ss >> naujas_studentas.egzamino_rezultatas;
+
+                // Galutinio vidurkio ir medianos skaiciavimai
+                naujas_studentas.galutinis_vid = (1.00 * suma / 15) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
+                naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+
+                // Pridedamas studentas
+                studentai.push_back(naujas_studentas);
+            }
+
+            fileName.close();
+
+            // Duomenu irasymas i faila "kursiokai.txt"
+            ofstream fileName1("kursiokai.txt");
+
+            fileName1 << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+            fileName1 << "-----------------------------------------------------------------" << endl;
+
+            // Duomenu isvedimas
+            for (const auto& studentas : studentai) {
+                fileName1 << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                fileName1 << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
+                fileName1 << fixed << setprecision(2) << studentas.mediana << endl;
+            }
+
+            fileName1.close();
+
+            break;
+
             }
 
             // Menu 5
