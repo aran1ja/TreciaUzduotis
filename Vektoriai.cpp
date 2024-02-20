@@ -266,6 +266,16 @@ double vidurkis_galutinis(double suma, int n, int egzamino_rezultatas) {
         return 0.4 * (suma / n) + 0.6 * egzamino_rezultatas;
     }
 }
+
+// Rusiuojama pagal mediana (mazejimo tvarka)
+bool palyginti_pagal_mediana(const Studentas &a, const Studentas &b) {
+    return a.mediana > b.mediana;
+}
+
+// Rusiuojama pagal galutini vidurki (mazejimo tvarka)
+bool palyginti_pagal_galutini_vidurki(const Studentas &a, const Studentas &b) {
+    return a.galutinis_vid > b.galutinis_vid;
+}
                 
 int main() {
 
@@ -658,24 +668,12 @@ int main() {
 
                     for (int i = 0; i < 15; i++) {
                         ss >> pazymiai;
-                        //Tikrinama ar vietoj skaiciaus nera raides
-                        if (!isdigit(pazymiai)) {
-                            cout << "Rasta raide namu darbu pazymiuose. Nera galimybes perskaityti teksto." << endl;
-                            return 0;
-                        }
-
                         naujas_studentas.pazymiai.push_back(pazymiai);
                         suma += pazymiai;
                     }
 
                     // Egzamino rezultatas
                     ss >> naujas_studentas.egzamino_rezultatas;
-
-                    //Tikrinama ar vietoj skaiciaus nera raides
-                    if (!isdigit(naujas_studentas.egzamino_rezultatas)) {
-                            cout << "Rasta raide egzaminu pazymiuose. Nera galimybes perskaityti teksto." << endl;
-                            return 0;
-                        }
 
                     // Galutinio vidurkio ir medianos skaiciavimai
                     naujas_studentas.galutinis_vid = (1.00 * suma / 15) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
@@ -686,6 +684,22 @@ int main() {
                 }
 
                 fileName.close();
+
+                // Pasirenkame pagal kokia kriterija ruosiosime
+                int pasirinkimas3;
+                cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
+                cout << "1. Rusiuoti pagal galutini vidurki." << endl;
+                cout << "2. Rusiuoti pagal mediana." << endl;
+                cin >> pasirinkimas3;
+
+                if (pasirinkimas3 == 1) {
+                    sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
+                } else if (pasirinkimas3 == 2) {
+                    sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
+                } else {
+                    cout << "Neteisingas skaicius. Isrinkite kita.";
+                    cin >> pasirinkimas3;
+                }
 
                 // Duomenu irasymas i faila "kursiokai.txt"
                 ofstream fileName1("kursiokai.txt");
@@ -733,24 +747,12 @@ int main() {
 
                     for (int i = 0; i < 20; i++) {
                         ss >> pazymiai;
-                        //Tikrinama ar vietoj skaiciaus nera raides
-                        if (!isdigit(pazymiai)) {
-                            cout << "Rasta raide namu darbu pazymiuose. Nera galimybes perskaityti teksto." << endl;
-                            return 0;
-                        }
-
                         naujas_studentas.pazymiai.push_back(pazymiai);
                         suma += pazymiai;
                     }
 
                     // Egzamino rezultatas
                     ss >> naujas_studentas.egzamino_rezultatas;
-
-                    //Tikrinama ar vietoj skaiciaus nera raides
-                    if (!isdigit(naujas_studentas.egzamino_rezultatas)) {
-                            cout << "Rasta raide egzaminu pazymiuose. Nera galimybes perskaityti teksto." << endl;
-                            return 0;
-                        }
 
                     // Galutinio vidurkio ir medianos skaiciavimai
                     naujas_studentas.galutinis_vid = (1.00 * suma / 20) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
@@ -761,6 +763,24 @@ int main() {
                 }
 
                 fileName.close();
+
+                int pasirinkimas3;
+
+                
+                // Pasirenkame pagal kokia kriterija ruosiosime
+                cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
+                cout << "1. Rusiuoti pagal galutini vidurki." << endl;
+                cout << "2. Rusiuoti pagal mediana." << endl;
+                cin >> pasirinkimas3;
+
+                if (pasirinkimas3 == 1) {
+                    sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
+                } else if (pasirinkimas3 == 2) {
+                    sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
+                } else {
+                    cout << "Neteisingas skaicius. Isrinkite kita.";
+                    cin >> pasirinkimas3;
+                }
 
                 // Duomenu irasymas i faila "kursiokai.txt"
                 ofstream fileName1("kursiokai.txt");
@@ -808,24 +828,12 @@ int main() {
 
                     for (int i = 0; i < 7; i++) {
                         ss >> pazymiai;
-                        //Tikrinama ar vietoj skaiciaus nera raides
-                        if (!isdigit(pazymiai)) {
-                            cout << "Rasta raide namu darbu pazymiuose. Nera galimybes perskaityti teksto." << endl;
-                            return 0;
-                        }
-
                         naujas_studentas.pazymiai.push_back(pazymiai);
                         suma += pazymiai;
                     }
 
                     // Egzamino rezultatas
                     ss >> naujas_studentas.egzamino_rezultatas;
-
-                    //Tikrinama ar vietoj skaiciaus nera raides
-                    if (!isdigit(naujas_studentas.egzamino_rezultatas)) {
-                            cout << "Rasta raide egzaminu pazymiuose. Nera galimybes perskaityti teksto." << endl;
-                            return 0;
-                        }
 
                     // Galutinio vidurkio ir medianos skaiciavimai
                     naujas_studentas.galutinis_vid = (1.00 * suma / 7) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
@@ -836,6 +844,22 @@ int main() {
                 }
 
                 fileName.close();
+
+                // Pasirenkame pagal kokia kriterija ruosiosime
+                int pasirinkimas3;
+                cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
+                cout << "1. Rusiuoti pagal galutini vidurki." << endl;
+                cout << "2. Rusiuoti pagal mediana." << endl;
+                cin >> pasirinkimas3;
+
+                if (pasirinkimas3 == 1) {
+                    sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
+                } else if (pasirinkimas3 == 2) {
+                    sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
+                } else {
+                    cout << "Neteisingas skaicius. Isrinkite kita.";
+                    cin >> pasirinkimas3;
+                }
 
                 // Duomenu irasymas i faila "kursiokai.txt"
                 ofstream fileName1("kursiokai.txt");
