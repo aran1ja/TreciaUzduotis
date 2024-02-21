@@ -267,6 +267,16 @@ double vidurkis_galutinis(double suma, int n, int egzamino_rezultatas) {
     }
 }
 
+// Rusiuojama pagal varda (didejimo tvarka)
+bool palyginti_pagal_varda(const Studentas &a, const Studentas &b) {
+    return a.vardas < b.vardas;
+}
+
+// Rusiuojama pagal pavarde (didejimo tvarka)
+bool palyginti_pagal_pavarde(const Studentas &a, const Studentas &b) {
+    return a.pavarde < b.pavarde;
+}
+
 // Rusiuojama pagal mediana (mazejimo tvarka)
 bool palyginti_pagal_mediana(const Studentas &a, const Studentas &b) {
     return a.mediana > b.mediana;
@@ -631,9 +641,12 @@ int main() {
             // Menu 4
             case 4: 
             {
-                
+            int skaicius = 0;
+            string smth;
+            string failas;                
             vector<double> laikai;
             int pasirinkimas2 = 0;
+
             do {
 
             cout << "Koki faila programa turi nuskaityti?" << endl;
@@ -643,21 +656,42 @@ int main() {
             cout << "0. Pabaigti." << endl;
             cout << "Jusu pasirinkimas: "; cin >> pasirinkimas2;
 
-            switch (pasirinkimas2) {
-                case 1: 
-                {
-                    vector<Studentas> studentai;
-                    ifstream fileName("studentai10000.txt");
-                    string eilute;
+            if(pasirinkimas2 == 1) {
+                failas = "studentai10000.txt";
+            }
 
-                    if (!fileName.is_open()) {
-                        cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                        return 0;
-                    }
+            if(pasirinkimas2 == 2) {
+                failas = "studentai100000.txt";
+            }
 
-                    auto start = chrono::steady_clock::now();
+            if(pasirinkimas2 == 3) {
+                failas = "studentai1000000.txt";
+            }
 
-                    // Neskaitoma pirma eilute is failo
+            if(pasirinkimas2 == 0) {
+                break;
+            }
+
+            vector<Studentas> studentai;
+            ifstream fileName(failas);
+            string eilute;
+
+            if (!fileName.is_open()) {
+                cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+                return 0;
+            }
+
+            auto start = chrono::steady_clock::now();
+
+            while (smth != "Egz.") {
+                fileName >> smth;
+
+                skaicius++;
+            }
+
+            skaicius = skaicius - 3;
+
+                // Neskaitoma pirma eilute is failo
                 getline(fileName, eilute);
 
                 while (getline(fileName, eilute)) {
@@ -666,7 +700,7 @@ int main() {
                     int pazymiai, suma = 0;
                     ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
 
-                    for (int i = 0; i < 15; i++) {
+                    for (int i = 0; i < skaicius; i++) {
                         ss >> pazymiai;
                         naujas_studentas.pazymiai.push_back(pazymiai);
                         suma += pazymiai;
@@ -676,7 +710,7 @@ int main() {
                     ss >> naujas_studentas.egzamino_rezultatas;
 
                     // Galutinio vidurkio ir medianos skaiciavimai
-                    naujas_studentas.galutinis_vid = (1.00 * suma / 15) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
+                    naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
                     naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
 
                     // Pridedamas studentas
@@ -690,18 +724,24 @@ int main() {
                 
                 do {
                     cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
-                    cout << "1. Rusiuoti pagal galutini vidurki." << endl;
-                    cout << "2. Rusiuoti pagal mediana." << endl;
+                    cout << "1. Rusiuoti pagal vardus." << endl;
+                    cout << "2. Rusiuoti pagal pavardes." << endl;
+                    cout << "3. Rusiuoti pagal galutini vidurki." << endl;
+                    cout << "4. Rusiuoti pagal mediana." << endl;
                     cin >> pasirinkimas3;
 
                     if (pasirinkimas3 == 1) {
+                        sort(studentai.begin(), studentai.end(), palyginti_pagal_varda);
+                    } else if (pasirinkimas3 == 2 ) {
+                        sort(studentai.begin(), studentai.end(), palyginti_pagal_pavarde);
+                    } else if (pasirinkimas3 == 3) {
                         sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
-                    } else if (pasirinkimas3 == 2) {
+                    } else if (pasirinkimas3 == 4) {
                         sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
                     } else {
                         cout << "Neteisingas skaicius. Bandykite dar karta." << endl;
                     }
-                } while (pasirinkimas3 != 1 && pasirinkimas3 != 2);
+                } while (pasirinkimas3 != 1 && pasirinkimas3 != 2 && pasirinkimas3 != 3 && pasirinkimas3 != 4);
 
                 // Duomenu irasymas i faila "kursiokai.txt"
                 ofstream fileName1("kursiokai.txt");
@@ -718,188 +758,19 @@ int main() {
 
                 fileName1.close();
 
-                    auto end = chrono::steady_clock::now();
-                    double laikas = chrono::duration <double> (end - start).count();
-                    laikai.push_back(laikas);
-
-                    cout << "Trukme: " << laikas << " s" << endl;
-                    break;
-                }
-                case 2: 
-                {
-                    vector<Studentas> studentai;
-                    ifstream fileName("studentai100000.txt");
-                    string eilute;
-
-                    if (!fileName.is_open()) {
-                        cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                        return 0;
-                    }
-
-                    auto start = chrono::steady_clock::now();
-
-                    // Neskaitoma pirma eilute is failo
-                getline(fileName, eilute);
-
-                while (getline(fileName, eilute)) {
-                    stringstream ss(eilute);
-                    Studentas naujas_studentas;
-                    int pazymiai, suma = 0;
-                    ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
-
-                    for (int i = 0; i < 20; i++) {
-                        ss >> pazymiai;
-                        naujas_studentas.pazymiai.push_back(pazymiai);
-                        suma += pazymiai;
-                    }
-
-                    // Egzamino rezultatas
-                    ss >> naujas_studentas.egzamino_rezultatas;
-
-                    // Galutinio vidurkio ir medianos skaiciavimai
-                    naujas_studentas.galutinis_vid = (1.00 * suma / 20) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
-                    naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
-
-                    // Pridedamas studentas
-                    studentai.push_back(naujas_studentas);
-                }
-
-                fileName.close();
-
-                int pasirinkimas3;
-
-                // Pasirenkame pagal kokia kriterija ruosiosime
-                do {
-                    cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
-                    cout << "1. Rusiuoti pagal galutini vidurki." << endl;
-                    cout << "2. Rusiuoti pagal mediana." << endl;
-                    cin >> pasirinkimas3;
-
-                    if (pasirinkimas3 == 1) {
-                        sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
-                    } else if (pasirinkimas3 == 2) {
-                        sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
-                    } else {
-                        cout << "Neteisingas skaicius. Bandykite dar karta." << endl;
-                    }
-                } while (pasirinkimas3 != 1 && pasirinkimas3 != 2);
-
-                // Duomenu irasymas i faila "kursiokai.txt"
-                ofstream fileName1("kursiokai.txt");
-
-                fileName1 << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
-                fileName1 << "-----------------------------------------------------------------" << endl;
-
-                // Duomenu isvedimas
-                for (const auto& studentas : studentai) {
-                    fileName1 << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    fileName1 << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
-                    fileName1 << fixed << setprecision(2) << studentas.mediana << endl;
-                }
-
-                fileName1.close();
-
-                    auto end = chrono::steady_clock::now();
-                    double laikas = chrono::duration <double> (end - start).count();
-                    laikai.push_back(laikas);
-
-                    cout << "Trukme: " << laikas << " s" << endl;
-                    break;
-                }
-                case 3: 
-                {
-                    vector<Studentas> studentai;
-                    ifstream fileName("studentai1000000.txt");
-                    string eilute;
-
-                    if (!fileName.is_open()) {
-                        cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                        return 0;
-                    }
-
-                    auto start = chrono::steady_clock::now();
-
-                    // Neskaitoma pirma eilute is failo
-                getline(fileName, eilute);
-
-                while (getline(fileName, eilute)) {
-                    stringstream ss(eilute);
-                    Studentas naujas_studentas;
-                    int pazymiai, suma = 0;
-                    ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
-
-                    for (int i = 0; i < 7; i++) {
-                        ss >> pazymiai;
-                        naujas_studentas.pazymiai.push_back(pazymiai);
-                        suma += pazymiai;
-                    }
-
-                    // Egzamino rezultatas
-                    ss >> naujas_studentas.egzamino_rezultatas;
-
-                    // Galutinio vidurkio ir medianos skaiciavimai
-                    naujas_studentas.galutinis_vid = (1.00 * suma / 7) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
-                    naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
-
-                    // Pridedamas studentas
-                    studentai.push_back(naujas_studentas);
-                }
-
-                fileName.close();
-
-                // Pasirenkame pagal kokia kriterija ruosiosime
-                int pasirinkimas3;
-                do {
-                    cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
-                    cout << "1. Rusiuoti pagal galutini vidurki." << endl;
-                    cout << "2. Rusiuoti pagal mediana." << endl;
-                    cin >> pasirinkimas3;
-
-                    if (pasirinkimas3 == 1) {
-                        sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
-                    } else if (pasirinkimas3 == 2) {
-                        sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
-                    } else {
-                        cout << "Neteisingas skaicius. Bandykite dar karta." << endl;
-                    }
-                } while (pasirinkimas3 != 1 && pasirinkimas3 != 2);
-
-                // Duomenu irasymas i faila "kursiokai.txt"
-                ofstream fileName1("kursiokai.txt");
-
-                fileName1 << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
-                fileName1 << "-----------------------------------------------------------------" << endl;
-
-                // Duomenu isvedimas
-                for (const auto& studentas : studentai) {
-                    fileName1 << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    fileName1 << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
-                    fileName1 << fixed << setprecision(2) << studentas.mediana << endl;
-                }
-
-                fileName1.close();
-
-                    auto end = chrono::steady_clock::now();
-                    double laikas = chrono::duration <double> (end - start).count();
-                    laikai.push_back(laikas);
-
-                    cout << "Trukme: " << laikas << " s" << endl;
-                    break;
-                }
-                case 0:
-                    break;
-
-                default:
-                    cout << "Klaida. Bandykite ivesti kita skaiciu." << endl;
-                    break;
-            }
+                auto end = chrono::steady_clock::now();
+                double laikas = chrono::duration <double> (end - start).count();
+                laikai.push_back(laikas);
+                cout << "Trukme: " << laikas << " s" << endl;   
+              
         } while (pasirinkimas2 != 0);
 
-        // Skaiciuojamas vidutine truke
-        double laiku_suma = 0.0;
-        for (auto laikas : laikai) {
-            laiku_suma += laikas;
-        }
+        // Skaiciuojama vidutine trukme
+                double laiku_suma = 0.0;
+                for (auto laikas : laikai) {
+                    laiku_suma += laikas;
+                }
+        
         double laiku_vidurkis = (laikai.size() > 0) ? (laiku_suma / laikai.size()) : 0.0;
 
         cout << "Vidutine trukme: " << laiku_vidurkis << " s" << endl;
