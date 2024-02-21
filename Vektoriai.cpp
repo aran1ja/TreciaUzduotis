@@ -653,6 +653,7 @@ int main() {
             cout << "1. studentai10000.txt" << endl;
             cout << "2. studentai100000.txt" << endl;
             cout << "3. studentai1000000.txt" << endl;
+            cout << "4. kursiokai.txt" << endl;
             cout << "0. Pabaigti." << endl;
             cout << "Jusu pasirinkimas: "; cin >> pasirinkimas2;
 
@@ -666,6 +667,10 @@ int main() {
 
             if(pasirinkimas2 == 3) {
                 failas = "studentai1000000.txt";
+            }
+
+            if(pasirinkimas2 == 4) {
+                failas = "kursiokai.txt";
             }
 
             if(pasirinkimas2 == 0) {
@@ -744,7 +749,7 @@ int main() {
                 } while (pasirinkimas3 != 1 && pasirinkimas3 != 2 && pasirinkimas3 != 3 && pasirinkimas3 != 4);
 
                 // Duomenu irasymas i faila "kursiokai.txt"
-                ofstream fileName1("kursiokai.txt");
+                ofstream fileName1("isvedimas.txt");
 
                 fileName1 << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
                 fileName1 << "-----------------------------------------------------------------" << endl;
