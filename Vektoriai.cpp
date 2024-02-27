@@ -686,7 +686,7 @@ int main() {
             ifstream fileName(failas);
             string eilute;
 
-            // Exception handling
+            // Exception handling 1
             try {
                 if (!fileName.is_open()) 
                 throw runtime_error("Nepavyko atidaryti failo. Bandykite dar karta.");
@@ -706,6 +706,9 @@ int main() {
 
             skaicius = skaicius - 3;
 
+            // Exception handling 2
+            try {
+
                 // Neskaitoma pirma eilute is failo
                 getline(fileName, eilute);
 
@@ -716,13 +719,21 @@ int main() {
                     ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
 
                     for (int i = 0; i < skaicius; i++) {
-                        ss >> pazymiai;
+                        // Exception jeigu vietoj namu darbu pazymio bus kitas simbolis
+                        if (!(ss >> pazymiai)) {
+                            throw runtime_error("Netinkamas duomenu formatas.");
+                            break;
+                        }
                         naujas_studentas.pazymiai.push_back(pazymiai);
                         suma += pazymiai;
                     }
 
                     // Egzamino rezultatas
-                    ss >> naujas_studentas.egzamino_rezultatas;
+                    // Exception jeigu vietoj egzamino pazymio bus kitas simbolis
+                    if(!(ss >> naujas_studentas.egzamino_rezultatas)) {
+                        throw runtime_error("Netinkamas duomenu formatas.");
+                        break;
+                    }
 
                     // Galutinio vidurkio ir medianos skaiciavimai
                     naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
@@ -733,6 +744,9 @@ int main() {
                 }
 
                 fileName.close();
+            } catch (const runtime_error& fail) {
+                cout << fail.what() << endl;
+            }
 
                 // Pasirenkame pagal kokia kriterija ruosiosime
                 int pasirinkimas3;
