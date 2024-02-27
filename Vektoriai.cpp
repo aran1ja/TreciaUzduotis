@@ -291,10 +291,43 @@ int Menu() {
         }
     }
 }
+
+void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1) {
+        switch (pasirinkimas1) {
+            case 1:
+                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
+                cout << "--------------------------------------------------" << endl;
+
+                for (const auto& studentas : studentai) {
+                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    cout << fixed << setprecision(2) << studentas.galutinis_vid << endl;
+                }
+                break;
+            case 2:
+                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Med.)" << endl;
+                cout << "--------------------------------------------------" << endl;
+
+                for (const auto& studentas : studentai) {
+                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    cout << fixed << setprecision(2) << studentas.mediana << endl;
+                }
+                break;
+            case 3:
+                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+                cout << "-----------------------------------------------------------------" << endl;
+
+                for (const auto& studentas : studentai) {
+                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    cout << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
+                    cout << fixed << setprecision(2) << studentas.mediana << endl;
+                }
+                break;
+        } 
+}
                 
 int main() {
 
-    vector <Studentas> A;
+    vector <Studentas> studentai;
 
     while (true) {
 
@@ -392,18 +425,14 @@ int main() {
 
                 naujas_studentas.egzamino_rezultatas = rezultatas;
 
-                
-
                 // Skaiciuoja suma visu pazymiu 
                 double suma = 0.0;
                 for (int pazymis : naujas_studentas.pazymiai) {
                     suma += pazymis;
                 }
 
-                // Galutinio vidurkio skaiciavimas
+                // Galutinio vidurkio ir medianos skaiciavimai
                 naujas_studentas.galutinis_vid = vidurkis_galutinis(suma, n, naujas_studentas.egzamino_rezultatas);
-
-                // Mediana
                 naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
 
                 studentai.push_back(naujas_studentas);
@@ -417,8 +446,7 @@ int main() {
                     break;
                 }
 
-                //Pasirinkimas
-                // Vartotojas, ivedamas duomenis ranka, pats issirenka ka nori atvaizduoti: vidurki ar mediana
+            // Vartotojas, ivedamas duomenis ranka, pats issirenka ka nori atvaizduoti: vidurki ar mediana
             cout << "Ka programa turi atvaizduoti?" << endl;
             cout << "Jeigu reikalingas vidurkis, spauskite 1." << endl;
             cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
@@ -432,39 +460,8 @@ int main() {
                 pasirinkimas1 = Pasirinkimas1();
             }
 
-        // Atvaizdavimas pagal vartotojo pasirinkima
-        switch (pasirinkimas1) {
-            case 1:
-                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
-                cout << "--------------------------------------------------" << endl;
-
-                for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.galutinis_vid << endl;
-                }
-                break;
-            case 2:
-                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Med.)" << endl;
-                cout << "--------------------------------------------------" << endl;
-
-                for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.mediana << endl;
-                }
-                break;
-            case 3:
-                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
-                cout << "-----------------------------------------------------------------" << endl;
-
-                for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
-                    cout << fixed << setprecision(2) << studentas.mediana << endl;
-                }
-                break;
-        }
-         break;
-
+            RezultatuVaizdavimas(studentai, pasirinkimas1);
+            break;
             } 
 
             // Menu 2
@@ -497,18 +494,15 @@ int main() {
                     suma += pazymis;
                 }
 
-                // Galutinio vidurkio skaiciavimas
+                // Galutinio vidurkio ir medianos skaiciavimai
                 naujas_studentas.galutinis_vid = vidurkis_galutinis(suma, n, naujas_studentas.egzamino_rezultatas);
-
-                // Mediana
                 naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
 
                 studentai.push_back(naujas_studentas);
             
             }
 
-                //Pasirinkimas
-                // Vartotojas pats issirenka ka nori atvaizduoti: vidurki ar mediana
+            // Vartotojas pats issirenka ka nori atvaizduoti: vidurki ar mediana
             cout << "Ka programa turi atvaizduoti?" << endl;
             cout << "Jeigu reikalingas vidurkis, spauskite 1." << endl;
             cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
@@ -522,39 +516,8 @@ int main() {
                 pasirinkimas1 = Pasirinkimas1();
             }
 
-        // Atvaizdavimas pagal vartotojo pasirinkima
-        switch (pasirinkimas1) {
-            case 1:
-                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
-                cout << "--------------------------------------------------" << endl;
-
-                for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.galutinis_vid << endl;
-                }
-                break;
-            case 2:
-                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Med.)" << endl;
-                cout << "--------------------------------------------------" << endl;
-
-                for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.mediana << endl;
-                }
-                break;
-            case 3:
-                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
-                cout << "-----------------------------------------------------------------" << endl;
-
-                for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
-                    cout << fixed << setprecision(2) << studentas.mediana << endl;
-                }
-                break;
-        }
-         break;
-
+            RezultatuVaizdavimas(studentai, pasirinkimas1);
+            break;
             }
 
             // Menu 3
@@ -616,39 +579,8 @@ int main() {
                 pasirinkimas1 = Pasirinkimas1();
             }
 
-        // Atvaizdavimas pagal vartotojo pasirinkima
-        switch (pasirinkimas1) {
-            case 1:
-                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
-                cout << "--------------------------------------------------" << endl;
-
-                for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.galutinis_vid << endl;
-                }
-                break;
-            case 2:
-                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Med.)" << endl;
-                cout << "--------------------------------------------------" << endl;
-
-                for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.mediana << endl;
-                }
-                break;
-            case 3:
-                cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
-                cout << "-----------------------------------------------------------------" << endl;
-
-                for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
-                    cout << fixed << setprecision(2) << studentas.mediana << endl;
-                }
-                break;
-        }
-         break;
-
+            RezultatuVaizdavimas(studentai, pasirinkimas1);
+            break;
             }
 
             // Menu 4
@@ -814,7 +746,6 @@ int main() {
         cout << "Vidutine trukme: " << laiku_vidurkis << " s" << endl;
 
         break;
-
             }
 
             // Menu 5
