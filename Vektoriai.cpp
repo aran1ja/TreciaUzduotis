@@ -243,8 +243,7 @@ int Menu() {
 int main() {
 
     vector <Studentas> A;
-    int n;
-    int menu;
+
     while (true) {
 
         // Menu
@@ -636,7 +635,7 @@ int main() {
 
             if (!fileName.is_open()) {
                 cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
-                return 0;
+                break;
             }
 
             auto start = chrono::steady_clock::now();
