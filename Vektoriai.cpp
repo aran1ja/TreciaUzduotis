@@ -633,8 +633,12 @@ int main() {
             ifstream fileName(failas);
             string eilute;
 
-            if (!fileName.is_open()) {
-                cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+            try {
+                if (!fileName.is_open()) 
+                throw runtime_error("Nepavyko atidaryti failo. Bandykite dar karta.");
+            
+            } catch (const runtime_error& klaida) {
+                cout << klaida.what() << endl;
                 break;
             }
 
