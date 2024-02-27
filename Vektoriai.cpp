@@ -135,28 +135,28 @@ int EgzaminoRezultatas() {
     }
 }
 
-int Pasirinkimas() {
+int Pasirinkimas1() {
 
-    string pasirinkti_atsakyma;
-    int pasirinkimas;
+    string pasirinkti_atsakyma1;
+    int pasirinkimas1;
 
-    cin >> pasirinkti_atsakyma;
+    cin >> pasirinkti_atsakyma1;
 
     while (true) {
 
-        istringstream iss(pasirinkti_atsakyma);
+        istringstream iss(pasirinkti_atsakyma1);
 
-        if (iss >> pasirinkimas) {
+        if (iss >> pasirinkimas1) {
             char remaining;
             if (iss >> remaining) {
                 cout << "Klaida. Iveskite tik skaiciu (1, 2 arba 3). ";
-                cin >> pasirinkti_atsakyma;
+                cin >> pasirinkti_atsakyma1;
             } else {
-                    return pasirinkimas;
+                    return pasirinkimas1;
                 }
         } else {
             cout << "Klaida. Iveskite skaiciu (1, 2 arba 3). ";
-            cin >> pasirinkti_atsakyma;
+            cin >> pasirinkti_atsakyma1;
         }
     }
 }
@@ -383,7 +383,16 @@ int main() {
 
                 cout << "Studento egzamino rezultatas: ";
                 int rezultatas = EgzaminoRezultatas();
+
+                if (rezultatas > 10 || rezultatas < 1) {
+                        cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
+                        cout << "Studento egzamino rezultatas: ";
+                        rezultatas = EgzaminoRezultatas();
+                    }
+
                 naujas_studentas.egzamino_rezultatas = rezultatas;
+
+                
 
                 // Skaiciuoja suma visu pazymiu 
                 double suma = 0.0;
@@ -415,16 +424,16 @@ int main() {
             cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
             cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
             cout << "Jusu pasirinkimas: ";
-            int pasirinkimas = Pasirinkimas();
+            int pasirinkimas1 = Pasirinkimas1();
 
-            while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3) {
+            while (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
                 cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
                 cout << "Spauskite 1, 2 arba 3. ";
-                pasirinkimas = Pasirinkimas();
+                pasirinkimas1 = Pasirinkimas1();
             }
 
         // Atvaizdavimas pagal vartotojo pasirinkima
-        switch (pasirinkimas) {
+        switch (pasirinkimas1) {
             case 1:
                 cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
                 cout << "--------------------------------------------------" << endl;
@@ -505,16 +514,16 @@ int main() {
             cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
             cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
             cout << "Jusu pasirinkimas: ";
-            int pasirinkimas = Pasirinkimas();
+            int pasirinkimas1 = Pasirinkimas1();
 
-            while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3) {
+            while (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
                 cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
                 cout << "Spauskite 1, 2 arba 3. ";
-                pasirinkimas = Pasirinkimas();
+                pasirinkimas1 = Pasirinkimas1();
             }
 
         // Atvaizdavimas pagal vartotojo pasirinkima
-        switch (pasirinkimas) {
+        switch (pasirinkimas1) {
             case 1:
                 cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
                 cout << "--------------------------------------------------" << endl;
@@ -599,16 +608,16 @@ int main() {
             cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
             cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
             cout << "Jusu pasirinkimas: ";
-            int pasirinkimas = Pasirinkimas();
+            int pasirinkimas1 = Pasirinkimas1();
 
-            while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3) {
+            while (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
                 cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
                 cout << "Spauskite 1, 2 arba 3. ";
-                pasirinkimas = Pasirinkimas();
+                pasirinkimas1 = Pasirinkimas1();
             }
 
         // Atvaizdavimas pagal vartotojo pasirinkima
-        switch (pasirinkimas) {
+        switch (pasirinkimas1) {
             case 1:
                 cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
                 cout << "--------------------------------------------------" << endl;
