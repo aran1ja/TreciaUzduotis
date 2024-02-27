@@ -161,6 +161,58 @@ int Pasirinkimas() {
     }
 }
 
+int Pasirinkimas2() {
+
+    string pasirinkti_atsakyma2;
+    int pasirinkimas2;
+
+    cin >> pasirinkti_atsakyma2;
+
+    while (true) {
+
+        istringstream iss(pasirinkti_atsakyma2);
+
+        if (iss >> pasirinkimas2) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Pasirinkite viena is nurodytu variantu. ";
+                cin >> pasirinkti_atsakyma2;
+            } else {
+                    return pasirinkimas2;
+                }
+        } else {
+            cout << "Klaida. Pasirinkite viena is nurodytu variantu. ";
+            cin >> pasirinkti_atsakyma2;
+        }
+    }
+}
+
+int Pasirinkimas3() {
+
+    string pasirinkti_atsakyma3;
+    int pasirinkimas3;
+
+    cin >> pasirinkti_atsakyma3;
+
+    while (true) {
+
+        istringstream iss(pasirinkti_atsakyma3);
+
+        if (iss >> pasirinkimas3) {
+            char remaining;
+            if (iss >> remaining) {
+                cout << "Klaida. Iveskite tik viena is nuorodytu skaiciu. ";
+                cin >> pasirinkti_atsakyma3;
+            } else {
+                    return pasirinkimas3;
+                }
+        } else {
+            cout << "Klaida. Iveskite viena is nuorodytu skaiciu. ";
+            cin >> pasirinkti_atsakyma3;
+        }
+    }
+}
+
 int VariantasNamuDarbas() {
 
     string ivestis_variantas_nd;
@@ -607,7 +659,8 @@ int main() {
             cout << "3. studentai1000000.txt" << endl;
             cout << "4. kursiokai.txt" << endl;
             cout << "0. Pabaigti." << endl;
-            cout << "Jusu pasirinkimas: "; cin >> pasirinkimas2;
+            cout << "Jusu pasirinkimas: "; 
+            pasirinkimas2 = Pasirinkimas2();
 
             if(pasirinkimas2 == 1) {
                 failas = "studentai10000.txt";
@@ -633,6 +686,7 @@ int main() {
             ifstream fileName(failas);
             string eilute;
 
+            // Exception handling
             try {
                 if (!fileName.is_open()) 
                 throw runtime_error("Nepavyko atidaryti failo. Bandykite dar karta.");
@@ -682,14 +736,16 @@ int main() {
 
                 // Pasirenkame pagal kokia kriterija ruosiosime
                 int pasirinkimas3;
-                
+
                 do {
+                
                     cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
                     cout << "1. Rusiuoti pagal vardus." << endl;
                     cout << "2. Rusiuoti pagal pavardes." << endl;
                     cout << "3. Rusiuoti pagal galutini vidurki." << endl;
                     cout << "4. Rusiuoti pagal mediana." << endl;
-                    cin >> pasirinkimas3;
+                    cout << "Jusu pasirinkimas: ";
+                    pasirinkimas3 = Pasirinkimas3();
 
                     if (pasirinkimas3 == 1) {
                         sort(studentai.begin(), studentai.end(), palyginti_pagal_varda);
@@ -699,10 +755,9 @@ int main() {
                         sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
                     } else if (pasirinkimas3 == 4) {
                         sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
-                    } else {
-                        cout << "Neteisingas skaicius. Bandykite dar karta." << endl;
                     }
-                } while (pasirinkimas3 != 1 && pasirinkimas3 != 2 && pasirinkimas3 != 3 && pasirinkimas3 != 4);
+                
+                  } while (pasirinkimas3 != 1 && pasirinkimas3 != 2 && pasirinkimas3 != 3 && pasirinkimas3 != 4);
 
                 // Duomenu irasymas i faila "kursiokai.txt"
                 ofstream fileName1("isvedimas.txt");
