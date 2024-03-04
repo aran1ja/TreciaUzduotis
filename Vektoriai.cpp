@@ -20,6 +20,7 @@ int variantas_namu_darbas, variantas_studentas, pasirinkimas;
 double suma, vidurkis;
 int MAX_ND = 30;
 int MAX_STUDENTU = 30;
+string raide;
                 
 int main() {
 
@@ -148,12 +149,32 @@ int main() {
             cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
             cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
             cout << "Jusu pasirinkimas: ";
-            int pasirinkimas1 = Pasirinkimas1();
+            int pasirinkimas1;
 
-            while (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
-                cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
-                cout << "Spauskite 1, 2 arba 3. ";
-                pasirinkimas1 = Pasirinkimas1();
+            while (true) {
+                try {
+                    cin >> pasirinkimas1;
+
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                    }
+
+                    if (cin.fail()) {
+                        throw invalid_argument("Klaida. Ivestas netinkamas simbolis. Irasykite viena is nurodytu skaiciu.");
+                    }
+
+                    if (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
+                        throw invalid_argument("Klaida. Irasykite skaiciu (1, 2 arba 3).");
+                    }
+
+                    break;
+                } catch (const invalid_argument& pasirinkimo_klaida) {
+                    cout << pasirinkimo_klaida.what() << endl;
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                }
             }
 
             RezultatuVaizdavimas(studentai, pasirinkimas1);
@@ -167,7 +188,37 @@ int main() {
             srand(time(NULL));
 
             vector<Studentas> studentai;
-            int m = Studentai();
+            cout << "Kiek yra studentu? ";
+
+            while (true) {
+                try {
+
+                    cin >> m;
+                    
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                    }
+
+                    if (cin.fail()) {
+                        cin.clear(); 
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                        throw invalid_argument("Klaida. Iveskite tik studentu skaiciu.");
+                    }
+
+                    if(m <= 0) {
+                        throw invalid_argument("Netinkamas studentu skaicius. Bandykite ivesti kita skaiciu.");
+                    }
+
+                    break;
+
+                } catch (const invalid_argument& m_klaida) {
+                    cout << m_klaida.what() << endl;
+
+                }
+            }
+
             int n = rand() % (MAX_ND + 1);
             
             for (int i = 0; i < m; i++) {
@@ -204,12 +255,32 @@ int main() {
             cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
             cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
             cout << "Jusu pasirinkimas: ";
-            int pasirinkimas1 = Pasirinkimas1();
+            int pasirinkimas1;
 
-            while (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
-                cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
-                cout << "Spauskite 1, 2 arba 3. ";
-                pasirinkimas1 = Pasirinkimas1();
+            while (true) {
+                try {
+                    cin >> pasirinkimas1;
+
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                    }
+
+                    if (cin.fail()) {
+                        throw invalid_argument("Klaida. Ivestas netinkamas simbolis. Irasykite viena is nurodytu skaiciu.");
+                    }
+
+                    if (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
+                        throw invalid_argument("Klaida. Irasykite skaiciu (1, 2 arba 3).");
+                    }
+
+                    break;
+                } catch (const invalid_argument& pasirinkimo_klaida) {
+                    cout << pasirinkimo_klaida.what() << endl;
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                }
             }
 
             RezultatuVaizdavimas(studentai, pasirinkimas1);
@@ -267,12 +338,26 @@ int main() {
             cout << "Jeigu reikalinga mediana, spauskite 2." << endl;
             cout << "Jeigu reikalingas ir vidurkis, ir mediana, spauskite 3." << endl;
             cout << "Jusu pasirinkimas: ";
-            int pasirinkimas1 = Pasirinkimas1();
+            int pasirinkimas1;
 
-            while (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
-                cout << "Klaida. Bandykite ivesti reikiama skaiciu dar karta." << endl;
-                cout << "Spauskite 1, 2 arba 3. ";
-                pasirinkimas1 = Pasirinkimas1();
+            while (true) {
+                try {
+                    cin >> pasirinkimas1;
+
+                    if (cin.fail()) {
+                        throw invalid_argument("Klaida. Ivestas netinkamas simbolis. Irasykite viena is nurodytu skaiciu.");
+                    }
+
+                    if (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
+                        throw invalid_argument("Klaida. Irasykite skaiciu (1, 2 arba 3).");
+                    }
+
+                    break;
+                } catch (const invalid_argument& pasirinkimo_klaida) {
+                    cout << pasirinkimo_klaida.what() << endl;
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                }
             }
 
             RezultatuVaizdavimas(studentai, pasirinkimas1);
