@@ -59,66 +59,151 @@ int main() {
                 cout << "Irasykite " << m << " studento pavarde: "; cin >> naujas_studentas.pavarde;
 
                 cout << "Iveskite kiek namu darbu pazymiu norite ivesti. ";
-                int n = NamuDarbai();
+
+                while (true) {
+                try {
+
+                    cin >> n;
+                    
+                    if (cin.fail()) {
+                        cin.clear(); 
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                        throw invalid_argument("Klaida. Iveskite tik namu darbu skaiciu.");
+                    }
+
+                    if(n < 0) {
+                        throw invalid_argument("Netinkamas namu darbu skaicius. Bandykite ivesti kita skaiciu.");
+                    }
+
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                    }
+
+                    break;
+
+                } catch (const invalid_argument& n_klaida) {
+                    cout << n_klaida.what() << endl;
+                }
+            }
 
                 for (int j = 0; j < n; j++) {
                 int pazymiai;
-
-                    do {
-                        cout << "Studento pazymis uz " << j + 1 << " namu darba: ";
-                        pazymiai = Pazymiai();
-
-                        if (pazymiai > 10 || pazymiai < 1) {
-                            cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
-                        }
-                    } while (pazymiai > 10 || pazymiai < 1);
-
-                    naujas_studentas.pazymiai.push_back(pazymiai);
-                } 
+                
 
                 do {
+                    try {
+                        cout << "Studento pazymis uz " << j + 1 << " namu darba: ";
+                        cin >> pazymiai;
 
-                    cout << "Ar norite ivesti dar vieno namu darbo pazymi?\nJeigu ne, spauskite 0.\nJeigu taip, spauskite 1. ";
-                    variantas_studentas = VariantasNamuDarbas(); 
-
-                    while (variantas_studentas != 0 && variantas_studentas != 1) {
-                        cout << "Ivyko klaida. Bandykite ivesti kita skaiciu (0 arba 1). ";
-                        variantas_studentas = VariantasNamuDarbas();
-                    }
-
-                    if (variantas_studentas == 1) {
-                        n++;
-                        int pazymiai;
-
-                        
-                        cout << "Studento pazymis uz " << n << " namu darba: ";
-                        pazymiai = Pazymiai();
+                        if (cin.fail()) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            throw invalid_argument("Ivyko klaida. Prasau irasykite skaiciu.");
+                        }
 
                         if (pazymiai > 10 || pazymiai < 1) {
-                            cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
-                            cout << "Studento pazymis uz " << n << " namu darba: ";
-                            pazymiai = Pazymiai();
+                            throw invalid_argument("Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10.");
                         }
 
-                            naujas_studentas.pazymiai.push_back(pazymiai); // Pazymis pridedamas prie pazymiu vektoriu
+                        break;
 
-                            suma += pazymiai;
-                        }
-
-                        naujas_studentas.galutinis_vid = vidurkis_galutinis(suma, n, naujas_studentas.egzamino_rezultatas);
-                        naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
-                    
-                    
-                    } while (variantas_studentas != 0);
-
-                cout << "Studento egzamino rezultatas: ";
-                int rezultatas = EgzaminoRezultatas();
-
-                if (rezultatas > 10 || rezultatas < 1) {
-                        cout << "Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10." << endl;
-                        cout << "Studento egzamino rezultatas: ";
-                        rezultatas = EgzaminoRezultatas();
+                    } catch (const invalid_argument& pazymis_klaida) {
+                        cout << pazymis_klaida.what() << endl;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     }
+
+                } while (pazymiai > 10 || pazymiai < 1);
+
+                naujas_studentas.pazymiai.push_back(pazymiai); // Pazymis pridedamas prie pazymiu vektoriu
+            }
+
+
+            do {
+
+                cout << "Ar norite ivesti dar vieno namu darbo pazymi?\nJeigu ne, spauskite 0.\nJeigu taip, spauskite 1. ";
+                variantas_studentas = VariantasNamuDarbas(); 
+
+                while (variantas_studentas != 0 && variantas_studentas != 1) {                        
+                cout << "Ivyko klaida. Bandykite ivesti kita skaiciu (0 arba 1). ";
+                variantas_studentas = VariantasNamuDarbas();
+
+                    }
+
+                // Pridedamas dar vienas studentas
+                if (variantas_studentas == 1) {
+                    n++;
+                    int pazymiai;
+
+                    
+            while (true) {
+                try {
+
+                    cout << "Studento pazymis uz " << n << " namu darba: ";   
+                    cin >> pazymiai;
+
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        throw invalid_argument("Ivyko klaida. Prasau irasykite skaiciu.");
+                    }
+
+                    if (pazymiai > 10 || pazymiai < 1) {
+                        throw invalid_argument("Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10.");
+                    }
+
+                    naujas_studentas.pazymiai.push_back(pazymiai); // Pazymis pridedamas prie pazymiu vektoriu
+                    suma += pazymiai;
+                    break;
+
+                } catch (const invalid_argument& pazymiai_klaida) {
+                    cout << pazymiai_klaida.what() << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        
+                }   
+            }
+        }
+
+                naujas_studentas.galutinis_vid = vidurkis_galutinis(suma, n, naujas_studentas.egzamino_rezultatas);
+                naujas_studentas.mediana = mediana(naujas_studentas.pazymiai, naujas_studentas.egzamino_rezultatas);
+                    
+                    
+                } while (variantas_studentas != 0);
+
+                // Egzamino rezultatas
+                cout << "Studento egzamino rezultatas: ";
+                int rezultatas;
+
+                while (true) {
+                try {
+
+                    cin >> rezultatas;
+
+                    if (cin.fail()) {
+                        cin.clear(); 
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                        throw invalid_argument("Klaida. Iveskite tik studentu skaiciu.");
+                    }
+
+                    if (rezultatas > 10 || rezultatas < 1) {
+                        throw invalid_argument("Ivyko klaida. Prasau irasykite skaiciu nuo 1 iki 10.");
+                    }
+
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                    }
+
+                    break;
+
+                } catch (const invalid_argument& egz_klaida) {
+                    cout << egz_klaida.what() << endl;
+                }
+            }
 
                 naujas_studentas.egzamino_rezultatas = rezultatas;
 
@@ -155,25 +240,25 @@ int main() {
                 try {
                     cin >> pasirinkimas1;
 
-                    getline(cin, raide);
-
-                    if (!raide.empty()) {
-                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
-                    }
-
                     if (cin.fail()) {
                         throw invalid_argument("Klaida. Ivestas netinkamas simbolis. Irasykite viena is nurodytu skaiciu.");
+                        cin.clear(); 
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                     }
 
                     if (pasirinkimas1 != 1 && pasirinkimas1 != 2 && pasirinkimas1 != 3) {
                         throw invalid_argument("Klaida. Irasykite skaiciu (1, 2 arba 3).");
                     }
 
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                    }
+
                     break;
                 } catch (const invalid_argument& pasirinkimo_klaida) {
                     cout << pasirinkimo_klaida.what() << endl;
-                    cin.clear(); 
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                 }
             }
 
@@ -194,12 +279,6 @@ int main() {
                 try {
 
                     cin >> m;
-                    
-                    getline(cin, raide);
-
-                    if (!raide.empty()) {
-                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
-                    }
 
                     if (cin.fail()) {
                         cin.clear(); 
@@ -209,6 +288,12 @@ int main() {
 
                     if(m <= 0) {
                         throw invalid_argument("Netinkamas studentu skaicius. Bandykite ivesti kita skaiciu.");
+                    }
+
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
                     }
 
                     break;
@@ -261,13 +346,9 @@ int main() {
                 try {
                     cin >> pasirinkimas1;
 
-                    getline(cin, raide);
-
-                    if (!raide.empty()) {
-                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
-                    }
-
                     if (cin.fail()) {
+                        cin.clear(); 
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
                         throw invalid_argument("Klaida. Ivestas netinkamas simbolis. Irasykite viena is nurodytu skaiciu.");
                     }
 
@@ -275,11 +356,15 @@ int main() {
                         throw invalid_argument("Klaida. Irasykite skaiciu (1, 2 arba 3).");
                     }
 
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                    }
+
                     break;
                 } catch (const invalid_argument& pasirinkimo_klaida) {
                     cout << pasirinkimo_klaida.what() << endl;
-                    cin.clear(); 
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                 }
             }
 
@@ -345,6 +430,8 @@ int main() {
                     cin >> pasirinkimas1;
 
                     if (cin.fail()) {
+                        cin.clear(); 
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
                         throw invalid_argument("Klaida. Ivestas netinkamas simbolis. Irasykite viena is nurodytu skaiciu.");
                     }
 
@@ -352,11 +439,15 @@ int main() {
                         throw invalid_argument("Klaida. Irasykite skaiciu (1, 2 arba 3).");
                     }
 
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                    }
+
                     break;
                 } catch (const invalid_argument& pasirinkimo_klaida) {
                     cout << pasirinkimo_klaida.what() << endl;
-                    cin.clear(); 
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                 }
             }
 
