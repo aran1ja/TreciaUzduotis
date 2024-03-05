@@ -39,7 +39,7 @@ void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaiciu
     file << setw(5) << left << "Egz." << endl;
 
     // Generuojami irasai
-    for (int i = 1; i <= studentuSkaicius; i++) {
+    for (int i = 0; i <= studentuSkaicius; i++) {
         file << "Vardas" << setw(10) << left << i + 1 << "Pavarde" << setw(10) << left << i + 1;
 
         // Generuojamas atsitiktiniai namu darbu pazymiai
@@ -66,48 +66,80 @@ double skaiciuotiGalutiniPazymi(double vidurkis, int egzaminas) {
     return 0.4 * vidurkis + 0.6 * egzaminas;
 }
 
-void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietiakiuFailoPavadinimas) {
-    ifstream failas(failoPavadinimas);
-    ofstream vargsiukuFailas(vargsiukuFailoPavadinimas);
-    ofstream kietiakuFailas(kietiakiuFailoPavadinimas);
-
-    if (!failas.is_open() || !vargsiukuFailas.is_open() || !kietiakuFailas.is_open()) {
+void issaugotiFaila(const vector<Studentas>& studentai, string failoPavadinimas) {
+    ofstream file(failoPavadinimas);
+    
+    if (!file.is_open()) {
         cout << "Nepavyko atidaryti failo " << failoPavadinimas << endl;
         return;
     }
 
-    string eilute;
-    while (getline(failas, eilute)) {
-        string vardas, pavarde;
-        vector<int> pazymiai;
-        int egzaminas;
+    file << setw(15) << left << "Vardas" << setw(15) << left << "Pavarde" << setw(20) << "Galutinis (Vid.)" << endl;
+    file << "--------------------------------------------------------" << endl;
+    for (const auto& studentas : studentai) {
+        file << setw(15) << left << studentas.vardas << setw(15) << studentas.pavarde << setw(20) << fixed << setprecision(2) << studentas.galutinis_vid << endl;
+    }
 
-        istringstream iss(eilute);
-        iss >> vardas >> pavarde;
-        
-        int pazymys;
-        while (iss >> pazymys) {
-            pazymiai.push_back(pazymys);
+    file.close();
+}
+
+void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas) {
+    ifstream fileName(failoPavadinimas);
+    vector<Studentas> vargsiukai;
+    vector<Studentas> kietiakai;
+
+    string eilute;
+
+    if (!fileName.is_open()) {
+        cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+        return;
+    }
+
+    int skaicius = 0;
+    string smth;
+
+    // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
+    while (smth != "Egz.") {
+        fileName >> smth;
+        skaicius++;
+    }
+
+    skaicius = skaicius - 3; // Istrinamos pirmos eilutes nereikalingi skaiciai
+
+    // Neskaitoma pirma eilute is failo
+    getline(fileName, eilute);
+
+    while (getline(fileName, eilute)) {
+        stringstream ss(eilute);
+        Studentas naujas_studentas;
+        int pazymiai, suma = 0;
+        ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
+
+        for (int i = 0; i < skaicius; i++) {
+            ss >> pazymiai;
+            naujas_studentas.pazymiai.push_back(pazymiai);
+            suma += pazymiai;
         }
 
-        egzaminas = pazymiai.back();
-        pazymiai.pop_back();
+        // Egzamino rezultatas
+        ss >> naujas_studentas.egzamino_rezultatas;
 
-        double vidurkis = skaiciuotiVidurki(pazymiai);
+        // Galutinio vidurkio skaiciavimas
+        naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        // Skaiciuojamas galutinis pazymis
-        double galutinisPazymis = skaiciuotiGalutiniPazymi(vidurkis, egzaminas);
-    
-        if (galutinisPazymis < 5.0) {
-            vargsiukuFailas << vardas << setw(12) << pavarde << setw(12) << fixed << setprecision(2) << galutinisPazymis << endl;
+        // Studento pridėjimas į atitinkamą konteinerį
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
         } else {
-            kietiakuFailas << vardas << setw(12) << pavarde << setw(12) << fixed << setprecision(2) << galutinisPazymis << endl;
+            kietiakai.push_back(naujas_studentas);
         }
     }
 
-    failas.close();
-    vargsiukuFailas.close();
-    kietiakuFailas.close();
+    fileName.close();
+
+    // Issaugome vargsiukus ir kietakius atskiruose failuose
+    issaugotiFaila(vargsiukai, vargsiukuFailoPavadinimas);
+    issaugotiFaila(kietiakai, kietakiuFailoPavadinimas);
 }
                 
 int main() {
@@ -724,6 +756,9 @@ int main() {
             case 5:
             {
                 srand(time(0)); // Nustatomas atsitiktinių skaičių generatoriaus pradinis taškas
+
+                vector<Studentas> vargsiukai;
+                vector<Studentas> kietiakai;
 
                 generuotiFaila("studentu1000.txt", 5, 1000);
                 nuskaitytiFaila("studentu1000.txt", "vargsiukai1000.txt", "kietiakiai1000.txt");
