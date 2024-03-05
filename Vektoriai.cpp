@@ -145,8 +145,8 @@ void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, 
         visasLaikas += skaiciuojam;
     }
 
-        cout << "Duomenu nuskaitymo is failo laikas: " << nuskaitymoLaikas << "s" << endl;    
-        cout << "Studentu rusiavimo i dvi grupes laikas: " << visasLaikas << "s" << endl;
+        cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
+        cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
 
     fileName.close();
 
@@ -158,13 +158,13 @@ void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, 
 
     auto laikas2 = chrono::steady_clock::now();
     auto laiku1_2_skirtumas = chrono::duration<double> (laikas2 - laikas1).count();
-    cout << "Surusiuotu studentu isvedimo i naujus failus laikas: " << laiku1_2_skirtumas << "s" << endl;
+    cout << "Surusiuotu studentu isvedimo i naujus failus laikas: " << fixed << setprecision(4) << laiku1_2_skirtumas << "s" << endl;
 
 }
                 
 int main() {
 
-    vector <Studentas> studentai;
+    vector<Studentas> studentai;
 
     while (true) {
 
@@ -775,8 +775,6 @@ int main() {
             // Menu 5 - failai generuojami ir duomenys rusiuojami
             case 5:
             {
-                vector<int> studentai;
-                studentai.reserve(1000000);
 
                 /*cout << "---------------------------------------------------------------------" << endl;
                 cout << "1000 studentu failas" << endl;
@@ -785,7 +783,7 @@ int main() {
                 nuskaitytiFaila("studentu1000.txt", "vargsiukai1000.txt", "kietiakiai1000.txt");
                 auto pabaiga1 = chrono::steady_clock::now();
                 auto skirtumas1 = chrono::duration <double> (pabaiga1 - pradzia1).count();
-                cout << "Visos programos veikimo laikas: " << skirtumas1 << "s" << endl;
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas1 << "s" << endl;
 
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "10000 studentu failas" << endl;
@@ -794,7 +792,7 @@ int main() {
                 nuskaitytiFaila("studentu10000.txt", "vargsiukai10000.txt", "kietiakiai10000.txt");
                 auto pabaiga2 = chrono::steady_clock::now();
                 auto skirtumas2 = chrono::duration <double> (pabaiga2 - pradzia2).count();
-                cout << "Visos programos veikimo laikas: " << skirtumas2 << "s" << endl;
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas2 << "s" << endl;
 
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "100000 studentu failas" << endl;
@@ -803,8 +801,8 @@ int main() {
                 nuskaitytiFaila("studentu100000.txt", "vargsiukai100000.txt", "kietiakiai100000.txt");
                 auto pabaiga3 = chrono::steady_clock::now();
                 auto skirtumas3 = chrono::duration <double> (pabaiga3 - pradzia3).count();
-                cout << "Visos programos veikimo laikas: " << skirtumas3 << "s" << endl;
-               */
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas3 << "s" << endl;
+               
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "1000000 studentu failas" << endl;
                 auto pradzia4 = chrono::steady_clock::now();
@@ -812,7 +810,7 @@ int main() {
                 nuskaitytiFaila("studentu1000000.txt", "vargsiukai1000000.txt", "kietiakiai1000000.txt");
                 auto pabaiga4 = chrono::steady_clock::now();
                 auto skirtumas4 = chrono::duration <double> (pabaiga4 - pradzia4).count();
-                cout << "Visos programos veikimo laikas: " << skirtumas4 << "s" << endl;
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas4 << "s" << endl;
 
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "10000000 studentu failas" << endl;
@@ -821,52 +819,52 @@ int main() {
                 nuskaitytiFaila("studentu10000000.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
                 auto pabaiga5 = chrono::steady_clock::now();
                 auto skirtumas5 = chrono::duration <double> (pabaiga5 - pradzia5).count();
-                cout << "Visos programos veikimo laikas: " << skirtumas5 << "s" << endl;
-
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas5 << "s" << endl;
+*/
                 cout << "---------------------------------------------------------------------";
-                cout << "Anksciau sugeneruoti failai.";
+                cout << "Anksciau sugeneruoti failai";
                 cout << "---------------------------------------------------------------------" << endl;
 
                 cout << "studentai10000.txt failas" << endl;
                 auto pradzia6 = chrono::steady_clock::now();
-                nuskaitytiFaila("studentai10000.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
+                nuskaitytiFaila("studentai10000.txt", "2vargsiukai10000.txt", "2kietiakiai10000.txt");
                 auto pabaiga6 = chrono::steady_clock::now();
                 auto skirtumas6 = chrono::duration <double> (pabaiga6 - pradzia6).count();
-                cout << "Visos programos veikimo laikas: " << skirtumas6 << "s" << endl;
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas6 << "s" << endl;
 
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "studentai100000.txt failas" << endl;
                 auto pradzia7 = chrono::steady_clock::now();
-                nuskaitytiFaila("studentai100000.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
+                nuskaitytiFaila("studentai100000.txt", "2vargsiukai100000.txt", "2kietiakiai100000.txt");
                 auto pabaiga7 = chrono::steady_clock::now();
                 auto skirtumas7 = chrono::duration <double> (pabaiga7 - pradzia7).count();
-                cout << "Visos programos veikimo laikas: " << skirtumas7 << "s" << endl;
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas7 << "s" << endl;
 
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "studentai1000000.txt failas" << endl;
                 auto pradzia8 = chrono::steady_clock::now();
-                nuskaitytiFaila("studentai1000000.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
+                nuskaitytiFaila("studentai1000000.txt", "2vargsiukai1000000.txt", "2kietiakiai1000000.txt");
                 auto pabaiga8 = chrono::steady_clock::now();
                 auto skirtumas8 = chrono::duration <double> (pabaiga8 - pradzia8).count();
-                cout << "Visos programos veikimo laikas: " << skirtumas8 << "s" << endl;
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas8 << "s" << endl;
 
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "kursiokai.txt failas" << endl;
                 auto pradzia9 = chrono::steady_clock::now();
-                nuskaitytiFaila("kursiokai.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
+                nuskaitytiFaila("kursiokai.txt", "kursiokai_vargsiukai.txt", "kursiokai_kietiakiai.txt");
                 auto pabaiga9 = chrono::steady_clock::now();
                 auto skirtumas9 = chrono::duration <double> (pabaiga9 - pradzia9).count();
-                cout << "Visos programos veikimo laikas: " << skirtumas9 << "s" << endl;
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas9 << "s" << endl;
 
                 cout << "---------------------------------------------------------------------";
-                cout << "Laiku vidurkiai.";
+                cout << "Laiku vidurkiai";
                 cout << "---------------------------------------------------------------------" << endl;
 
                 int anksciauSugeneruotuFailuVidurkis = (skirtumas6 + skirtumas7 + skirtumas8 + skirtumas9) / 4;
                 //int sugeneruotuFailuVidurkis = (skirtumas1 + skirtumas2 + skirtumas3 + skirtumas4 + skirtumas5 + skirtumas6 + skirtumas7 + skirtumas8 + skirtumas9) / 9;
                 
-                cout << "Anksciau sugeneruotu failu laiku vidurkis: " << anksciauSugeneruotuFailuVidurkis << "s" << endl;
-                //cout << "Visu failu laiku vidurkis yra: " << sugeneruotuFailuVidurkis << "s" << endl;
+                cout << "Anksciau sugeneruotu failu laiku vidurkis: " << fixed << setprecision(4) << anksciauSugeneruotuFailuVidurkis << "s" << endl;
+                //cout << "Visu failu laiku vidurkis yra: " << fixed << setprecision(4) << sugeneruotuFailuVidurkis << "s" << endl;
 
                break;
             }
