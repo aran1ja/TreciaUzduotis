@@ -22,30 +22,93 @@ int MAX_ND = 30;
 int MAX_STUDENTU = 30;
 string raide;
 
-void studentuRusiavimas(const vector<Studentas>& studentai, vector<Studentas>& vargsiukai, vector<Studentas>& kietiakiai) {
-    for (const auto& studentas : studentai) {
-        if(studentas.galutinis_vid < 5.0) {
-            vargsiukai.push_back(studentas);
+void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaicius) {
+    ofstream file(failoPavadinimas);
+
+    if (!file.is_open()) {
+        cout << "Nepavyko atidaryti failo " << failoPavadinimas << endl;
+        return;
+    }
+
+    file << setw(16) << left << "Vardas" << setw(17) << left << "Pavarde";
+
+    for (int i = 1; i <= ndSkaicius; i++) {
+        file << setw(5) << left << "ND" + to_string(i);
+    }
+
+    file << setw(5) << left << "Egz." << endl;
+
+    // Generuojami irasai
+    for (int i = 1; i <= studentuSkaicius; i++) {
+        file << "Vardas" << setw(10) << left << i + 1 << "Pavarde" << setw(10) << left << i + 1;
+
+        // Generuojamas atsitiktiniai namu darbu pazymiai
+        for (int j = 0; j < ndSkaicius; j++) {
+                file << setw(5) << rand() % 10 + 1;
+        }
+
+        // Egzamino rezultatas
+        file << setw(5) << rand() % 11 << endl;
+    }
+
+    file.close();
+}
+
+double skaiciuotiVidurki(vector<int>& pazymiai) {
+    int suma = 0.0;
+    for (int pazymys : pazymiai) {
+        suma += pazymys;
+    }
+    return suma / pazymiai.size();
+}
+
+double skaiciuotiGalutiniPazymi(double vidurkis, int egzaminas) {
+    return 0.4 * vidurkis + 0.6 * egzaminas;
+}
+
+void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietiakiuFailoPavadinimas) {
+    ifstream failas(failoPavadinimas);
+    ofstream vargsiukuFailas(vargsiukuFailoPavadinimas);
+    ofstream kietiakuFailas(kietiakiuFailoPavadinimas);
+
+    if (!failas.is_open() || !vargsiukuFailas.is_open() || !kietiakuFailas.is_open()) {
+        cout << "Nepavyko atidaryti failo " << failoPavadinimas << endl;
+        return;
+    }
+
+    string eilute;
+    while (getline(failas, eilute)) {
+        string vardas, pavarde;
+        vector<int> pazymiai;
+        int egzaminas;
+
+        istringstream iss(eilute);
+        iss >> vardas >> pavarde;
+        
+        int pazymys;
+        while (iss >> pazymys) {
+            pazymiai.push_back(pazymys);
+        }
+
+        egzaminas = pazymiai.back();
+        pazymiai.pop_back();
+
+        double vidurkis = skaiciuotiVidurki(pazymiai);
+
+        // Skaiciuojamas galutinis pazymis
+        double galutinisPazymis = skaiciuotiGalutiniPazymi(vidurkis, egzaminas);
+    
+        if (galutinisPazymis < 5.0) {
+            vargsiukuFailas << vardas << setw(12) << pavarde << setw(12) << fixed << setprecision(2) << galutinisPazymis << endl;
         } else {
-            kietiakiai.push_back(studentas);
+            kietiakuFailas << vardas << setw(12) << pavarde << setw(12) << fixed << setprecision(2) << galutinisPazymis << endl;
         }
     }
+
+    failas.close();
+    vargsiukuFailas.close();
+    kietiakuFailas.close();
 }
-
-void studentuIrasymasIFaila(const vector<Studentas>& studentai, const string& failoPavadinimas) {
-    ofstream files(failoPavadinimas);
-
-    files << setw(10) << left << "Vardas" << setw(10) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << endl;
-
-    for(const auto& studentas : studentai) {
-        files << setw(10) << left << studentas.vardas << setw(10) << left << studentas.pavarde << setw(20) << left << fixed << setprecision(2) << studentas.galutinis_vid << endl;
-
-    }
-
-    files.close();
-}
-
-
                 
 int main() {
 
@@ -660,23 +723,21 @@ int main() {
             // Menu 5 - failai generuojami ir duomenys rusiuojami
             case 5:
             {
-                vector<Studentas> studentai;
+                srand(time(0)); // Nustatomas atsitiktinių skaičių generatoriaus pradinis taškas
 
-                generuotiFaila("studentu1000.txt", 15, 1000);
-                generuotiFaila("studentu10000.txt", 10, 10000);
-                generuotiFaila("studentu100000.txt", 7, 100000);
-                //generuotiFaila("studentu1000000.txt", 3, 1000000);
-                //generuotiFaila("studentu10000000.txt", 1, 10000000);
+                generuotiFaila("studentu1000.txt", 5, 1000);
+                nuskaitytiFaila("studentu1000.txt", "vargsiukai1000.txt", "kietiakiai1000.txt");
+                generuotiFaila("studentu10000.txt", 5, 10000);
+                nuskaitytiFaila("studentu10000.txt", "vargsiukai10000.txt", "kietiakiai10000.txt");
+                //generuotiFaila("studentu100000.txt", 5, 100000);
+                //generuotiFaila("studentu1000000.txt", 5, 1000000);
+                //generuotiFaila("studentu10000000.txt", 5, 10000000);
 
-                vector<Studentas> vargsiukai;
-                vector<Studentas> kietiakiai;
 
-                // Daliname studentus i dvi grupes
-                studentuRusiavimas(studentai, vargsiukai, kietiakiai);
 
-                // Irasome studentus i dvi kategorijas
-                studentuIrasymasIFaila(vargsiukai, "vargsiukai.txt");
-                studentuIrasymasIFaila(kietiakiai, "kietiakiai.txt");
+                //nuskaitytiFaila("studentu100000.txt", "vargsiukai100000.txt", "kietiakiai100000.txt");
+                //nuskaitytiFaila("studentu1000000.txt", "vargsiukai1000000.txt", "kietiakiai1000000.txt");
+                //nuskaitytiFaila("studentu10000000.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
 
             }
 
