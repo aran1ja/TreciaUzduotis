@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <sstream>
+#include <fstream>
 
 // Mediana
 double mediana(vector<int> pazymiai, int egzamino_rezultatas) {
@@ -99,6 +100,7 @@ int Menu() {
 }
 
 void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1) {
+
         switch (pasirinkimas1) {
             case 1:
                 cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
@@ -129,5 +131,37 @@ void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1
                 }
                 break;
         } 
+}
+
+void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaicius) {
+    ofstream file(failoPavadinimas);
+
+    if (!file.is_open()) {
+        cout << "Nepavyko atidaryti failo " << failoPavadinimas << endl;
+        return;
+    }
+
+    file << setw(16) << left << "Vardas" << setw(17) << left << "Pavarde";
+
+    for (int i = 1; i <= ndSkaicius; i++) {
+        file << setw(5) << left << "ND" + to_string(i);
+    }
+
+    file << setw(5) << left << "Egz." << endl;
+
+    // Generuojami irasai
+    for (int i = 0; i <= studentuSkaicius; i++) {
+        file << "Vardas" << setw(10) << left << i + 1 << "Pavarde" << setw(10) << left << i + 1;
+
+        // Generuojamas atsitiktiniai namu darbu pazymiai
+        for (int j = 0; j < ndSkaicius; j++) {
+                file << setw(5) << rand() % 10 + 1;
+        }
+
+        // Egzamino rezultatas
+        file << setw(5) << rand() % 11 << endl;
+    }
+
+    file.close();
 }
  
