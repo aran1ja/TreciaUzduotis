@@ -21,6 +21,31 @@ double suma, vidurkis;
 int MAX_ND = 30;
 int MAX_STUDENTU = 30;
 string raide;
+
+void studentuRusiavimas(const vector<Studentas>& studentai, vector<Studentas>& vargsiukai, vector<Studentas>& kietiakiai) {
+    for (const auto& studentas : studentai) {
+        if(studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(studentas);
+        } else {
+            kietiakiai.push_back(studentas);
+        }
+    }
+}
+
+void studentuIrasymasIFaila(const vector<Studentas>& studentai, const string& failoPavadinimas) {
+    ofstream files(failoPavadinimas);
+
+    files << setw(10) << left << "Vardas" << setw(10) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << endl;
+
+    for(const auto& studentas : studentai) {
+        files << setw(10) << left << studentas.vardas << setw(10) << left << studentas.pavarde << setw(20) << left << fixed << setprecision(2) << studentas.galutinis_vid << endl;
+
+    }
+
+    files.close();
+}
+
+
                 
 int main() {
 
@@ -635,13 +660,23 @@ int main() {
             // Menu 5 - failai generuojami ir duomenys rusiuojami
             case 5:
             {
-                cout << "" << endl;
+                vector<Studentas> studentai;
+
                 generuotiFaila("studentu1000.txt", 15, 1000);
                 generuotiFaila("studentu10000.txt", 10, 10000);
                 generuotiFaila("studentu100000.txt", 7, 100000);
-                generuotiFaila("studentu1000000.txt", 3, 1000000);
-                generuotiFaila("studentu10000000.txt", 1, 10000000);
+                //generuotiFaila("studentu1000000.txt", 3, 1000000);
+                //generuotiFaila("studentu10000000.txt", 1, 10000000);
 
+                vector<Studentas> vargsiukai;
+                vector<Studentas> kietiakiai;
+
+                // Daliname studentus i dvi grupes
+                studentuRusiavimas(studentai, vargsiukai, kietiakiai);
+
+                // Irasome studentus i dvi kategorijas
+                studentuIrasymasIFaila(vargsiukai, "vargsiukai.txt");
+                studentuIrasymasIFaila(kietiakiai, "kietiakiai.txt");
 
             }
 
