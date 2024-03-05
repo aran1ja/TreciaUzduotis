@@ -78,9 +78,6 @@ void issaugotiFaila(const vector<Studentas>& studentai, string failoPavadinimas)
 }
 
 void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas) {
-
-    auto ppradzia = chrono::steady_clock::now();
-
     ifstream fileName(failoPavadinimas);
 
     // Padaromi 2 nauji konteineriai
@@ -96,6 +93,8 @@ void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, 
 
     int skaicius = 0;
     string smth;
+    double visasLaikas = 0.0;
+    double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
     while (smth != "Egz.") {
@@ -109,6 +108,9 @@ void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, 
     getline(fileName, eilute);
 
     while (getline(fileName, eilute)) {
+
+        auto ppradzia = chrono::steady_clock::now();
+
         stringstream ss(eilute);
         Studentas naujas_studentas;
         int pazymiai, suma = 0;
@@ -122,10 +124,9 @@ void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, 
 
         // Egzamino rezultatas
         ss >> naujas_studentas.egzamino_rezultatas;
-
         auto ppabaiga = chrono::steady_clock::now();
         auto sskirtumas = chrono::duration <double> (ppabaiga - ppradzia).count();
-        cout << "Duomenu nuskaitymo is failo laikas: " << sskirtumas << "s" << endl;
+        nuskaitymoLaikas += sskirtumas;
 
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
@@ -141,8 +142,11 @@ void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, 
 
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
-        cout << "Studentu rusiavimo i dvi grupes laikas: " << skaiciuojam << "s" << endl;
+        visasLaikas += skaiciuojam;
     }
+
+        cout << "Duomenu nuskaitymo is failo laikas: " << nuskaitymoLaikas << "s" << endl;    
+        cout << "Studentu rusiavimo i dvi grupes laikas: " << visasLaikas << "s" << endl;
 
     fileName.close();
 
@@ -154,7 +158,7 @@ void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, 
 
     auto laikas2 = chrono::steady_clock::now();
     auto laiku1_2_skirtumas = chrono::duration<double> (laikas2 - laikas1).count();
-    cout << "Surusiuotu studentu išvedimo i naujus failus laikas: " << laiku1_2_skirtumas << "s" << endl;
+    cout << "Surusiuotu studentu isvedimo i naujus failus laikas: " << laiku1_2_skirtumas << "s" << endl;
 
 }
                 
@@ -814,6 +818,7 @@ int main() {
                 auto pabaiga5 = chrono::steady_clock::now();
                 auto skirtumas5 = chrono::duration <double> (pabaiga5 - pradzia5).count();
                 cout << "Visos programos veikimo laikas: " << skirtumas5 << "s" << endl;
+                cout << "---------------------------------------------------------------------" << endl;
                 */
 
                break;
