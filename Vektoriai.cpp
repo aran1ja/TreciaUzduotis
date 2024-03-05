@@ -54,18 +54,6 @@ void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaiciu
     file.close();
 }
 
-double skaiciuotiVidurki(vector<int>& pazymiai) {
-    int suma = 0.0;
-    for (int pazymys : pazymiai) {
-        suma += pazymys;
-    }
-    return suma / pazymiai.size();
-}
-
-double skaiciuotiGalutiniPazymi(double vidurkis, int egzaminas) {
-    return 0.4 * vidurkis + 0.6 * egzaminas;
-}
-
 void issaugotiFaila(const vector<Studentas>& studentai, string failoPavadinimas) {
     ofstream file(failoPavadinimas);
     
@@ -85,6 +73,8 @@ void issaugotiFaila(const vector<Studentas>& studentai, string failoPavadinimas)
 
 void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
+
+    // Padaromi 2 nauji konteineriai
     vector<Studentas> vargsiukai;
     vector<Studentas> kietiakai;
 
@@ -755,25 +745,18 @@ int main() {
             // Menu 5 - failai generuojami ir duomenys rusiuojami
             case 5:
             {
-                srand(time(0)); // Nustatomas atsitiktinių skaičių generatoriaus pradinis taškas
-
-                vector<Studentas> vargsiukai;
-                vector<Studentas> kietiakai;
-
                 generuotiFaila("studentu1000.txt", 5, 1000);
                 nuskaitytiFaila("studentu1000.txt", "vargsiukai1000.txt", "kietiakiai1000.txt");
                 generuotiFaila("studentu10000.txt", 5, 10000);
                 nuskaitytiFaila("studentu10000.txt", "vargsiukai10000.txt", "kietiakiai10000.txt");
-                //generuotiFaila("studentu100000.txt", 5, 100000);
-                //generuotiFaila("studentu1000000.txt", 5, 1000000);
-                //generuotiFaila("studentu10000000.txt", 5, 10000000);
-
-
-
-                //nuskaitytiFaila("studentu100000.txt", "vargsiukai100000.txt", "kietiakiai100000.txt");
-                //nuskaitytiFaila("studentu1000000.txt", "vargsiukai1000000.txt", "kietiakiai1000000.txt");
-                //nuskaitytiFaila("studentu10000000.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
-
+                /*
+                generuotiFaila("studentu100000.txt", 5, 100000);
+                nuskaitytiFaila("studentu100000.txt", "vargsiukai100000.txt", "kietiakiai100000.txt");
+                generuotiFaila("studentu1000000.txt", 5, 1000000);
+                nuskaitytiFaila("studentu1000000.txt", "vargsiukai1000000.txt", "kietiakiai1000000.txt");
+                generuotiFaila("studentu10000000.txt", 5, 10000000);
+                nuskaitytiFaila("studentu10000000.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
+                */
             }
 
             // Menu 6 - darbas baigiamas
