@@ -30,6 +30,8 @@ void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaiciu
         return;
     }
 
+    auto pradzios_laikas = chrono::steady_clock::now();
+
     file << setw(16) << left << "Vardas" << setw(17) << left << "Pavarde";
 
     for (int i = 1; i <= ndSkaicius; i++) {
@@ -52,6 +54,10 @@ void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaiciu
     }
 
     file.close();
+
+    auto pabaigos_laikas = chrono::steady_clock::now();
+    auto laiko_skirtumas = chrono::duration <double> (pabaigos_laikas - pradzios_laikas).count();
+    cout << "Failo kurimo ir uzdarymo laikas: " << laiko_skirtumas << "s" << endl;
 }
 
 void issaugotiFaila(const vector<Studentas>& studentai, string failoPavadinimas) {
@@ -745,15 +751,24 @@ int main() {
             // Menu 5 - failai generuojami ir duomenys rusiuojami
             case 5:
             {
+                cout << "1000 studentu failas" << endl;
                 generuotiFaila("studentu1000.txt", 5, 1000);
                 nuskaitytiFaila("studentu1000.txt", "vargsiukai1000.txt", "kietiakiai1000.txt");
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "10000 studentu failas" << endl;
                 generuotiFaila("studentu10000.txt", 5, 10000);
                 nuskaitytiFaila("studentu10000.txt", "vargsiukai10000.txt", "kietiakiai10000.txt");
                 /*
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "100000 studentu failas" << endl;
                 generuotiFaila("studentu100000.txt", 5, 100000);
                 nuskaitytiFaila("studentu100000.txt", "vargsiukai100000.txt", "kietiakiai100000.txt");
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "1000000 studentu failas" << endl;
                 generuotiFaila("studentu1000000.txt", 5, 1000000);
                 nuskaitytiFaila("studentu1000000.txt", "vargsiukai1000000.txt", "kietiakiai1000000.txt");
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "10000000 studentu failas" << endl;
                 generuotiFaila("studentu10000000.txt", 5, 10000000);
                 nuskaitytiFaila("studentu10000000.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
                 */
