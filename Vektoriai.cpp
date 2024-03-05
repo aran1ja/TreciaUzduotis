@@ -21,31 +21,6 @@ double suma, vidurkis;
 int MAX_ND = 30;
 int MAX_STUDENTU = 30;
 string raide;
-
-void generuotiFaila(string failoPavadinimas, int irasuSkaicius) {
-    ofstream outFile(failoPavadinimas);
-
-    if (!outFile.is_open()) {
-        cout << "Klaida. Nepavyko atidaryti failo " << failoPavadinimas << endl;
-        return;
-    }
-
-    // Generuojami irasai
-    for (int i = 1; i <= irasuSkaicius; i++) {
-        outFile << "Vardas" << i << " Pavarde" << i << " ND" << i << " Egz.";
-
-        // Generuojami atsitiktiniai pazymiai
-        int pazymiuKiekis = rand() % 20 + 1;
-        for (int j = 0; j < pazymiuKiekis; j++) {
-            outFile << rand() % 11 << " ";
-        }
-
-        // Egzamino rezultatas
-        outFile << rand() % 11 << endl;
-    }
-
-    outFile.close();
-}
                 
 int main() {
 
@@ -661,11 +636,13 @@ int main() {
             case 5:
             {
                 cout << "" << endl;
-                generuotiFaila("studentu1000.txt", 1000);
-                generuotiFaila("studentu10000.txt", 10000);
-                generuotiFaila("studentu100000.txt", 100000);
-                generuotiFaila("studentu1000000.txt", 1000000);
-                generuotiFaila("studentu10000000.txt", 10000000);
+                generuotiFaila("studentu1000.txt", 15, 1000);
+                generuotiFaila("studentu10000.txt", 10, 10000);
+                generuotiFaila("studentu100000.txt", 7, 100000);
+                generuotiFaila("studentu1000000.txt", 3, 1000000);
+                generuotiFaila("studentu10000000.txt", 1, 10000000);
+
+
             }
 
             // Menu 6 - darbas baigiamas
