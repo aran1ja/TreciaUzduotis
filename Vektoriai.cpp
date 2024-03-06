@@ -21,10 +21,10 @@ double suma, vidurkis;
 int MAX_ND = 30;
 int MAX_STUDENTU = 30;
 string raide;
-                
+             
 int main() {
 
-    vector <Studentas> studentai;
+    vector<Studentas> studentai;
 
     while (true) {
 
@@ -34,13 +34,35 @@ int main() {
         cout << "2. Studento duomenys ivedami ranka, o pazymiai generuojami programos. " << endl;
         cout << "3. Visa informacija yra programos generuojama." << endl;
         cout << "4. Nuskaityti duomenis is failo. " << endl;
-        cout << "5. Baigti darba." << endl;
+        cout << "5. Generuoti failus ir surusiuoti duomenis." << endl;
+        cout << "6. Baigti darba." << endl;
         cout << "Jusu pasirinkimas: "; 
-        int menu = Menu();
+
+        try {
+
+            cin >> menu;                  
+        
+                if (cin.fail() || cin.peek() != '\n' || menu < 1 || menu > 6) {
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    throw invalid_argument("Ivestas netinkamas simbolis.");
+
+                }
+                    getline(cin, raide);
+
+                if (!raide.empty()) {
+                    throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                }
+
+    
+
+        } catch (const invalid_argument& iu) {
+            cout << iu.what() << endl;
+        }
 
         switch (menu) {
 
-            // Menu 1
+            // Menu 1 - duomenys ivedami ranka
             case 1:
             {
                 
@@ -297,7 +319,7 @@ int main() {
             break;
             } 
 
-            // Menu 2
+            // Menu 2 - duomenys ivedami ranka, pazymiai generuojami programos
             case 2:
             {
 
@@ -403,7 +425,7 @@ int main() {
             break;
             }
 
-            // Menu 3
+            // Menu 3 - duomenys generuojami programos
             case 3:
             {
 
@@ -486,10 +508,10 @@ int main() {
             break;
             }
 
-            // Menu 4
+            // Menu 4 - duomenys nuskaitomi is failu
             case 4: 
             {
-            int skaicius = 0;
+            
             string smth;
             string failas;                
             vector<double> laikai;
@@ -503,8 +525,7 @@ int main() {
             cout << "3. studentai1000000.txt" << endl;
             cout << "4. kursiokai.txt" << endl;
             cout << "0. Pabaigti." << endl;
-            cout << "Jusu pasirinkimas: "; 
-            pasirinkimas2 = Pasirinkimas2();
+            cout << "Jusu pasirinkimas: "; cin >> pasirinkimas2;
 
             if(pasirinkimas2 == 1) {
                 failas = "studentai10000.txt";
@@ -530,28 +551,20 @@ int main() {
             ifstream fileName(failas);
             string eilute;
 
-            // Exception handling 1
-            try {
-                if (!fileName.is_open()) 
-                throw runtime_error("Nepavyko atidaryti failo. Bandykite dar karta.");
-            
-            } catch (const runtime_error& klaida) {
-                cout << klaida.what() << endl;
-                break;
+            if (!fileName.is_open()) {
+                cout << "Nepavyko atidaryti failo. Bandykite dar karta." << endl;
+                return 0;
             }
 
             auto start = chrono::steady_clock::now();
+            int skaicius = 0;
 
             while (smth != "Egz.") {
                 fileName >> smth;
-
                 skaicius++;
             }
 
             skaicius = skaicius - 3;
-
-            // Exception handling 2
-            try {
 
                 // Neskaitoma pirma eilute is failo
                 getline(fileName, eilute);
@@ -563,21 +576,13 @@ int main() {
                     ss >> naujas_studentas.vardas >> naujas_studentas.pavarde;
 
                     for (int i = 0; i < skaicius; i++) {
-                        // Exception jeigu vietoj namu darbu pazymio bus kitas simbolis
-                        if (!(ss >> pazymiai)) {
-                            throw runtime_error("Netinkamas duomenu formatas.");
-                            break;
-                        }
+                        ss >> pazymiai;
                         naujas_studentas.pazymiai.push_back(pazymiai);
                         suma += pazymiai;
                     }
 
                     // Egzamino rezultatas
-                    // Exception jeigu vietoj egzamino pazymio bus kitas simbolis
-                    if(!(ss >> naujas_studentas.egzamino_rezultatas)) {
-                        throw runtime_error("Netinkamas duomenu formatas.");
-                        break;
-                    }
+                    ss >> naujas_studentas.egzamino_rezultatas;
 
                     // Galutinio vidurkio ir medianos skaiciavimai
                     naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
@@ -588,24 +593,43 @@ int main() {
                 }
 
                 fileName.close();
-            } catch (const runtime_error& fail) {
-                cout << fail.what() << endl;
-            }
 
                 // Pasirenkame pagal kokia kriterija ruosiosime
                 int pasirinkimas3;
-
-                do {
                 
+                do {
                     cout << "Pasirinkite kriterija, pagal kuria norite rusiuoti duomenis:" << endl;
                     cout << "1. Rusiuoti pagal vardus." << endl;
                     cout << "2. Rusiuoti pagal pavardes." << endl;
                     cout << "3. Rusiuoti pagal galutini vidurki." << endl;
                     cout << "4. Rusiuoti pagal mediana." << endl;
-                    cout << "Jusu pasirinkimas: ";
-                    pasirinkimas3 = Pasirinkimas3();
+                    
+                try {
 
-                    if (pasirinkimas3 == 1) {
+                    cin >> pasirinkimas3;                  
+        
+                    if (cin.fail() || cin.peek() != '\n' || pasirinkimas3 != 1 || pasirinkimas3 != 2 || pasirinkimas3 != 3 || pasirinkimas3 != 4) {
+                        cin.clear(); 
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                        throw invalid_argument("Ivestas netinkamas simbolis.");
+
+                    }
+
+                    
+
+                    getline(cin, raide);
+
+                    if (!raide.empty()) {
+                        throw invalid_argument("Klaida. Iveskite tik skaiciu.");
+                    }
+
+                    break;
+
+                } catch (const invalid_argument& ui) {
+                    cout << ui.what() << endl;
+                }
+
+                if (pasirinkimas3 == 1) {
                         sort(studentai.begin(), studentai.end(), palyginti_pagal_varda);
                     } else if (pasirinkimas3 == 2 ) {
                         sort(studentai.begin(), studentai.end(), palyginti_pagal_pavarde);
@@ -613,9 +637,11 @@ int main() {
                         sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki);
                     } else if (pasirinkimas3 == 4) {
                         sort(studentai.begin(), studentai.end(), palyginti_pagal_mediana);
+                    } else {
+                        cout << "Neteisingas skaicius. Bandykite dar karta." << endl;
                     }
-                
-                  } while (pasirinkimas3 != 1 && pasirinkimas3 != 2 && pasirinkimas3 != 3 && pasirinkimas3 != 4);
+                    
+                } while (pasirinkimas3 != 1 && pasirinkimas3 != 2 && pasirinkimas3 != 3 && pasirinkimas3 != 4);
 
                 // Duomenu irasymas i faila "kursiokai.txt"
                 ofstream fileName1("isvedimas.txt");
@@ -646,17 +672,123 @@ int main() {
                 }
         
         double laiku_vidurkis = (laikai.size() > 0) ? (laiku_suma / laikai.size()) : 0.0;
+
         cout << "Vidutine trukme: " << laiku_vidurkis << " s" << endl;
 
         break;
             }
 
-            // Menu 5
+            // Menu 5 - failai generuojami ir duomenys rusiuojami
             case 5:
+            {
+
+                cout << "--------------------------------------------------";
+                cout << "Anksciau sugeneruoti failai";
+                cout << "--------------------------------------------------" << endl;
+
+                cout << "studentai10000.txt failas" << endl;
+                auto pradzia6 = chrono::steady_clock::now();
+                nuskaitytiFaila("studentai10000.txt", "2vargsiukai10000.txt", "2kietiakiai10000.txt");
+                auto pabaiga6 = chrono::steady_clock::now();
+                auto skirtumas6 = chrono::duration <double> (pabaiga6 - pradzia6).count();
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas6 << "s" << endl;
+
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "studentai100000.txt failas" << endl;
+                auto pradzia7 = chrono::steady_clock::now();
+                nuskaitytiFaila("studentai100000.txt", "2vargsiukai100000.txt", "2kietiakiai100000.txt");
+                auto pabaiga7 = chrono::steady_clock::now();
+                auto skirtumas7 = chrono::duration <double> (pabaiga7 - pradzia7).count();
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas7 << "s" << endl;
+
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "studentai1000000.txt failas" << endl;
+                auto pradzia8 = chrono::steady_clock::now();
+                nuskaitytiFaila("studentai1000000.txt", "2vargsiukai1000000.txt", "2kietiakiai1000000.txt");
+                auto pabaiga8 = chrono::steady_clock::now();
+                auto skirtumas8 = chrono::duration <double> (pabaiga8 - pradzia8).count();
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas8 << "s" << endl;
+
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "kursiokai.txt failas" << endl;
+                auto pradzia9 = chrono::steady_clock::now();
+                nuskaitytiFaila("kursiokai.txt", "kursiokai_vargsiukai.txt", "kursiokai_kietiakiai.txt");
+                auto pabaiga9 = chrono::steady_clock::now();
+                auto skirtumas9 = chrono::duration <double> (pabaiga9 - pradzia9).count();
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas9 << "s" << endl;
+
+                cout << "--------------------------------------------------";
+                cout << "Nauji sugeneruoti failai";
+                cout << "--------------------------------------------------" << endl;
+                cout << "1000 studentu failas" << endl;
+                auto pradzia1 = chrono::steady_clock::now();
+                generuotiFaila("studentu1000.txt", 15, 1000);
+                nuskaitytiFaila("studentu1000.txt", "vargsiukai1000.txt", "kietiakiai1000.txt");
+                auto pabaiga1 = chrono::steady_clock::now();
+                auto skirtumas1 = chrono::duration <double> (pabaiga1 - pradzia1).count();
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas1 << "s" << endl;
+
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "10000 studentu failas" << endl;
+                auto pradzia2 = chrono::steady_clock::now();
+                generuotiFaila("studentu10000.txt", 10, 10000);
+                nuskaitytiFaila("studentu10000.txt", "vargsiukai10000.txt", "kietiakiai10000.txt");
+                auto pabaiga2 = chrono::steady_clock::now();
+                auto skirtumas2 = chrono::duration <double> (pabaiga2 - pradzia2).count();
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas2 << "s" << endl;
+
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "100000 studentu failas" << endl;
+                auto pradzia3 = chrono::steady_clock::now();
+                generuotiFaila("studentu100000.txt", 7, 100000);
+                nuskaitytiFaila("studentu100000.txt", "vargsiukai100000.txt", "kietiakiai100000.txt");
+                auto pabaiga3 = chrono::steady_clock::now();
+                auto skirtumas3 = chrono::duration <double> (pabaiga3 - pradzia3).count();
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas3 << "s" << endl;
+               
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "1000000 studentu failas" << endl;
+                auto pradzia4 = chrono::steady_clock::now();
+                generuotiFaila("studentu1000000.txt", 3, 1000000);
+                nuskaitytiFaila("studentu1000000.txt", "vargsiukai1000000.txt", "kietiakiai1000000.txt");
+                auto pabaiga4 = chrono::steady_clock::now();
+                auto skirtumas4 = chrono::duration <double> (pabaiga4 - pradzia4).count();
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas4 << "s" << endl;
+
+                try {
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "10000000 studentu failas" << endl;
+                auto pradzia5 = chrono::steady_clock::now();
+                generuotiFaila("studentu10000000.txt", 1, 10000000);
+                nuskaitytiFaila("studentu10000000.txt", "vargsiukai10000000.txt", "kietiakiai10000000.txt");
+                auto pabaiga5 = chrono::steady_clock::now();
+                auto skirtumas5 = chrono::duration <double> (pabaiga5 - pradzia5).count();
+                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas5 << "s" << endl;
+                } catch (const bad_alloc& e) {
+                    cout << "Bad_alloc klaida." << endl;
+                    break;
+                }
+
+                cout << "--------------------------------------------------";
+                cout << "Laiku vidurkiai";
+                cout << "--------------------------------------------------" << endl;
+
+                double anksciauSugeneruotuFailuVidurkis = 1.0 * (skirtumas6 + skirtumas7 + skirtumas8 + skirtumas9) / 4.0;
+                //double sugeneruotuFailuVidurkis = 1.0 * (skirtumas1 + skirtumas2 + skirtumas3 + skirtumas4 + skirtumas6 + skirtumas7 + skirtumas8 + skirtumas9) / 8.0;
+                
+                cout << "Anksciau sugeneruotu failu laiku vidurkis: " << fixed << setprecision(4) << anksciauSugeneruotuFailuVidurkis << "s" << endl;
+                //cout << "Visu failu laiku vidurkis yra: " << fixed << setprecision(4) << sugeneruotuFailuVidurkis << "s" << endl;
+
+               break;
+            }
+
+            // Menu 6 - darbas baigiamas
+            case 6:
             {
                 cout << "Darbas baigtas." << endl;
                 return 0;
             }
+
             default :
             {
 
@@ -664,5 +796,7 @@ int main() {
                 break;
             }
         }
+        
+
     }
 }

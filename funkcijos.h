@@ -12,11 +12,9 @@ bool palyginti_pagal_varda(const Studentas &a, const Studentas &b);
 bool palyginti_pagal_pavarde(const Studentas &a, const Studentas &b);
 bool palyginti_pagal_mediana(const Studentas &a, const Studentas &b);
 bool palyginti_pagal_galutini_vidurki(const Studentas &a, const Studentas &b);
-
-int Pasirinkimas2();
-int Pasirinkimas3();
-int Menu();
-
 void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1);
+void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaicius);
+void issaugotiFaila(const vector<Studentas>& studentai, string failoPavadinimas);
+void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
 
 #endif 
