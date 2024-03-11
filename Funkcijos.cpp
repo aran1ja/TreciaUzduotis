@@ -204,7 +204,7 @@ void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, 
         nuskaitymoLaikas += sskirtumas;
 
         // Galutinio vidurkio skaiciavimas
-        naujas_studentas.galutinis_vid = (1.00 * skaicius_pazymiu / skaicius_pazymiu) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
+        naujas_studentas.galutinis_vid = (1.00 * pazymiu_suma / skaicius_pazymiu) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
         //// Studentu rusiavimas i dvi grupes
         auto pradedam = chrono::steady_clock::now();
