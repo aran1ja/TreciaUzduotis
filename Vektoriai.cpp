@@ -779,10 +779,17 @@ int main() {
                 case 2: 
                 {
                     vector<Studentas> studentai;
+                    list<Studentas> studentai_list;
+                    deque<Studentas> studentai_deque;
+
                     cout << "--------------------------------------------------" << endl;
                     cout << "1000 studentu failas" << endl;
                     cout << "Vector" << endl;
                     nuskaitytiFailaVector2(studentai, "studentu1000.txt", "2v.vargsiuku1000.txt");
+                    cout << "List" << endl;
+                    nuskaitytiFailaList2(studentai_list, "studentu1000.txt", "2l.vargsiuku1000.txt");
+                    cout << "Deque" << endl;
+                    nuskaitytiFailaDeque2(studentai_deque, "studentu1000.txt", "2d.vargsiuku1000.txt");
 
                     cout << "--------------------------------------------------" << endl;
                     cout << "10000 studentu failas" << endl;

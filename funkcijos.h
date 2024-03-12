@@ -32,5 +32,7 @@ void nuskaitytiFailaDeque1(string failoPavadinimas, string vargsiukuFailoPavadin
 
 // 2 strategija
 void nuskaitytiFailaVector2(vector<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas);
+void nuskaitytiFailaList2(list<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas);
+void nuskaitytiFailaDeque2(deque<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas);
 
 #endif

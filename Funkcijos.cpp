@@ -629,7 +629,8 @@ void nuskaitytiFailaList2(list<Studentas>& studentai, string failoPavadinimas, s
     failoIsvedimasList1(vargsiukai, vargsiukuFailoPavadinimas);
 }
 
-void nuskaitytiFailaDeque2(deque<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaDeque2(deque<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas)
+ {
     ifstream fileName(failoPavadinimas);
 
     deque<Studentas> vargsiukai;
