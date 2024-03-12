@@ -657,6 +657,10 @@ int main() {
             // Menu 5 - failai generuojami ir duomenys rusiuojami
             case 5:
             {
+                
+            vector<Studentas> studentai;
+            list<Studentas> studentai_list;
+            deque<Studentas> studentai_deque;
 
             cout << "Ar norite sugeneruoti naujus failus?" << endl;
             cout << "Spauskite 1, jeigu taip. Jeigu ne, spauskite bet koki kita skaiciu." << endl;
@@ -674,54 +678,50 @@ int main() {
             } else {
                 cout << " " << endl;
             }
-/*
+                
+                cout << "//////////////////////////////////////////////////";
+                cout << "1 STRATEGIJA";
+                cout << "//////////////////////////////////////////////////" << endl;  
+
+
                 cout << "--------------------------------------------------";
                 cout << "Anksciau sugeneruoti failai";
                 cout << "--------------------------------------------------" << endl;
 
                 cout << "studentai10000.txt failas" << endl;
-                auto pradzia6 = chrono::steady_clock::now();
-                nuskaitytiFailaVector1("studentai10000.txt", "2vargsiukai10000.txt", "2kietiakiai10000.txt");
-                auto pabaiga6 = chrono::steady_clock::now();
-                auto skirtumas6 = chrono::duration <double> (pabaiga6 - pradzia6).count();
-                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas6 << "s" << endl;
-
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector1("studentai10000.txt", "av.vargsiukai10000.txt", "av.kietiakiai10000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList1("studentai10000.txt", "al.vargsiukai10000.txt", "al.kietiakiai10000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque1("studentai10000.txt", "ad.vargsiukai10000.txt", "ad.kietiakiai10000.txt");
+                
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "studentai100000.txt failas" << endl;
-                auto pradzia7 = chrono::steady_clock::now();
-                nuskaitytiFailaVector1("studentai100000.txt", "2vargsiukai100000.txt", "2kietiakiai100000.txt");
-                auto pabaiga7 = chrono::steady_clock::now();
-                auto skirtumas7 = chrono::duration <double> (pabaiga7 - pradzia7).count();
-                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas7 << "s" << endl;
-
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector1("studentai100000.txt", "av.vargsiukai100000.txt", "av.kietiakiai100000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList1("studentai100000.txt", "al.vargsiukai100000.txt", "al.kietiakiai100000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque1("studentai100000.txt", "ad.vargsiukai100000.txt", "ad.kietiakiai100000.txt");
+                
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "studentai1000000.txt failas" << endl;
-                auto pradzia8 = chrono::steady_clock::now();
-                nuskaitytiFailaVector1("studentai1000000.txt", "2vargsiukai1000000.txt", "2kietiakiai1000000.txt");
-                auto pabaiga8 = chrono::steady_clock::now();
-                auto skirtumas8 = chrono::duration <double> (pabaiga8 - pradzia8).count();
-                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas8 << "s" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector1("studentai1000000.txt", "av.vargsiukai1000000.txt", "av.kietiakiai1000000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList1("studentai1000000.txt", "al.vargsiukai1000000.txt", "al.kietiakiai1000000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque1("studentai1000000.txt", "ad.vargsiukai1000000.txt", "ad.kietiakiai1000000.txt");
 
                 cout << "---------------------------------------------------------------------" << endl;
-                cout << "kursiokai.txt failas" << endl;
-                auto pradzia9 = chrono::steady_clock::now();
-                nuskaitytiFailaVector1("kursiokai.txt", "kursiokai_vargsiukai.txt", "kursiokai_kietiakiai.txt");
-                auto pabaiga9 = chrono::steady_clock::now();
-                auto skirtumas9 = chrono::duration <double> (pabaiga9 - pradzia9).count();
-                cout << "Visos programos veikimo laikas: " << fixed << setprecision(4) << skirtumas9 << "s" << endl;
-*/
-                cout << "Pagal kuria strategija norite atvaizduoti programa?" << endl;
-                cout << "1 strategija. Duomenys issaugomi studentu, vargsiuku ir kietiaku konteineriuose." << endl;
-                cout << "2 strategija. Duomenys issaugomi vargsiuku konteineryje, o kiti studentai lieka studentu konteineryje." << endl;
-                cout << "3 strategija. Naudojama viena is praeitu strategiju su kitais efektyviais metodais." << endl;
-                int pasirinkimas5;
-                cin >> pasirinkimas5;
-
-            switch(pasirinkimas5) {
-
-                // 1 strategija
-                case 1:
-                {
+                cout << "kursiokai.txt failas" << endl;    
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector1("kursiokai.txt", "av.kursiokai_vargsiukai.txt", "av.kursiokai_kietiakiai.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList1("kursiokai.txt", "al.kursiokai_vargsiukai.txt", "al.kursiokai_kietiakiai.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque1("kursiokai.txt", "ad.kursiokai_vargsiukai.txt", "ad.kursiokai_kietiakiai.txt");      
 
                 cout << "--------------------------------------------------";
                 cout << "Nauji sugeneruoti failai";
@@ -771,125 +771,189 @@ int main() {
                 cout << "Deque" << endl;
                 nuskaitytiFailaDeque1("studentu10000000.txt", "d.vargsiukai10000000.txt", "d.kietiakiai10000000.txt");
                  
-                break;
+                cout << "//////////////////////////////////////////////////";
+                cout << "2 STRATEGIJA";
+                cout << "//////////////////////////////////////////////////" << endl;    
 
-                }
+                cout << "--------------------------------------------------";
+                cout << "Anksciau sugeneruoti failai";
+                cout << "--------------------------------------------------" << endl;
 
-                // 2 strategija
-                case 2: 
-                {
-                    vector<Studentas> studentai;
-                    list<Studentas> studentai_list;
-                    deque<Studentas> studentai_deque;
+                cout << "studentai10000.txt failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector2(studentai, "av2.vargsiukai10000.txt", "av2.kietiakiai10000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2(studentai_list, "al2.vargsiukai10000.txt", "al2.kietiakiai10000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2(studentai_deque, "ad2.vargsiukai10000.txt", "ad2.kietiakiai10000.txt");
+                
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "studentai100000.txt failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector2(studentai, "av2.vargsiukai100000.txt", "av2.kietiakiai100000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2(studentai_list, "al2.vargsiukai100000.txt", "al2.kietiakiai100000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2(studentai_deque, "ad2.vargsiukai100000.txt", "ad2.kietiakiai100000.txt");
+                
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "studentai1000000.txt failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector2(studentai, "av2.vargsiukai1000000.txt", "av2.kietiakiai1000000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2(studentai_list, "al2.vargsiukai1000000.txt", "al2.kietiakiai1000000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2(studentai_deque, "ad2.vargsiukai1000000.txt", "ad2.kietiakiai1000000.txt");
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "1000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector2(studentai, "studentu1000.txt", "2v.vargsiuku1000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList2(studentai_list, "studentu1000.txt", "2l.vargsiuku1000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque2(studentai_deque, "studentu1000.txt", "2d.vargsiuku1000.txt");
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "kursiokai.txt failas" << endl;    
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector2(studentai, "av2.kursiokai_vargsiukai.txt", "av2.kursiokai_kietiakiai.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2(studentai_list, "al2.kursiokai_vargsiukai.txt", "al2.kursiokai_kietiakiai.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2(studentai_deque, "ad2.kursiokai_vargsiukai.txt", "ad2.kursiokai_kietiakiai.txt");      
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "10000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector2(studentai, "studentu10000.txt", "2v.vargsiuku10000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList2(studentai_list, "studentu10000.txt", "2l.vargsiuku10000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque2(studentai_deque, "studentu10000.txt", "2d.vargsiuku10000.txt");
+                cout << "--------------------------------------------------";
+                cout << "Nauji sugeneruoti failai";
+                cout << "--------------------------------------------------" << endl;  
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "100000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector2(studentai, "studentu100000.txt", "2v.vargsiuku100000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList2(studentai_list, "studentu100000.txt", "2l.vargsiuku100000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque2(studentai_deque, "studentu100000.txt", "2d.vargsiuku100000.txt");
+                cout << "--------------------------------------------------" << endl;
+                cout << "1000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector2(studentai, "studentu1000.txt", "2v.vargsiuku1000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2(studentai_list, "studentu1000.txt", "2l.vargsiuku1000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2(studentai_deque, "studentu1000.txt", "2d.vargsiuku1000.txt");
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "1000000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector2(studentai, "studentu1000000.txt", "2v.vargsiuku1000000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList2(studentai_list, "studentu1000000.txt", "2l.vargsiuku1000000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque2(studentai_deque, "studentu1000000.txt", "2d.vargsiuku1000000.txt");
+                cout << "--------------------------------------------------" << endl;
+                cout << "10000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector2(studentai, "studentu10000.txt", "2v.vargsiuku10000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2(studentai_list, "studentu10000.txt", "2l.vargsiuku10000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2(studentai_deque, "studentu10000.txt", "2d.vargsiuku10000.txt");
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "10000000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector2(studentai, "studentu10000000.txt", "2v.vargsiuku10000000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList2(studentai_list, "studentu10000000.txt", "2l.vargsiuku10000000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque2(studentai_deque, "studentu10000000.txt", "2d.vargsiuku10000000.txt");
-                    break;
-                }
+                cout << "--------------------------------------------------" << endl;
+                cout << "100000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector2(studentai, "studentu100000.txt", "2v.vargsiuku100000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2(studentai_list, "studentu100000.txt", "2l.vargsiuku100000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2(studentai_deque, "studentu100000.txt", "2d.vargsiuku100000.txt");
 
-                // 3 strategija
-                case 3:
-                {
+                cout << "--------------------------------------------------" << endl;
+                cout << "1000000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector2(studentai, "studentu1000000.txt", "2v.vargsiuku1000000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2(studentai_list, "studentu1000000.txt", "2l.vargsiuku1000000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2(studentai_deque, "studentu1000000.txt", "2d.vargsiuku1000000.txt");
 
-                    vector<Studentas> studentai;
-                    list<Studentas> studentai_list;
-                    deque<Studentas> studentai_deque;
+                cout << "--------------------------------------------------" << endl;
+                cout << "10000000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector2(studentai, "studentu10000000.txt", "2v.vargsiuku10000000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2(studentai_list, "studentu10000000.txt", "2l.vargsiuku10000000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2(studentai_deque, "studentu10000000.txt", "2d.vargsiuku10000000.txt");         
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "1000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector3(studentai, "studentu1000.txt", "3v.vargsiuku1000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList3(studentai_list, "studentu1000.txt", "3l.vargsiuku1000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque3(studentai_deque, "studentu1000.txt", "3d.vargsiuku1000.txt");
+                cout << "//////////////////////////////////////////////////";
+                cout << "3 STRATEGIJA";
+                cout << "//////////////////////////////////////////////////" << endl;  
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "10000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector3(studentai, "studentu10000.txt", "3v.vargsiuku10000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList3(studentai_list, "studentu10000.txt", "3l.vargsiuku10000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque3(studentai_deque, "studentu10000.txt", "3d.vargsiuku10000.txt");
+                cout << "--------------------------------------------------";
+                cout << "Anksciau sugeneruoti failai";
+                cout << "--------------------------------------------------" << endl;
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "100000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector3(studentai, "studentu100000.txt", "3v.vargsiuku100000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList3(studentai_list, "studentu100000.txt", "3l.vargsiuku100000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque3(studentai_deque, "studentu100000.txt", "3d.vargsiuku100000.txt");
+                cout << "studentai10000.txt failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector3(studentai, "av3.vargsiukai10000.txt", "av3.kietiakiai10000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList3(studentai_list, "al3.vargsiukai10000.txt", "al3.kietiakiai10000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque3(studentai_deque, "ad3.vargsiukai10000.txt", "ad3.kietiakiai10000.txt");
+                
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "studentai100000.txt failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector3(studentai, "av3.vargsiukai100000.txt", "av3.kietiakiai100000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList3(studentai_list, "al3.vargsiukai100000.txt", "al3.kietiakiai100000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque3(studentai_deque, "ad3.vargsiukai100000.txt", "ad3.kietiakiai100000.txt");
+                
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "studentai1000000.txt failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector3(studentai, "av3.vargsiukai1000000.txt", "av3.kietiakiai1000000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList3(studentai_list, "al3.vargsiukai1000000.txt", "al3.kietiakiai1000000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque3(studentai_deque, "ad3.vargsiukai1000000.txt", "ad3.kietiakiai1000000.txt");
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "1000000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector3(studentai, "studentu1000000.txt", "3v.vargsiuku1000000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList3(studentai_list, "studentu1000000.txt", "3l.vargsiuku1000000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque3(studentai_deque, "studentu1000000.txt", "3d.vargsiuku1000000.txt");
+                cout << "---------------------------------------------------------------------" << endl;
+                cout << "kursiokai.txt failas" << endl;    
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector3(studentai, "av3.kursiokai_vargsiukai.txt", "av3.kursiokai_kietiakiai.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList3(studentai_list, "al3.kursiokai_vargsiukai.txt", "al3.kursiokai_kietiakiai.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque3(studentai_deque, "ad3.kursiokai_vargsiukai.txt", "ad3.kursiokai_kietiakiai.txt");     
 
-                    cout << "--------------------------------------------------" << endl;
-                    cout << "10000000 studentu failas" << endl;
-                    cout << "Vector" << endl;
-                    nuskaitytiFailaVector3(studentai, "studentu10000000.txt", "3v.vargsiuku10000000.txt");
-                    cout << "List" << endl;
-                    nuskaitytiFailaList3(studentai_list, "studentu10000000.txt", "3l.vargsiuku10000000.txt");
-                    cout << "Deque" << endl;
-                    nuskaitytiFailaDeque3(studentai_deque, "studentu10000000.txt", "3d.vargsiuku10000000.txt");
-                    break;
-                }
+                cout << "--------------------------------------------------";
+                cout << "Nauji sugeneruoti failai";
+                cout << "--------------------------------------------------" << endl;
 
-                default :
-                {
-                    cout << "Bandykite ivesti kita skaiciu" << endl;
-                    break;
-                }
-            }
+                cout << "--------------------------------------------------" << endl;
+                cout << "1000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector3(studentai, "studentu1000.txt", "3v.vargsiuku1000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList3(studentai_list, "studentu1000.txt", "3l.vargsiuku1000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque3(studentai_deque, "studentu1000.txt", "3d.vargsiuku1000.txt");
+
+                cout << "--------------------------------------------------" << endl;
+                cout << "10000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector3(studentai, "studentu10000.txt", "3v.vargsiuku10000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList3(studentai_list, "studentu10000.txt", "3l.vargsiuku10000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque3(studentai_deque, "studentu10000.txt", "3d.vargsiuku10000.txt");
+
+                cout << "--------------------------------------------------" << endl;
+                cout << "100000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector3(studentai, "studentu100000.txt", "3v.vargsiuku100000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList3(studentai_list, "studentu100000.txt", "3l.vargsiuku100000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque3(studentai_deque, "studentu100000.txt", "3d.vargsiuku100000.txt");
+
+                cout << "--------------------------------------------------" << endl;
+                cout << "1000000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector3(studentai, "studentu1000000.txt", "3v.vargsiuku1000000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList3(studentai_list, "studentu1000000.txt", "3l.vargsiuku1000000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque3(studentai_deque, "studentu1000000.txt", "3d.vargsiuku1000000.txt");
+
+                cout << "--------------------------------------------------" << endl;
+                cout << "10000000 studentu failas" << endl;
+                cout << "Vector" << endl;
+                nuskaitytiFailaVector3(studentai, "studentu10000000.txt", "3v.vargsiuku10000000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList3(studentai_list, "studentu10000000.txt", "3l.vargsiuku10000000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque3(studentai_deque, "studentu10000000.txt", "3d.vargsiuku10000000.txt");        
 
             }
 
