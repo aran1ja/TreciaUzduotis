@@ -779,7 +779,30 @@ int main() {
                 case 2: 
                 {
                     vector<Studentas> studentai;
+                    cout << "--------------------------------------------------" << endl;
+                    cout << "1000 studentu failas" << endl;
+                    cout << "Vector" << endl;
                     nuskaitytiFailaVector2(studentai, "studentu1000.txt", "2v.vargsiuku1000.txt");
+
+                    cout << "--------------------------------------------------" << endl;
+                    cout << "10000 studentu failas" << endl;
+                    cout << "Vector" << endl;
+                    nuskaitytiFailaVector2(studentai, "studentu10000.txt", "2v.vargsiuku10000.txt");
+
+                    cout << "--------------------------------------------------" << endl;
+                    cout << "100000 studentu failas" << endl;
+                    cout << "Vector" << endl;
+                    nuskaitytiFailaVector2(studentai, "studentu100000.txt", "2v.vargsiuku100000.txt");
+
+                    cout << "--------------------------------------------------" << endl;
+                    cout << "1000000 studentu failas" << endl;
+                    cout << "Vector" << endl;
+                    nuskaitytiFailaVector2(studentai, "studentu1000000.txt", "2v.vargsiuku1000000.txt");
+
+                    cout << "--------------------------------------------------" << endl;
+                    cout << "10000000 studentu failas" << endl;
+                    cout << "Vector" << endl;
+                    nuskaitytiFailaVector2(studentai, "studentu10000000.txt", "2v.vargsiuku10000000.txt");
                     break;
                 }
 
