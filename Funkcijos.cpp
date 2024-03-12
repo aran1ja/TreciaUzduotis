@@ -502,16 +502,30 @@ void nuskaitytiFailaVector2(vector<Studentas>& studentai, string failoPavadinima
             vargsiukai.push_back(naujas_studentas);
         } 
 
+        // Pasaliname vargsiukus is bendro konteinerio
+        studentai.erase(
+            remove_if(studentai.begin(), studentai.end(), [](const Studentas& student) {
+                return student.galutinis_vid < 5.0;
+            }),
+            studentai.end()
+        );
+
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
         visasLaikas += skaiciuojam;
     }        
+
+    // Tikriname, ar vargsiukai buvo perkelti
+    if (!vargsiukai.empty()) {
+            cout << "Vargsiukai sekmingai perkelti i atskira konteineri." << endl;
+        } else {
+            cout << "Nepavyko perkelti vargsiuku." << endl;
+        }
     
     cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
 
     auto did_pradedame_v = chrono::steady_clock::now();
     sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
-    sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
     auto did_baigiame_v = chrono::steady_clock::now();
     auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 
