@@ -525,6 +525,7 @@ void nuskaitytiFailaVector2(vector<Studentas>& studentai, string failoPavadinima
 
     auto did_pradedame_v = chrono::steady_clock::now();
     sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
+    sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
     auto did_baigiame_v = chrono::steady_clock::now();
     auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 
@@ -615,7 +616,8 @@ void nuskaitytiFailaList2(list<Studentas>& studentai, string failoPavadinimas, s
     cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
 
     auto did_pradedame_v = chrono::steady_clock::now();
-    sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
+    vargsiukai.sort(palyginti_pagal_galutini_vidurki_didejimo_tvarka);
+    studentai.sort(palyginti_pagal_galutini_vidurki_didejimo_tvarka);
     auto did_baigiame_v = chrono::steady_clock::now();
     auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 
@@ -708,6 +710,7 @@ void nuskaitytiFailaDeque2(deque<Studentas>& studentai, string failoPavadinimas,
 
     auto did_pradedame_v = chrono::steady_clock::now();
     sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
+    sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
     auto did_baigiame_v = chrono::steady_clock::now();
     auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 

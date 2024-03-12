@@ -795,21 +795,37 @@ int main() {
                     cout << "10000 studentu failas" << endl;
                     cout << "Vector" << endl;
                     nuskaitytiFailaVector2(studentai, "studentu10000.txt", "2v.vargsiuku10000.txt");
+                    cout << "List" << endl;
+                    nuskaitytiFailaList2(studentai_list, "studentu10000.txt", "2l.vargsiuku10000.txt");
+                    cout << "Deque" << endl;
+                    nuskaitytiFailaDeque2(studentai_deque, "studentu10000.txt", "2d.vargsiuku10000.txt");
 
                     cout << "--------------------------------------------------" << endl;
                     cout << "100000 studentu failas" << endl;
                     cout << "Vector" << endl;
                     nuskaitytiFailaVector2(studentai, "studentu100000.txt", "2v.vargsiuku100000.txt");
+                    cout << "List" << endl;
+                    nuskaitytiFailaList2(studentai_list, "studentu100000.txt", "2l.vargsiuku100000.txt");
+                    cout << "Deque" << endl;
+                    nuskaitytiFailaDeque2(studentai_deque, "studentu100000.txt", "2d.vargsiuku100000.txt");
 
                     cout << "--------------------------------------------------" << endl;
                     cout << "1000000 studentu failas" << endl;
                     cout << "Vector" << endl;
                     nuskaitytiFailaVector2(studentai, "studentu1000000.txt", "2v.vargsiuku1000000.txt");
+                    cout << "List" << endl;
+                    nuskaitytiFailaList2(studentai_list, "studentu1000000.txt", "2l.vargsiuku1000000.txt");
+                    cout << "Deque" << endl;
+                    nuskaitytiFailaDeque2(studentai_deque, "studentu1000000.txt", "2d.vargsiuku1000000.txt");
 
                     cout << "--------------------------------------------------" << endl;
                     cout << "10000000 studentu failas" << endl;
                     cout << "Vector" << endl;
                     nuskaitytiFailaVector2(studentai, "studentu10000000.txt", "2v.vargsiuku10000000.txt");
+                    cout << "List" << endl;
+                    nuskaitytiFailaList2(studentai_list, "studentu10000000.txt", "2l.vargsiuku10000000.txt");
+                    cout << "Deque" << endl;
+                    nuskaitytiFailaDeque2(studentai_deque, "studentu10000000.txt", "2d.vargsiuku10000000.txt");
                     break;
                 }
 
