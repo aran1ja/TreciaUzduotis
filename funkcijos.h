@@ -8,7 +8,6 @@ using namespace std;
 
 double mediana(vector<int> pazymiai, int egzamino_rezultatas);
 double vidurkis_galutinis(double suma, int n, int egzamino_rezultatas);
-double skaiciuotiVidurki(const std::vector<int>& nd);
 bool palyginti_pagal_varda(const Studentas &a, const Studentas &b);
 bool palyginti_pagal_pavarde(const Studentas &a, const Studentas &b);
 bool palyginti_pagal_mediana(const Studentas &a, const Studentas &b);
@@ -18,6 +17,5 @@ void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1
 void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaicius);
 void failoIsvedimas(const vector<Studentas>& studentai, string failoPavadinimas);
 void nuskaitytiFaila(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
-void studentuGrupavimasIrRusiavimas(vector<Studentas>& studentai, string failuPavadinimai);
 
 #endif
