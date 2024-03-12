@@ -15,16 +15,22 @@ bool palyginti_pagal_pavarde(const Studentas &a, const Studentas &b);
 bool palyginti_pagal_mediana(const Studentas &a, const Studentas &b);
 bool palyginti_pagal_galutini_vidurki(const Studentas &a, const Studentas &b);
 bool palyginti_pagal_galutini_vidurki_didejimo_tvarka(const Studentas &a, const Studentas &b);
+bool ar_vargsiukas(const Studentas& student);
 void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1);
 void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaicius);
+
+// 1 strategija
 // <vector> konteineris
-void failoIsvedimasVector(const vector<Studentas>& studentai, string failoPavadinimas);
-void nuskaitytiFailaVector(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
+void failoIsvedimasVector1(const vector<Studentas>& studentai, string failoPavadinimas);
+void nuskaitytiFailaVector1(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
 // <list> konteineris
-void failoIsvedimasList(const list<Studentas>& studentai, string failoPavadinimas);
-void nuskaitytiFailaList(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
+void failoIsvedimasList1(const list<Studentas>& studentai, string failoPavadinimas);
+void nuskaitytiFailaList1(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
 // <deque> konteineris
-void failoIsvedimasDeque(const deque<Studentas>& studentai, string failoPavadinimas);
-void nuskaitytiFailaDeque(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
+void failoIsvedimasDeque1(const deque<Studentas>& studentai, string failoPavadinimas);
+void nuskaitytiFailaDeque1(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
+
+// 2 strategija
+void nuskaitytiFailaVector2(vector<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas);
 
 #endif

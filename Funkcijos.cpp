@@ -54,6 +54,10 @@ bool palyginti_pagal_galutini_vidurki_didejimo_tvarka(const Studentas &a, const 
     return a.galutinis_vid < b.galutinis_vid;
 }
 
+bool ar_vargsiukas(const Studentas& student) {
+    return student.galutinis_vid < 5.0;
+}
+
 void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1) {
 
         switch (pasirinkimas1) {
@@ -503,12 +507,7 @@ void nuskaitytiFailaVector2(vector<Studentas>& studentai, string failoPavadinima
         } 
 
         // Pasaliname vargsiukus is bendro konteinerio
-        studentai.erase(
-            remove_if(studentai.begin(), studentai.end(), [](const Studentas& student) {
-                return student.galutinis_vid < 5.0;
-            }),
-            studentai.end()
-        );
+        studentai.erase(remove_if(studentai.begin(), studentai.end(), ar_vargsiukas), studentai.end());
 
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
