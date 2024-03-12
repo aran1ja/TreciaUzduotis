@@ -783,13 +783,18 @@ void nuskaitytiFailaVector3(vector<Studentas>& studentai, string failoPavadinima
             vargsiukai.push_back(naujas_studentas);
         } 
 
-        // Pasaliname vargsiukus is bendro konteinerio
-        studentai.erase(remove_if(studentai.begin(), studentai.end(), ar_vargsiukas), studentai.end());
+        // Ieskome vargsiuku ir triname juos is studentu vektoriaus
+        auto paieska = find_if(studentai.begin(), studentai.end(), ar_vargsiukas);
+
+        if (paieska != studentai.end()) {
+            studentai.erase(remove_if(paieska, studentai.end(), ar_vargsiukas), studentai.end());
+        }
 
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
         visasLaikas += skaiciuojam;
-    }        
+
+        }        
 
     // Tikriname, ar vargsiukai buvo perkelti
     if (!vargsiukai.empty()) {
