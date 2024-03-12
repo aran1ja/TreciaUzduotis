@@ -20,7 +20,6 @@ double mediana(vector<int> pazymiai, int egzamino_rezultatas) {
         return pazymiai[kiekis / 2];
     }
 }
-
 // Vidurkis
 double vidurkis_galutinis(double suma, int n, int egzamino_rezultatas) {
     if (n == 0) {
@@ -29,22 +28,18 @@ double vidurkis_galutinis(double suma, int n, int egzamino_rezultatas) {
         return 0.4 * (suma / n) + 0.6 * egzamino_rezultatas;
     }
 }
-
 // Rusiuojama pagal varda (didejimo tvarka)
 bool palyginti_pagal_varda(const Studentas &a, const Studentas &b) {
     return a.vardas < b.vardas;
 }
-
 // Rusiuojama pagal pavarde (didejimo tvarka)
 bool palyginti_pagal_pavarde(const Studentas &a, const Studentas &b) {
     return a.pavarde < b.pavarde;
 }
-
 // Rusiuojama pagal mediana (mazejimo tvarka)
 bool palyginti_pagal_mediana(const Studentas &a, const Studentas &b) {
     return a.mediana > b.mediana;
 }
-
 // Rusiuojama pagal galutini vidurki (mazejimo tvarka)
 bool palyginti_pagal_galutini_vidurki(const Studentas &a, const Studentas &b) {
     return a.galutinis_vid > b.galutinis_vid;
@@ -133,7 +128,6 @@ void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaiciu
 
 //// 1 strategija
 
-// <vector> konteineris
 void failoIsvedimasVector1(const vector<Studentas>& studentai, string failoPavadinimas) {
     ofstream file(failoPavadinimas);
     
@@ -236,7 +230,6 @@ void nuskaitytiFailaVector1(string failoPavadinimas, string vargsiukuFailoPavadi
     failoIsvedimasVector1(vargsiukai, vargsiukuFailoPavadinimas);
     failoIsvedimasVector1(kietiakai, kietakiuFailoPavadinimas);
 }
-// <list> konteineris
 
 void failoIsvedimasList1(const list<Studentas>& studentai, string failoPavadinimas) {
     ofstream file(failoPavadinimas);
@@ -341,7 +334,6 @@ void nuskaitytiFailaList1(string failoPavadinimas, string vargsiukuFailoPavadini
     failoIsvedimasList1(kietiakai, kietakiuFailoPavadinimas);
 }
 
-// <deque> konteineris
 void failoIsvedimasDeque1(const deque<Studentas>& studentai, string failoPavadinimas) {
     ofstream file(failoPavadinimas);
     
@@ -723,6 +715,8 @@ void nuskaitytiFailaDeque2(deque<Studentas>& studentai, string failoPavadinimas,
     // Issaugome vargsiukus atskirame faile
     failoIsvedimasDeque1(vargsiukai, vargsiukuFailoPavadinimas);
 }
+
+//// 3 strategija
 
 void nuskaitytiFailaVector3(vector<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);

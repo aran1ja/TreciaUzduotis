@@ -688,6 +688,7 @@ int main() {
                 cout << "Anksciau sugeneruoti failai";
                 cout << "--------------------------------------------------" << endl;
 
+                auto start1 = chrono::steady_clock::now();
                 cout << "studentai10000.txt failas" << endl;
                 cout << "Vector" << endl;
                 nuskaitytiFailaVector1("studentai10000.txt", "av.vargsiukai10000.txt", "av.kietiakiai10000.txt");
@@ -770,6 +771,9 @@ int main() {
                 nuskaitytiFailaList1("studentu10000000.txt", "l.vargsiukai10000000.txt", "l.kietiakiai10000000.txt");
                 cout << "Deque" << endl;
                 nuskaitytiFailaDeque1("studentu10000000.txt", "d.vargsiukai10000000.txt", "d.kietiakiai10000000.txt");
+                auto end1 = chrono::steady_clock::now();
+                auto difference1 = chrono::duration <double> (start1 - end1).count();   
+                cout << "Vidutinis 1 strategijos veikimo laikas: " << 1.0 * difference1 / 9.0 << "s" << endl;  
                  
                 cout << "//////////////////////////////////////////////////";
                 cout << "2 STRATEGIJA";
@@ -779,6 +783,7 @@ int main() {
                 cout << "Anksciau sugeneruoti failai";
                 cout << "--------------------------------------------------" << endl;
 
+                auto start2 = chrono::steady_clock::now();
                 cout << "studentai10000.txt failas" << endl;
                 cout << "Vector" << endl;
                 nuskaitytiFailaVector2(studentai, "av2.vargsiukai10000.txt", "av2.kietiakiai10000.txt");
@@ -861,7 +866,10 @@ int main() {
                 cout << "List" << endl;
                 nuskaitytiFailaList2(studentai_list, "studentu10000000.txt", "2l.vargsiuku10000000.txt");
                 cout << "Deque" << endl;
-                nuskaitytiFailaDeque2(studentai_deque, "studentu10000000.txt", "2d.vargsiuku10000000.txt");         
+                nuskaitytiFailaDeque2(studentai_deque, "studentu10000000.txt", "2d.vargsiuku10000000.txt");    
+                auto end2 = chrono::steady_clock::now();
+                auto difference2 = chrono::duration <double> (start2 - end2).count();   
+                cout << "Vidutinis 2 strategijos veikimo laikas: " << 1.0 * difference2 / 9.0 << "s" << endl;       
 
                 cout << "//////////////////////////////////////////////////";
                 cout << "3 STRATEGIJA";
@@ -871,6 +879,7 @@ int main() {
                 cout << "Anksciau sugeneruoti failai";
                 cout << "--------------------------------------------------" << endl;
 
+                auto start3 = chrono::steady_clock::now();
                 cout << "studentai10000.txt failas" << endl;
                 cout << "Vector" << endl;
                 nuskaitytiFailaVector3(studentai, "av3.vargsiukai10000.txt", "av3.kietiakiai10000.txt");
@@ -953,8 +962,12 @@ int main() {
                 cout << "List" << endl;
                 nuskaitytiFailaList3(studentai_list, "studentu10000000.txt", "3l.vargsiuku10000000.txt");
                 cout << "Deque" << endl;
-                nuskaitytiFailaDeque3(studentai_deque, "studentu10000000.txt", "3d.vargsiuku10000000.txt");        
+                nuskaitytiFailaDeque3(studentai_deque, "studentu10000000.txt", "3d.vargsiuku10000000.txt");   
+                auto end3 = chrono::steady_clock::now();
+                auto difference3 = chrono::duration <double> (start3 - end3).count();   
+                cout << "Vidutinis 3 strategijos veikimo laikas: " << 1.0 * difference3 / 9.0 << "s" << endl;  
 
+                break;
             }
 
             // Menu 6 - darbas baigiamas
