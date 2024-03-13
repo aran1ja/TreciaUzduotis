@@ -69,8 +69,8 @@
 ![изображение](https://github.com/aran1ja/PirmaUzduotis/assets/147089828/a6dc2037-7f5a-4109-b2ed-e7523d43e1ae)
 
 ## Summary of Test 2
-![изображение](https://github.com/aran1ja/PirmaUzduotis/assets/147089828/b3caa661-8361-40f7-a981-aeaf561c645a)
-#### We can notice in the table, that the results of Test 1 are also confirmed there. The program with the std::list container operates the fastest, while the program with the std::deque container takes the longest. 
+![изображение](https://github.com/aran1ja/PirmaUzduotis/assets/147089828/6941d544-9f8a-4c16-b18d-577bd1e30d97)
+#### We can notice in the table, that the results of Test 1 are also confirmed there. The program with the std::list container operates the fastest, while the program with the std::deque container takes the longest. Also, there is written average time of student sorting in increasing order (to the right - the average of 9 files, in the bottom - the average of 27 files).
 #### Test 2 had the aim to see how results would differ if for sorting student in increasing order we would implement 3 different strategies. There container std::list seems to be the most efficient for sorting. While it takes much more time with the std::vector and std::deque containers.
 ### 1 strategy
 #### It is inefficient, as it takes much more time to sort students and also it has problems with memory usage. When we work with large files, a "bad_alloc" error may occur. Although, with std::list container it took only 17s for all 9 files to sort students.
