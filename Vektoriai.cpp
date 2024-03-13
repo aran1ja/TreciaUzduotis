@@ -662,21 +662,35 @@ int main() {
             list<Studentas> studentai_list;
             deque<Studentas> studentai_deque;
 
-            cout << "Ar norite sugeneruoti naujus failus?" << endl;
-            cout << "Spauskite 1, jeigu taip. Jeigu ne, spauskite bet koki kita skaiciu." << endl;
             int pasirinkimas4;
-            cin >> pasirinkimas4;
 
-            if (pasirinkimas4 == 1) {
+            while (true) {
+
+                cout << "Ar norite sugeneruoti naujus failus?" << endl;
+                cout << "Spauskite 1, jeigu taip. Jeigu ne, spauskite bet koki kita skaiciu." << endl;
                 
-                generuotiFaila("studentu1000.txt", 15, 1000); 
-                generuotiFaila("studentu10000.txt", 10, 10000); 
-                generuotiFaila("studentu100000.txt", 7, 100000); 
-                generuotiFaila("studentu1000000.txt", 3, 1000000); 
-                generuotiFaila("studentu10000000.txt", 1, 10000000); 
-        
-            } else {
-                cout << " " << endl;
+                if (!(cin >> pasirinkimas4)) {
+                    cout << "Klaida. Ivestas netinkamas simbolis. Iveskite skaiciu." << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    continue; // Sugrįžkite į ciklo pradžią, kad vartotojas galėtų bandyti iš naujo.
+                }
+
+                if (pasirinkimas4 != 1) {
+                    cout << " " << endl;
+                    break; // Jei vartotojas ne nori generuoti failų, nutraukti ciklą.
+                }
+
+                try {
+                    generuotiFaila("studentu1000.txt", 15, 1000);
+                    generuotiFaila("studentu10000.txt", 10, 10000);
+                    generuotiFaila("studentu100000.txt", 7, 100000);
+                    generuotiFaila("studentu1000000.txt", 3, 1000000);
+                    generuotiFaila("studentu10000000.txt", 1, 10000000);
+                    break; // Nutraukti ciklą, jei pavyko sugeneruoti failus be klaidų.
+                } catch (const invalid_argument& pasirinkimo_klaida) {
+                    cout << pasirinkimo_klaida.what() << endl;
+                }
             }
                 
                 cout << "//////////////////////////////////////////////////";
@@ -772,7 +786,7 @@ int main() {
                 cout << "Deque" << endl;
                 nuskaitytiFailaDeque1("studentu10000000.txt", "d.vargsiukai10000000.txt", "d.kietiakiai10000000.txt");
                 auto end1 = chrono::steady_clock::now();
-                auto difference1 = chrono::duration <double> (start1 - end1).count();   
+                auto difference1 = chrono::duration <double> (end1 - start1).count();   
                 cout << "Vidutinis 1 strategijos veikimo laikas: " << 1.0 * difference1 / 9.0 << "s" << endl;  
                  
                 cout << "//////////////////////////////////////////////////";
@@ -868,7 +882,7 @@ int main() {
                 cout << "Deque" << endl;
                 nuskaitytiFailaDeque2(studentai_deque, "studentu10000000.txt", "2d.vargsiuku10000000.txt");    
                 auto end2 = chrono::steady_clock::now();
-                auto difference2 = chrono::duration <double> (start2 - end2).count();   
+                auto difference2 = chrono::duration <double> (end2 - start2).count();   
                 cout << "Vidutinis 2 strategijos veikimo laikas: " << 1.0 * difference2 / 9.0 << "s" << endl;       
 
                 cout << "//////////////////////////////////////////////////";
@@ -882,38 +896,40 @@ int main() {
                 auto start3 = chrono::steady_clock::now();
                 cout << "studentai10000.txt failas" << endl;
                 cout << "Vector" << endl;
-                nuskaitytiFailaVector3(studentai, "av3.vargsiukai10000.txt", "av3.kietiakiai10000.txt");
+                nuskaitytiFailaVector3(studentai, "av2.vargsiukai10000.txt", "av2.kietiakiai10000.txt");
                 cout << "List" << endl;
-                nuskaitytiFailaList3(studentai_list, "al3.vargsiukai10000.txt", "al3.kietiakiai10000.txt");
+                nuskaitytiFailaList3(studentai_list, "al2.vargsiukai10000.txt", "al2.kietiakiai10000.txt");
                 cout << "Deque" << endl;
-                nuskaitytiFailaDeque3(studentai_deque, "ad3.vargsiukai10000.txt", "ad3.kietiakiai10000.txt");
+                nuskaitytiFailaDeque3(studentai_deque, "ad2.vargsiukai10000.txt", "ad2.kietiakiai10000.txt");
                 
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "studentai100000.txt failas" << endl;
                 cout << "Vector" << endl;
-                nuskaitytiFailaVector3(studentai, "av3.vargsiukai100000.txt", "av3.kietiakiai100000.txt");
+                nuskaitytiFailaVector3(studentai, "av2.vargsiukai100000.txt", "av2.kietiakiai100000.txt");
                 cout << "List" << endl;
-                nuskaitytiFailaList3(studentai_list, "al3.vargsiukai100000.txt", "al3.kietiakiai100000.txt");
+                nuskaitytiFailaList3(studentai_list, "al2.vargsiukai100000.txt", "al2.kietiakiai100000.txt");
                 cout << "Deque" << endl;
-                nuskaitytiFailaDeque3(studentai_deque, "ad3.vargsiukai100000.txt", "ad3.kietiakiai100000.txt");
+                nuskaitytiFailaDeque3(studentai_deque, "ad2.vargsiukai100000.txt", "ad2.kietiakiai100000.txt");
                 
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "studentai1000000.txt failas" << endl;
                 cout << "Vector" << endl;
-                nuskaitytiFailaVector3(studentai, "av3.vargsiukai1000000.txt", "av3.kietiakiai1000000.txt");
+                nuskaitytiFailaVector3(studentai, "av2.vargsiukai1000000.txt", "av2.kietiakiai1000000.txt");
                 cout << "List" << endl;
-                nuskaitytiFailaList3(studentai_list, "al3.vargsiukai1000000.txt", "al3.kietiakiai1000000.txt");
+                nuskaitytiFailaList3(studentai_list, "al2.vargsiukai1000000.txt", "al2.kietiakiai1000000.txt");
                 cout << "Deque" << endl;
-                nuskaitytiFailaDeque3(studentai_deque, "ad3.vargsiukai1000000.txt", "ad3.kietiakiai1000000.txt");
+                nuskaitytiFailaDeque3(studentai_deque, "ad2.vargsiukai1000000.txt", "ad2.kietiakiai1000000.txt");
 
                 cout << "---------------------------------------------------------------------" << endl;
                 cout << "kursiokai.txt failas" << endl;    
                 cout << "Vector" << endl;
-                nuskaitytiFailaVector3(studentai, "av3.kursiokai_vargsiukai.txt", "av3.kursiokai_kietiakiai.txt");
+                nuskaitytiFailaVector3(studentai, "av2.kursiokai_vargsiukai.txt", "av2.kursiokai_kietiakiai.txt");
                 cout << "List" << endl;
-                nuskaitytiFailaList3(studentai_list, "al3.kursiokai_vargsiukai.txt", "al3.kursiokai_kietiakiai.txt");
+                nuskaitytiFailaList3(studentai_list, "al2.kursiokai_vargsiukai.txt", "al2.kursiokai_kietiakiai.txt");
                 cout << "Deque" << endl;
-                nuskaitytiFailaDeque3(studentai_deque, "ad3.kursiokai_vargsiukai.txt", "ad3.kursiokai_kietiakiai.txt");     
+                nuskaitytiFailaDeque3(studentai_deque, "ad2.kursiokai_vargsiukai.txt", "ad2.kursiokai_kietiakiai.txt");      
+
+    
 
                 cout << "--------------------------------------------------";
                 cout << "Nauji sugeneruoti failai";
@@ -964,7 +980,7 @@ int main() {
                 cout << "Deque" << endl;
                 nuskaitytiFailaDeque3(studentai_deque, "studentu10000000.txt", "3d.vargsiuku10000000.txt");   
                 auto end3 = chrono::steady_clock::now();
-                auto difference3 = chrono::duration <double> (start3 - end3).count();   
+                auto difference3 = chrono::duration <double> (end3 - start3).count();   
                 cout << "Vidutinis 3 strategijos veikimo laikas: " << 1.0 * difference3 / 9.0 << "s" << endl;  
 
                 break;
