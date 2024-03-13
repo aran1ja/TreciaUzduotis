@@ -79,6 +79,9 @@
 ### 3 strategy
 #### The results are similar to the ones in 2 strategy. That could be because in both the 2 and 3 strategies, I used 'efficient' methods. I tried to use more effective methods in the 3rd strategy, but that probably caused the reason why it took a little bit more time for program to sort students.
 
+## Program Installation Instructions
+
+
 ## Program Usage Guide
 #### To start with a program, you have to compile the program using the provided makefile file. In the terminal you have to write:
 #### make vektoriai
