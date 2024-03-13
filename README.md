@@ -80,8 +80,15 @@
 #### The results are similar to the ones in 2 strategy. That could be because in both the 2 and 3 strategies, I used 'efficient' methods. I tried to use more effective methods in the 3rd strategy, but that probably caused the reason why it took a little bit more time for program to sort students.
 
 ## Program Installation Instructions
-
-#### To run the program, you have to compile it using "Makefile" file, which is provided in the repository. Write:
+#### 1. Firstly, you have to setup your GitHub account. It is easier to do that following this guide: https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account 
+#### 2. To find needed code, input a link into a search bar. For example, https://github.com/aran1ja/PirmaUzduotis/tree/v1.0
+#### 3. Open "Command Prompt" on your device.
+#### 4. In your terminal, write following command: git clone <https://github.com/aran1ja/PirmaUzduotis.git>
+#### 5. Open an app, you would like to run the code (for example, Visual Studio Code).
+#### 6. On menu bar select "Terminal" -> "New Terminal". New terminal window should appear at the bottom of the VSCode interface.
+#### Use the cd command followed by the path to your cloned repository: cd <your\directory\path>
+#### For example, cd<C:\Users\acer\Desktop\Adri\VSCode\Programavimas>
+#### 7. To run the program, you have to compile it using "Makefile" file, which is provided in the repository. In the app's (like VSCode) terminal write:
 #### make vektoriai
 #### make funkcijos
 #### make program
