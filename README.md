@@ -1,6 +1,6 @@
 # PirmaUzduotis
 ## Description
-#### The program compares the performance of different container types: std::vector, std::list, std::deque. The goal is to investigate how the choice of container impacts the performance of the program, including data reading, sorting and organizing.
+#### The program compares the performance of different container types: std::vector, std::list, std::deque. The goal is to investigate how the choice of container impacts the performance of the program, including data reading, sorting and organizing. Also, we implement 3 different strategies to write a code to check if it has any noticable impact on a program execution speed.
 
 ## Test 1
 #### The program was tested with the same files of 1000, 10000, 100000, 1000000, 10000000 records. During each test, the time required for data reading, sorting and organization was measured. Additionally, parameters such as CPU and RAM usage, and SSD activity were recorded during testing.
