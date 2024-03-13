@@ -70,7 +70,7 @@
 
 ## Summary of Test 2
 ![изображение](https://github.com/aran1ja/PirmaUzduotis/assets/147089828/6941d544-9f8a-4c16-b18d-577bd1e30d97)
-#### We can notice in the table, that the results of Test 1 are also confirmed there. The program with the std::list container operates the fastest, while the program with the std::deque container takes the longest. Also, there is written average time of student sorting in increasing order (to the right - the average of 9 files, in the bottom - the average of 27 files).
+#### We can notice in the table, that the results of Test 1 are also confirmed there. The program with the std::list container operates the fastest, while the program with the std::deque container takes the longest. Also, there is written average time of student sorting in increasing order (to the right - the average of 9 files, in the bottom - the average of 27 files). On the another picture, we see how much time it took to run every program in each container.
 #### Test 2 had the aim to see how results would differ if for sorting student in increasing order we would implement 3 different strategies. There container std::list seems to be the most efficient for sorting. While it takes much more time with the std::vector and std::deque containers.
 ### 1 strategy
 #### It is inefficient, as it takes much more time to sort students and also it has problems with memory usage. When we work with large files, a "bad_alloc" error may occur. Although, with std::list container it took only 17s for all 9 files to sort students.
@@ -81,13 +81,14 @@
 
 ## Program Installation Instructions
 
-
-## Program Usage Guide
-#### To start with a program, you have to compile the program using the provided makefile file. In the terminal you have to write:
+#### To run the program, you have to compile it using "Makefile" file, which is provided in the repository. Write:
 #### make vektoriai
 #### make funkcijos
-#### make programa
-#### ./Vektoriai.exe
+#### make program
+#### If you want to understand how to run and use the program, see "Program Usage Guide" below.
+
+## Program Usage Guide
+#### To start with a program, you have to write "./Vektoriai.exe" in a terminal.
 #### Command "./Vektoriai.exe" will run the program. After that you will see the menu with 6 possible choices. You have to make a choice, depending on what you want.
 ### Choice description:
 #### 1. You have to input students information data manually. You have to write students' names, surnames, how much homework grades they have and what grades did they get from homeworks and exams. Then program will ask what do you want to output: average grade, median or both. You will have to make a choice and the results will be outputed in the terminal.
