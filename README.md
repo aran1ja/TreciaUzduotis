@@ -79,3 +79,18 @@
 ### 3 strategy
 #### The results are similar to the ones in 2 strategy. That could be because in both the 2 and 3 strategies, I used 'efficient' methods. I tried to use more effective methods in the 3rd strategy, but that probably caused the reason why it took a little bit more time for program to sort students.
 
+## Program Usage Guide
+#### To start with a program, you have to compile the program using the provided makefile file. In the terminal you have to write:
+#### make vektoriai
+#### make funkcijos
+#### make programa
+#### ./Vektoriai.exe
+#### Command "./Vektoriai.exe" will run the program. After that you will see the menu with 6 possible choices. You have to make a choice, depending on what you want.
+### Choice description:
+#### 1. You have to input students information data manually. You have to write students' names, surnames, how much homework grades they have and what grades did they get from homeworks and exams. Then program will ask what do you want to output: average grade, median or both. You will have to make a choice and the results will be outputed in the terminal.
+#### 2. You have to input students information data manually. Although, uou have to write only students' names and surnames. Program will generate homework and exam grades. Then program will ask what do you want to output: average grade, median or both. You will have to make a choice and the results will be outputed in the terminal.
+#### 3. In this case, program will generate the amount of students, their names, surnames and grades. You only have to choose what do you want to output: average grade, median or both. When you make a choice, the results are outputed in the terminal.
+#### 4. This choices can read the data from input files, calculate median and average and output results into a new file. It gives you a choice which file do you want to read from, gives 4 ways to sort students (by names, surnames, by average or by median) and then outputs the results.
+#### 5. In this case, program asks you if you want to generate new files. If you do, you generate new files with students data like names, surnames and grades. Then program uses 3 container types and 3 strategies to read the data from files. 3 container types are needed to see which container impacts the speed of program more effectively. In the 1 strategy, data will by stored in 3 containers (studentai, vargsiukai and kietiakai). Then, the results will be sorted in increasing order and outputed in 2 different files "vargsiukai" and "kietiakai". Although, this strategy is not effective in term of memory usage. Then you can try 2 strategy, which identifies who is "vargsiukas" and stores them in a new container. Those students, that were not sorted, they are left in a "studentai" container. This is much more effective way. There will be only one new file with "vargsiukai" in them. You can also try 3 strategy, which has implemented "effective" methods, which should speed up program.
+#### 6. This choice ends the program. 
+
