@@ -84,11 +84,13 @@
 #### 2. To find needed code, input a link into a search bar. For example, https://github.com/aran1ja/PirmaUzduotis/tree/v1.0
 #### 3. Open "Command Prompt" on your device.
 #### 4. In your terminal, write following command: git clone <https://github.com/aran1ja/PirmaUzduotis.git>
-#### 5. Open an app, you would like to run the code (for example, Visual Studio Code).
-#### 6. On menu bar select "Terminal" -> "New Terminal". New terminal window should appear at the bottom of the VSCode interface.
+#### 5. Open an app, you would like to run the code.
+#### 6. Depending on your app, you should install extensions. If you use Visual Studio Code, it is recommended to install following extensions:
+#### "C/C++ Extension Pack", "C/C++ Runner", "Code Runner", "CMake", "CMake Tools".
+#### 7. On menu bar select "Terminal" -> "New Terminal". New terminal window should appear at the bottom of your app's interface.
 #### Use the cd command followed by the path to your cloned repository: cd <your\directory\path>
 #### For example, cd<C:\Users\acer\Desktop\Adri\VSCode\Programavimas>
-#### 7. To run the program, you have to compile it using "Makefile" file, which is provided in the repository. In the app's (like VSCode) terminal write:
+#### 8. To run the program, you have to compile it using "Makefile" file, which is provided in the repository. In the app's (like VSCode) terminal write:
 #### make vektoriai
 #### make funkcijos
 #### make program
