@@ -657,10 +657,6 @@ int main() {
             // Menu 5 - failai generuojami ir duomenys rusiuojami
             case 5:
             {
-                
-            vector<Studentas> studentai;
-            list<Studentas> studentai_list;
-            deque<Studentas> studentai_deque;
 
             int pasirinkimas4;
 
@@ -673,12 +669,12 @@ int main() {
                     cout << "Klaida. Ivestas netinkamas simbolis. Iveskite skaiciu." << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    continue; // Sugrįžkite į ciklo pradžią, kad vartotojas galėtų bandyti iš naujo.
+                    continue; 
                 }
 
                 if (pasirinkimas4 != 1) {
                     cout << " " << endl;
-                    break; // Jei vartotojas ne nori generuoti failų, nutraukti ciklą.
+                    break; 
                 }
 
                 try {

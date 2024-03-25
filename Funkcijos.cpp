@@ -44,15 +44,12 @@ bool palyginti_pagal_mediana(const Studentas &a, const Studentas &b) {
 bool palyginti_pagal_galutini_vidurki(const Studentas &a, const Studentas &b) {
     return a.galutinis_vid > b.galutinis_vid;
 }
-
 bool palyginti_pagal_galutini_vidurki_didejimo_tvarka(const Studentas &a, const Studentas &b) {
     return a.galutinis_vid < b.galutinis_vid;
 }
-
 bool ar_vargsiukas(const Studentas& student) {
     return student.galutinis_vid < 5.0;
 }
-
 void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1) {
 
         switch (pasirinkimas1) {
@@ -439,9 +436,10 @@ void nuskaitytiFailaDeque1(string failoPavadinimas, string vargsiukuFailoPavadin
 
 //// 2 strategija
 
-void nuskaitytiFailaVector2(vector<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaVector2(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
 
+    vector<Studentas> studentai;
     vector<Studentas> vargsiukai;
 
     string eilute;
@@ -531,9 +529,10 @@ void nuskaitytiFailaVector2(vector<Studentas>& studentai, string failoPavadinima
     failoIsvedimasVector1(vargsiukai, vargsiukuFailoPavadinimas);
 }
 
-void nuskaitytiFailaList2(list<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaList2(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
 
+    list<Studentas> studentai;
     list<Studentas> vargsiukai;
 
     string eilute;
@@ -623,10 +622,11 @@ void nuskaitytiFailaList2(list<Studentas>& studentai, string failoPavadinimas, s
     failoIsvedimasList1(vargsiukai, vargsiukuFailoPavadinimas);
 }
 
-void nuskaitytiFailaDeque2(deque<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas)
+void nuskaitytiFailaDeque2(string failoPavadinimas, string vargsiukuFailoPavadinimas)
  {
     ifstream fileName(failoPavadinimas);
 
+    deque<Studentas> studentai;
     deque<Studentas> vargsiukai;
 
     string eilute;
@@ -718,9 +718,10 @@ void nuskaitytiFailaDeque2(deque<Studentas>& studentai, string failoPavadinimas,
 
 //// 3 strategija
 
-void nuskaitytiFailaVector3(vector<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaVector3(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
 
+    vector<Studentas> studentai;
     vector<Studentas> vargsiukai;
 
     string eilute;
@@ -815,9 +816,10 @@ void nuskaitytiFailaVector3(vector<Studentas>& studentai, string failoPavadinima
     failoIsvedimasVector1(vargsiukai, vargsiukuFailoPavadinimas);
 }
 
-void nuskaitytiFailaList3(list<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaList3(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
 
+    list<Studentas> studentai;
     list<Studentas> vargsiukai;
 
     string eilute;
@@ -911,10 +913,11 @@ void nuskaitytiFailaList3(list<Studentas>& studentai, string failoPavadinimas, s
     failoIsvedimasList1(vargsiukai, vargsiukuFailoPavadinimas);
 }
 
-void nuskaitytiFailaDeque3(deque<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas)
+void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadinimas)
  {
     ifstream fileName(failoPavadinimas);
 
+    deque<Studentas> studentai;
     deque<Studentas> vargsiukai;
 
     string eilute;

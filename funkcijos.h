@@ -22,28 +22,28 @@ void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaiciu
 // 1 strategija
 void failoIsvedimasVector1(const vector<Studentas>& studentai, string failoPavadinimas);
 void nuskaitytiFailaVector1(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
-void rusiuotiStudentusVector1(vector<Studentas>& studentai, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
+//void rusiuotiStudentusVector1(vector<Studentas>& studentai, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
 void failoIsvedimasList1(const list<Studentas>& studentai, string failoPavadinimas);
 void nuskaitytiFailaList1(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
-void rusiuotiStudentusList1(list<Studentas>& studentai, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
+//void rusiuotiStudentusList1(list<Studentas>& studentai, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
 void failoIsvedimasDeque1(const deque<Studentas>& studentai, string failoPavadinimas);
 void nuskaitytiFailaDeque1(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
-void rusiuotiStudentusDeque1(deque<Studentas>& studentai, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
+//void rusiuotiStudentusDeque1(deque<Studentas>& studentai, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas);
 
 // 2 strategija
 void nuskaitytiFailaVector2(string failoPavadinimas, string vargsiukuFailoPavadinimas);
-void rusiuotiStudentusVector2(vector<Studentas>& studentai, string vargsiukuFailoPavadinimas);
+//void rusiuotiStudentusVector2(vector<Studentas>& studentai, string vargsiukuFailoPavadinimas);
 void nuskaitytiFailaList2(string failoPavadinimas, string vargsiukuFailoPavadinimas);
-void rusiuotiStudentusList2(list<Studentas>& studentai, string vargsiukuFailoPavadinimas);
+//void rusiuotiStudentusList2(list<Studentas>& studentai, string vargsiukuFailoPavadinimas);
 void nuskaitytiFailaDeque2(string failoPavadinimas, string vargsiukuFailoPavadinimas);
-void rusiuotiStudentusDeque2(deque<Studentas>& studentai, string vargsiukuFailoPavadinimas);
+//void rusiuotiStudentusDeque2(deque<Studentas>& studentai, string vargsiukuFailoPavadinimas);
 
 // 3 strategija
 void nuskaitytiFailaVector3(string failoPavadinimas, string vargsiukuFailoPavadinimas);
-void rusiuotiStudentusVector3(vector<Studentas>& studentai, string vargsiukuFailoPavadinimas);
+//void rusiuotiStudentusVector3(vector<Studentas>& studentai, string vargsiukuFailoPavadinimas);
 void nuskaitytiFailaList3(string failoPavadinimas, string vargsiukuFailoPavadinimas);
-void rusiuotiStudentusList3(list<Studentas>& studentai, string vargsiukuFailoPavadinimas);
+//void rusiuotiStudentusList3(list<Studentas>& studentai, string vargsiukuFailoPavadinimas);
 void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadinimas);
-void rusiuotiStudentusDeque3(deque<Studentas>& studentai, string vargsiukuFailoPavadinimas);
+//void rusiuotiStudentusDeque3(deque<Studentas>& studentai, string vargsiukuFailoPavadinimas);
 
 #endif
