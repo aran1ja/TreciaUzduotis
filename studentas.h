@@ -1,33 +1,41 @@
 #ifndef STUDENTAS_H
 #define STUDENTAS_H
 
-#include <vector>
+#include <iostream>
 #include <string>
+#include <vector>
+#include "funkcijos.h"
 
 using namespace std;
 
 class Studentas {
-    private: 
-        vector<int> pazymiai;
-        string vardas_;
-        string pavarde_;
-        int egzamino_rezultatas_;
-        double galutinis_vid_;
-        double mediana_;
+private:
+    vector<int> pazymiai_;
+    string vardas_;
+    string pavarde_;
+    int egzamino_rezultatas_;
 
-    public:
-        // Konstruktorius
-        Studentas() : egzamino_rezultatas_(0), galutinis_vid_(0), mediana_(0) {}
+public:
+    // Konstruktorius
+    Studentas() : egzamino_rezultatas_(0) {}
+    Studentas(std::istream& is);
 
-    // Metodai
-    inline string vardas() const { return vardas_; }
-    inline string pavarde() const { return pavarde_; }
-    double galBalas(double (*funkcija)(vector<int>) = mediana) const;
-    istream& readStudent(istream&);
+    void setVardas(const string& vardas) { vardas_ = vardas; }
+    void setPavarde(const string& pavarde) { pavarde_ = pavarde; }
+    void setPazymiai(const vector<int>& pazymiai) { pazymiai_ = pazymiai; }
+    void setEgzaminoRezultatas(int egzamino_rezultatas) { egzamino_rezultatas_ = egzamino_rezultatas; }
+    
+    string getVardas() const { return vardas_; }
+    string getPavarde() const { return pavarde_; }
+    vector<int> getPazymiai() const { return pazymiai_; }
+    int getEgzaminoRezultatas() const { return egzamino_rezultatas_; }
+
+    istream& readStudent(istream& in);
+
+    // Galutinio balo skaiciavimas
+    double galBalas(double (*funkcija)(vector<int>), int egzamino_rezultatas) const;
 };
 
-bool compare(const Studentas&, const Studentas&);
-bool comparePagalPavarde(const Studentas&, const Studentas&);
-bool comparePagalEgza(const Studentas&, const Studentas&);
-
 #endif
+
+
