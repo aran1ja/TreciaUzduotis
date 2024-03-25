@@ -663,6 +663,8 @@ int main() {
 
             int pasirinkimas4;
 
+
+
             while (true) {
 
                 cout << "Ar norite sugeneruoti naujus failus?" << endl;
@@ -691,7 +693,7 @@ int main() {
                     cout << pasirinkimo_klaida.what() << endl;
                 }
             }
-             /*   
+             
                 cout << "//////////////////////////////////////////////////";
                 cout << "1 STRATEGIJA";
                 cout << "//////////////////////////////////////////////////" << endl;  
@@ -790,9 +792,8 @@ int main() {
                  
                 cout << "//////////////////////////////////////////////////";
                 cout << "2 STRATEGIJA";
-                cout << "//////////////////////////////////////////////////" << endl;    
-*/              
-             /*   
+                cout << "//////////////////////////////////////////////////" << endl;             
+              
 
                 cout << "--------------------------------------------------";
                 cout << "Anksciau sugeneruoti failai";
@@ -855,27 +856,27 @@ int main() {
                 nuskaitytiFailaList2("studentu10000.txt", "2l.vargsiuku10000.txt");
                 cout << "Deque" << endl;
                 nuskaitytiFailaDeque2("studentu10000.txt", "2d.vargsiuku10000.txt");
-*/
-                auto start = chrono::steady_clock::now();
+
+                
 
                 cout << "--------------------------------------------------" << endl;
                 cout << "100000 studentu failas" << endl;
-                //cout << "Vector" << endl;
+                cout << "Vector" << endl;
                 nuskaitytiFailaVector2("studentu100000.txt", "2v.vargsiuku100000.txt");
-                //cout << "List" << endl;
-                //nuskaitytiFailaList2("studentu100000.txt", "2l.vargsiuku100000.txt");
-                //cout << "Deque" << endl;
-                //nuskaitytiFailaDeque2("studentu100000.txt", "2d.vargsiuku100000.txt");
+                cout << "List" << endl;
+                nuskaitytiFailaList2("studentu100000.txt", "2l.vargsiuku100000.txt");
+                cout << "Deque" << endl;
+                nuskaitytiFailaDeque2("studentu100000.txt", "2d.vargsiuku100000.txt");
 
                 cout << "--------------------------------------------------" << endl;
                 cout << "1000000 studentu failas" << endl;
                 //cout << "Vector" << endl;
-                nuskaitytiFailaVector2("studentu1000000.txt", "2v.vargsiuku1000000.txt");
+                //nuskaitytiFailaVector2("studentu1000000.txt", "2v.vargsiuku1000000.txt");
                 //cout << "List" << endl;
                 //nuskaitytiFailaList2("studentu1000000.txt", "2l.vargsiuku1000000.txt");
                 //cout << "Deque" << endl;
-                //nuskaitytiFailaDeque2("studentu1000000.txt", "2d.vargsiuku1000000.txt");
-/*
+                nuskaitytiFailaDeque2("studentu1000000.txt", "2d.vargsiuku1000000.txt");
+
                 cout << "--------------------------------------------------" << endl;
                 cout << "10000000 studentu failas" << endl;
                 cout << "Vector" << endl;
@@ -887,12 +888,9 @@ int main() {
                 auto end2 = chrono::steady_clock::now();
                 auto difference2 = chrono::duration <double> (end2 - start2).count();   
                 cout << "Vidutinis 2 strategijos veikimo laikas: " << 1.0 * difference2 / 9.0 << "s" << endl;     
-*/
-                auto end = chrono::steady_clock::now();
-                auto difference = chrono::duration <double> (end - start).count();   
-                cout << "Programos veikimo laikas su <vector> konteineriu: " << difference << "s" << endl; 
-                cout << "Programos veikimo laikas matuojamas be failu sukurimo laiko, su class struktura ir 100.000, 1.000.000 failais." << endl; 
-/*
+
+                 
+
                 cout << "//////////////////////////////////////////////////";
                 cout << "3 STRATEGIJA";
                 cout << "//////////////////////////////////////////////////" << endl;  
@@ -990,7 +988,7 @@ int main() {
                 auto end3 = chrono::steady_clock::now();
                 auto difference3 = chrono::duration <double> (end3 - start3).count();   
                 cout << "Vidutinis 3 strategijos veikimo laikas: " << 1.0 * difference3 / 9.0 << "s" << endl;  
-*/
+
                 break;
             }
 
