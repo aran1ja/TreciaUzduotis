@@ -1,5 +1,4 @@
 #include "funkcijos.h"
-#include "studentas.h"
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
@@ -8,17 +7,6 @@
 #include <chrono>
 #include <list>
 #include <deque>
-
-Studentas::Studentas(std::istream& is) : egzamino_rezultatas_(0) {
-    // Skaitykite vardą, pavardę ir egzamino rezultatą
-    is >> vardas_ >> pavarde_ >> egzamino_rezultatas_;
-    
-    // Skaitykite pažymius iki kol pasieksite pabaigą
-    int pazymys;
-    while (is >> pazymys) {
-        pazymiai_.push_back(pazymys);
-    }
-}
 
 // Mediana
 double mediana(vector<int> pazymiai, int egzamino_rezultatas) {
@@ -42,27 +30,27 @@ double vidurkis_galutinis(double suma, int n, int egzamino_rezultatas) {
 }
 // Rusiuojama pagal varda (didejimo tvarka)
 bool palyginti_pagal_varda(const Studentas &a, const Studentas &b) {
-    return a.getVardas() < b.getVardas();
+    return a.vardas < b.vardas;
 }
 // Rusiuojama pagal pavarde (didejimo tvarka)
 bool palyginti_pagal_pavarde(const Studentas &a, const Studentas &b) {
-    return a.getPavarde() < b.getPavarde();
+    return a.pavarde < b.pavarde;
 }
 // Rusiuojama pagal mediana (mazejimo tvarka)
 bool palyginti_pagal_mediana(const Studentas &a, const Studentas &b) {
-    return a.getMediana() > b.getMediana();
+    return a.mediana > b.mediana;
 }
 // Rusiuojama pagal galutini vidurki (mazejimo tvarka)
 bool palyginti_pagal_galutini_vidurki(const Studentas &a, const Studentas &b) {
-    return a.getGalutinis_vid() > b.getGalutinis_vid();
+    return a.galutinis_vid > b.galutinis_vid;
 }
 
 bool palyginti_pagal_galutini_vidurki_didejimo_tvarka(const Studentas &a, const Studentas &b) {
-    return a.getGalutinis_vid() < b.getGalutinis_vid();
+    return a.galutinis_vid < b.galutinis_vid;
 }
 
 bool ar_vargsiukas(const Studentas& student) {
-    return student.getGalutinis_vid() < 5.0;
+    return student.galutinis_vid < 5.0;
 }
 
 void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1) {
@@ -73,8 +61,8 @@ void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1
                 cout << "--------------------------------------------------" << endl;
 
                 for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.getVardas() << setw(15) << studentas.getPavarde() << setw(15);
-                    cout << fixed << setprecision(2) << studentas.getGalutinis_vid() << endl;
+                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    cout << fixed << setprecision(2) << studentas.galutinis_vid << endl;
                 }
                 break;
             case 2:
@@ -82,8 +70,8 @@ void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1
                 cout << "--------------------------------------------------" << endl;
 
                 for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.getVardas() << setw(15) << studentas.getPavarde() << setw(15);
-                    cout << fixed << setprecision(2) << studentas.getMediana() << endl;
+                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    cout << fixed << setprecision(2) << studentas.mediana << endl;
                 }
                 break;
             case 3:
@@ -91,9 +79,9 @@ void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1
                 cout << "-----------------------------------------------------------------" << endl;
 
                 for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.getVardas() << setw(15) << studentas.getPavarde() << setw(15);
-                    cout << fixed << setprecision(2) << studentas.getGalutinis_vid() << setw(30);
-                    cout << fixed << setprecision(2) << studentas.getMediana() << endl;
+                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
+                    cout << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
+                    cout << fixed << setprecision(2) << studentas.mediana << endl;
                 }
                 break;
         } 
@@ -140,7 +128,6 @@ void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaiciu
 
 //// 1 strategija
 
-/// Vector
 void failoIsvedimasVector1(const vector<Studentas>& studentai, string failoPavadinimas) {
     ofstream file(failoPavadinimas);
     
@@ -160,8 +147,11 @@ void failoIsvedimasVector1(const vector<Studentas>& studentai, string failoPavad
 
 void nuskaitytiFailaVector1(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
-    
-    vector<Studentas> studentai;
+
+    // Padaromi 2 nauji konteineriai
+    vector<Studentas> vargsiukai;
+    vector<Studentas> kietiakai;
+
     string eilute;
 
     if (!fileName.is_open()) {
@@ -171,6 +161,7 @@ void nuskaitytiFailaVector1(string failoPavadinimas, string vargsiukuFailoPavadi
 
     double skaicius = 0.0;
     string smth;
+    double visasLaikas = 0.0;
     double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
@@ -183,6 +174,7 @@ void nuskaitytiFailaVector1(string failoPavadinimas, string vargsiukuFailoPavadi
 
     // Neskaitoma pirma eilute is failo
     getline(fileName, eilute);
+
     while (getline(fileName, eilute)) {
 
         auto ppradzia = chrono::steady_clock::now();
@@ -207,39 +199,21 @@ void nuskaitytiFailaVector1(string failoPavadinimas, string vargsiukuFailoPavadi
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        studentai.push_back(naujas_studentas);
+        auto pradedam = chrono::steady_clock::now();
+
+        // Studento pridėjimas į atitinkamą konteinerį
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
+        } else {
+            kietiakai.push_back(naujas_studentas);
+        }
+
+        auto pabaigiam = chrono::steady_clock::now();
+        auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
+        visasLaikas += skaiciuojam;
     }        
     
     cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
-
-    fileName.close();
-
-    rusiuotiStudentusVector1(studentai, vargsiukuFailoPavadinimas, kietakiuFailoPavadinimas);
-}
-
-void rusiuotiStudentusVector1(vector<Studentas>& studentai, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas) {
-       
-    // Padaromi 2 nauji konteineriai
-    vector<Studentas> vargsiukai;
-    vector<Studentas> kietiakai;
-    double visasLaikas = 0.0;
-
-    auto pradedam = chrono::steady_clock::now();
-
-    // Studento pridėjimas į atitinkamą konteinerį
-    for (const auto& studentas : studentai) {
-        if (studentas.galutinis_vid < 5.0) {
-            vargsiukai.push_back(studentas);
-        } else {
-            kietiakai.push_back(studentas);
-        }
-    }
-
-    //studentas.clear();
-
-    auto pabaigiam = chrono::steady_clock::now();
-    auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
-    visasLaikas += skaiciuojam;
 
     auto did_pradedame_v = chrono::steady_clock::now();
     sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
@@ -250,11 +224,13 @@ void rusiuotiStudentusVector1(vector<Studentas>& studentai, string vargsiukuFail
     cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_v << "s" << endl;
     cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
 
+    fileName.close();
+
     // Issaugome vargsiukus ir kietakius atskiruose failuose
     failoIsvedimasVector1(vargsiukai, vargsiukuFailoPavadinimas);
     failoIsvedimasVector1(kietiakai, kietakiuFailoPavadinimas);
 }
-/// List
+
 void failoIsvedimasList1(const list<Studentas>& studentai, string failoPavadinimas) {
     ofstream file(failoPavadinimas);
     
@@ -274,8 +250,11 @@ void failoIsvedimasList1(const list<Studentas>& studentai, string failoPavadinim
 
 void nuskaitytiFailaList1(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
-    
-    list<Studentas> studentai;
+
+    // Padaromi 2 nauji konteineriai
+    list<Studentas> vargsiukai;
+    list<Studentas> kietiakai;
+
     string eilute;
 
     if (!fileName.is_open()) {
@@ -285,6 +264,7 @@ void nuskaitytiFailaList1(string failoPavadinimas, string vargsiukuFailoPavadini
 
     double skaicius = 0.0;
     string smth;
+    double visasLaikas = 0.0;
     double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
@@ -297,6 +277,7 @@ void nuskaitytiFailaList1(string failoPavadinimas, string vargsiukuFailoPavadini
 
     // Neskaitoma pirma eilute is failo
     getline(fileName, eilute);
+
     while (getline(fileName, eilute)) {
 
         auto ppradzia = chrono::steady_clock::now();
@@ -321,37 +302,21 @@ void nuskaitytiFailaList1(string failoPavadinimas, string vargsiukuFailoPavadini
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        studentai.push_back(naujas_studentas);
+        auto pradedam = chrono::steady_clock::now();
+
+        // Studento pridėjimas į atitinkamą konteinerį
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
+        } else {
+            kietiakai.push_back(naujas_studentas);
+        }
+
+        auto pabaigiam = chrono::steady_clock::now();
+        auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
+        visasLaikas += skaiciuojam;
     }        
     
     cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
-
-    fileName.close();
-
-    rusiuotiStudentusList1(studentai, vargsiukuFailoPavadinimas, kietakiuFailoPavadinimas);
-}
-
-void rusiuotiStudentusList1(list<Studentas>& studentai, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas) {
-       
-    // Padaromi 2 nauji konteineriai
-    list<Studentas> vargsiukai;
-    list<Studentas> kietiakai;
-
-    auto pradedam = chrono::steady_clock::now();
-
-    // Studento pridėjimas į atitinkamą konteinerį
-    for (const auto& studentas : studentai) {
-        if (studentas.galutinis_vid < 5.0) {
-            vargsiukai.push_back(studentas);
-        } else {
-            kietiakai.push_back(studentas);
-        }
-    }
-
-    //studentas.clear();
-
-    auto pabaigiam = chrono::steady_clock::now();
-    auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
 
     auto did_pradedame_l = chrono::steady_clock::now();
     vargsiukai.sort(palyginti_pagal_galutini_vidurki_didejimo_tvarka);
@@ -360,13 +325,15 @@ void rusiuotiStudentusList1(list<Studentas>& studentai, string vargsiukuFailoPav
     auto did_skaiciuojame_l = chrono::duration <double> (did_baigiame_l - did_pradedame_l).count();
 
     cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_l << "s" << endl;
-    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << skaiciuojam << "s" << endl;
+    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
+
+    fileName.close();
 
     // Issaugome vargsiukus ir kietakius atskiruose failuose
     failoIsvedimasList1(vargsiukai, vargsiukuFailoPavadinimas);
     failoIsvedimasList1(kietiakai, kietakiuFailoPavadinimas);
 }
-/// Deque
+
 void failoIsvedimasDeque1(const deque<Studentas>& studentai, string failoPavadinimas) {
     ofstream file(failoPavadinimas);
     
@@ -386,8 +353,11 @@ void failoIsvedimasDeque1(const deque<Studentas>& studentai, string failoPavadin
 
 void nuskaitytiFailaDeque1(string failoPavadinimas, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
-    
-    deque<Studentas> studentai;
+
+    // Padaromi 2 nauji konteineriai
+    deque<Studentas> vargsiukai;
+    deque<Studentas> kietiakai;
+
     string eilute;
 
     if (!fileName.is_open()) {
@@ -397,6 +367,7 @@ void nuskaitytiFailaDeque1(string failoPavadinimas, string vargsiukuFailoPavadin
 
     double skaicius = 0.0;
     string smth;
+    double visasLaikas = 0.0;
     double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
@@ -409,6 +380,7 @@ void nuskaitytiFailaDeque1(string failoPavadinimas, string vargsiukuFailoPavadin
 
     // Neskaitoma pirma eilute is failo
     getline(fileName, eilute);
+
     while (getline(fileName, eilute)) {
 
         auto ppradzia = chrono::steady_clock::now();
@@ -433,37 +405,21 @@ void nuskaitytiFailaDeque1(string failoPavadinimas, string vargsiukuFailoPavadin
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        studentai.push_back(naujas_studentas);
+        auto pradedam = chrono::steady_clock::now();
+
+        // Studento pridėjimas į atitinkamą konteinerį
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
+        } else {
+            kietiakai.push_back(naujas_studentas);
+        }
+
+        auto pabaigiam = chrono::steady_clock::now();
+        auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
+        visasLaikas += skaiciuojam;
     }        
     
     cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
-
-    fileName.close();
-
-    rusiuotiStudentusDeque1(studentai, vargsiukuFailoPavadinimas, kietakiuFailoPavadinimas);
-}
-
-void rusiuotiStudentusDeque1(deque<Studentas>& studentai, string vargsiukuFailoPavadinimas, string kietakiuFailoPavadinimas) {
-       
-    // Padaromi 2 nauji konteineriai
-    deque<Studentas> vargsiukai;
-    deque<Studentas> kietiakai;
-
-    auto pradedam = chrono::steady_clock::now();
-
-    // Studento pridėjimas į atitinkamą konteinerį
-    for (const auto& studentas : studentai) {
-        if (studentas.galutinis_vid < 5.0) {
-            vargsiukai.push_back(studentas);
-        } else {
-            kietiakai.push_back(studentas);
-        }
-    }
-
-    //studentas.clear();
-
-    auto pabaigiam = chrono::steady_clock::now();
-    auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
 
     auto did_pradedame_d = chrono::steady_clock::now();
     sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
@@ -472,7 +428,9 @@ void rusiuotiStudentusDeque1(deque<Studentas>& studentai, string vargsiukuFailoP
     auto did_skaiciuojame_d = chrono::duration <double> (did_baigiame_d - did_pradedame_d).count();
 
     cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_d << "s" << endl;
-    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << skaiciuojam << "s" << endl;
+    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
+
+    fileName.close();
 
     // Issaugome vargsiukus ir kietakius atskiruose failuose
     failoIsvedimasDeque1(vargsiukai, vargsiukuFailoPavadinimas);
@@ -481,10 +439,11 @@ void rusiuotiStudentusDeque1(deque<Studentas>& studentai, string vargsiukuFailoP
 
 //// 2 strategija
 
-void nuskaitytiFailaVector2(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaVector2(vector<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
 
-    vector<Studentas> studentai;
+    vector<Studentas> vargsiukai;
+
     string eilute;
 
     if (!fileName.is_open()) {
@@ -494,6 +453,7 @@ void nuskaitytiFailaVector2(string failoPavadinimas, string vargsiukuFailoPavadi
 
     double skaicius = 0.0;
     string smth;
+    double visasLaikas = 0.0;
     double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
@@ -531,38 +491,29 @@ void nuskaitytiFailaVector2(string failoPavadinimas, string vargsiukuFailoPavadi
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        studentai.push_back(naujas_studentas);
-    }        
-
-    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
-    fileName.close();
-    rusiuotiStudentusVector2(studentai, vargsiukuFailoPavadinimas);
-}
-
-void rusiuotiStudentusVector2(vector<Studentas>& studentai, string vargsiukuFailoPavadinimas) {
-        vector<Studentas> vargsiukai;
-
         auto pradedam = chrono::steady_clock::now();
 
         // Tikriname ar studentas yra vargsiukas
-        for (const auto& studentas : studentai) {
-            if (studentas.galutinis_vid < 5.0) {
-                vargsiukai.push_back(studentas);
-            } 
-        }
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
+        } 
 
         // Pasaliname vargsiukus is bendro konteinerio
         studentai.erase(remove_if(studentai.begin(), studentai.end(), ar_vargsiukas), studentai.end());
 
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
-        
+        visasLaikas += skaiciuojam;
+    }        
+
     // Tikriname, ar vargsiukai buvo perkelti
     if (!vargsiukai.empty()) {
             cout << "Vargsiukai sekmingai perkelti i atskira konteineri." << endl;
         } else {
             cout << "Nepavyko perkelti vargsiuku." << endl;
         }
+    
+    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
 
     auto did_pradedame_v = chrono::steady_clock::now();
     sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
@@ -571,15 +522,20 @@ void rusiuotiStudentusVector2(vector<Studentas>& studentai, string vargsiukuFail
     auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 
     cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_v << "s" << endl;
-    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << skaiciuojam << "s" << endl;
+    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
+
+
+    fileName.close();
 
     // Issaugome vargsiukus atskirame faile
     failoIsvedimasVector1(vargsiukai, vargsiukuFailoPavadinimas);
 }
 
-void nuskaitytiFailaList2(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaList2(list<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
-    list<Studentas> studentai;
+
+    list<Studentas> vargsiukai;
+
     string eilute;
 
     if (!fileName.is_open()) {
@@ -589,6 +545,7 @@ void nuskaitytiFailaList2(string failoPavadinimas, string vargsiukuFailoPavadini
 
     double skaicius = 0.0;
     string smth;
+    double visasLaikas = 0.0;
     double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
@@ -626,56 +583,52 @@ void nuskaitytiFailaList2(string failoPavadinimas, string vargsiukuFailoPavadini
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        studentai.push_back(naujas_studentas);
-    }        
-
-    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
-    fileName.close();
-    rusiuotiStudentusList2(studentai, vargsiukuFailoPavadinimas);
-}
-
-void rusiuotiStudentusList2(list<Studentas>& studentai, string vargsiukuFailoPavadinimas) {
-        list<Studentas> vargsiukai;
-
         auto pradedam = chrono::steady_clock::now();
 
         // Tikriname ar studentas yra vargsiukas
-        for (const auto& studentas : studentai) {
-            if (studentas.galutinis_vid < 5.0) {
-                vargsiukai.push_back(studentas);
-            } 
-        }
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
+        } 
 
         // Pasaliname vargsiukus is bendro konteinerio
         studentai.erase(remove_if(studentai.begin(), studentai.end(), ar_vargsiukas), studentai.end());
 
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
-        
+        visasLaikas += skaiciuojam;
+    }        
+
     // Tikriname, ar vargsiukai buvo perkelti
     if (!vargsiukai.empty()) {
             cout << "Vargsiukai sekmingai perkelti i atskira konteineri." << endl;
         } else {
             cout << "Nepavyko perkelti vargsiuku." << endl;
         }
+    
+    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
 
     auto did_pradedame_v = chrono::steady_clock::now();
     vargsiukai.sort(palyginti_pagal_galutini_vidurki_didejimo_tvarka);
     studentai.sort(palyginti_pagal_galutini_vidurki_didejimo_tvarka);
-    auto did_baigiame_d = chrono::steady_clock::now();
-    auto did_skaiciuojame_d = chrono::duration <double> (did_baigiame_d - did_pradedame_v).count();
+    auto did_baigiame_v = chrono::steady_clock::now();
+    auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 
-    cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_d << "s" << endl;
-    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << skaiciuojam << "s" << endl;
+    cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_v << "s" << endl;
+    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
+
+
+    fileName.close();
 
     // Issaugome vargsiukus atskirame faile
     failoIsvedimasList1(vargsiukai, vargsiukuFailoPavadinimas);
 }
 
-void nuskaitytiFailaDeque2(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaDeque2(deque<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas)
+ {
     ifstream fileName(failoPavadinimas);
 
-    deque<Studentas> studentai;
+    deque<Studentas> vargsiukai;
+
     string eilute;
 
     if (!fileName.is_open()) {
@@ -685,6 +638,7 @@ void nuskaitytiFailaDeque2(string failoPavadinimas, string vargsiukuFailoPavadin
 
     double skaicius = 0.0;
     string smth;
+    double visasLaikas = 0.0;
     double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
@@ -722,47 +676,41 @@ void nuskaitytiFailaDeque2(string failoPavadinimas, string vargsiukuFailoPavadin
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        studentai.push_back(naujas_studentas);
-    }        
-
-    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
-    fileName.close();
-    rusiuotiStudentusDeque2(studentai, vargsiukuFailoPavadinimas);
-}
-
-void rusiuotiStudentusDeque2(deque<Studentas>& studentai, string vargsiukuFailoPavadinimas) {
-        deque<Studentas> vargsiukai;
-
         auto pradedam = chrono::steady_clock::now();
 
         // Tikriname ar studentas yra vargsiukas
-        for (const auto& studentas : studentai) {
-            if (studentas.galutinis_vid < 5.0) {
-                vargsiukai.push_back(studentas);
-            } 
-        }
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
+        } 
 
         // Pasaliname vargsiukus is bendro konteinerio
         studentai.erase(remove_if(studentai.begin(), studentai.end(), ar_vargsiukas), studentai.end());
 
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
-        
+        visasLaikas += skaiciuojam;
+    }        
+
     // Tikriname, ar vargsiukai buvo perkelti
     if (!vargsiukai.empty()) {
             cout << "Vargsiukai sekmingai perkelti i atskira konteineri." << endl;
         } else {
             cout << "Nepavyko perkelti vargsiuku." << endl;
         }
+    
+    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
 
     auto did_pradedame_v = chrono::steady_clock::now();
     sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
     sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
-    auto did_baigiame_d = chrono::steady_clock::now();
-    auto did_skaiciuojame_d = chrono::duration <double> (did_baigiame_d - did_pradedame_v).count();
+    auto did_baigiame_v = chrono::steady_clock::now();
+    auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 
-    cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_d << "s" << endl;
-    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << skaiciuojam << "s" << endl;
+    cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_v << "s" << endl;
+    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
+
+
+    fileName.close();
 
     // Issaugome vargsiukus atskirame faile
     failoIsvedimasDeque1(vargsiukai, vargsiukuFailoPavadinimas);
@@ -770,10 +718,11 @@ void rusiuotiStudentusDeque2(deque<Studentas>& studentai, string vargsiukuFailoP
 
 //// 3 strategija
 
-void nuskaitytiFailaVector3(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaVector3(vector<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
 
-    vector<Studentas> studentai;
+    vector<Studentas> vargsiukai;
+
     string eilute;
 
     if (!fileName.is_open()) {
@@ -783,6 +732,7 @@ void nuskaitytiFailaVector3(string failoPavadinimas, string vargsiukuFailoPavadi
 
     double skaicius = 0.0;
     string smth;
+    double visasLaikas = 0.0;
     double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
@@ -820,25 +770,12 @@ void nuskaitytiFailaVector3(string failoPavadinimas, string vargsiukuFailoPavadi
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        studentai.push_back(naujas_studentas);
-    }        
-
-    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
-    fileName.close();
-    rusiuotiStudentusVector3(studentai, vargsiukuFailoPavadinimas);
-}
-
-void rusiuotiStudentusVector3(vector<Studentas>& studentai, string vargsiukuFailoPavadinimas) {
-        vector<Studentas> vargsiukai;
-
         auto pradedam = chrono::steady_clock::now();
 
         // Tikriname ar studentas yra vargsiukas
-        for (const auto& studentas : studentai) {
-            if (studentas.galutinis_vid < 5.0) {
-                vargsiukai.push_back(studentas);
-            } 
-        }
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
+        } 
 
         // Ieskome vargsiuku ir triname juos is studentu vektoriaus
         auto paieska = find_if(studentai.begin(), studentai.end(), ar_vargsiukas);
@@ -849,13 +786,18 @@ void rusiuotiStudentusVector3(vector<Studentas>& studentai, string vargsiukuFail
 
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
-        
+        visasLaikas += skaiciuojam;
+
+        }        
+
     // Tikriname, ar vargsiukai buvo perkelti
     if (!vargsiukai.empty()) {
             cout << "Vargsiukai sekmingai perkelti i atskira konteineri." << endl;
         } else {
             cout << "Nepavyko perkelti vargsiuku." << endl;
         }
+    
+    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
 
     auto did_pradedame_v = chrono::steady_clock::now();
     sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
@@ -864,15 +806,20 @@ void rusiuotiStudentusVector3(vector<Studentas>& studentai, string vargsiukuFail
     auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 
     cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_v << "s" << endl;
-    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << skaiciuojam << "s" << endl;
+    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
+
+
+    fileName.close();
 
     // Issaugome vargsiukus atskirame faile
     failoIsvedimasVector1(vargsiukai, vargsiukuFailoPavadinimas);
 }
 
-void nuskaitytiFailaList3(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaList3(list<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas) {
     ifstream fileName(failoPavadinimas);
-    list<Studentas> studentai;
+
+    list<Studentas> vargsiukai;
+
     string eilute;
 
     if (!fileName.is_open()) {
@@ -882,6 +829,7 @@ void nuskaitytiFailaList3(string failoPavadinimas, string vargsiukuFailoPavadini
 
     double skaicius = 0.0;
     string smth;
+    double visasLaikas = 0.0;
     double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
@@ -919,25 +867,12 @@ void nuskaitytiFailaList3(string failoPavadinimas, string vargsiukuFailoPavadini
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        studentai.push_back(naujas_studentas);
-    }        
-
-    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
-    fileName.close();
-    rusiuotiStudentusList3(studentai, vargsiukuFailoPavadinimas);
-}
-
-void rusiuotiStudentusList3(list<Studentas>& studentai, string vargsiukuFailoPavadinimas) {
-        list<Studentas> vargsiukai;
-
         auto pradedam = chrono::steady_clock::now();
 
         // Tikriname ar studentas yra vargsiukas
-        for (const auto& studentas : studentai) {
-            if (studentas.galutinis_vid < 5.0) {
-                vargsiukai.push_back(studentas);
-            } 
-        }
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
+        } 
 
         // Ieskome vargsiuku ir triname juos is studentu vektoriaus
         auto paieska = find_if(studentai.begin(), studentai.end(), ar_vargsiukas);
@@ -948,31 +883,40 @@ void rusiuotiStudentusList3(list<Studentas>& studentai, string vargsiukuFailoPav
 
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
-        
+        visasLaikas += skaiciuojam;
+    }        
+
     // Tikriname, ar vargsiukai buvo perkelti
     if (!vargsiukai.empty()) {
             cout << "Vargsiukai sekmingai perkelti i atskira konteineri." << endl;
         } else {
             cout << "Nepavyko perkelti vargsiuku." << endl;
         }
+    
+    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
 
     auto did_pradedame_v = chrono::steady_clock::now();
     vargsiukai.sort(palyginti_pagal_galutini_vidurki_didejimo_tvarka);
     studentai.sort(palyginti_pagal_galutini_vidurki_didejimo_tvarka);
-    auto did_baigiame_d = chrono::steady_clock::now();
-    auto did_skaiciuojame_d = chrono::duration <double> (did_baigiame_d - did_pradedame_v).count();
+    auto did_baigiame_v = chrono::steady_clock::now();
+    auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 
-    cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_d << "s" << endl;
-    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << skaiciuojam << "s" << endl;
+    cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_v << "s" << endl;
+    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
+
+
+    fileName.close();
 
     // Issaugome vargsiukus atskirame faile
     failoIsvedimasList1(vargsiukai, vargsiukuFailoPavadinimas);
 }
 
-void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+void nuskaitytiFailaDeque3(deque<Studentas>& studentai, string failoPavadinimas, string vargsiukuFailoPavadinimas)
+ {
     ifstream fileName(failoPavadinimas);
 
-    deque<Studentas> studentai;
+    deque<Studentas> vargsiukai;
+
     string eilute;
 
     if (!fileName.is_open()) {
@@ -982,6 +926,7 @@ void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadin
 
     double skaicius = 0.0;
     string smth;
+    double visasLaikas = 0.0;
     double nuskaitymoLaikas = 0.0;
 
     // Nustatomas skaicius (ND ir Egz.) iki zymos "Egz."
@@ -1019,25 +964,12 @@ void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadin
         // Galutinio vidurkio skaiciavimas
         naujas_studentas.galutinis_vid = (1.00 * suma / skaicius) * 0.4 + naujas_studentas.egzamino_rezultatas * 0.6;
 
-        studentai.push_back(naujas_studentas);
-    }        
-
-    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
-    fileName.close();
-    rusiuotiStudentusDeque3(studentai, vargsiukuFailoPavadinimas);
-}
-
-void rusiuotiStudentusDeque3(deque<Studentas>& studentai, string vargsiukuFailoPavadinimas) {
-        deque<Studentas> vargsiukai;
-
         auto pradedam = chrono::steady_clock::now();
 
         // Tikriname ar studentas yra vargsiukas
-        for (const auto& studentas : studentai) {
-            if (studentas.galutinis_vid < 5.0) {
-                vargsiukai.push_back(studentas);
-            } 
-        }
+        if (naujas_studentas.galutinis_vid < 5.0) {
+            vargsiukai.push_back(naujas_studentas);
+        } 
 
         // Ieskome vargsiuku ir triname juos is studentu vektoriaus
         auto paieska = find_if(studentai.begin(), studentai.end(), ar_vargsiukas);
@@ -1048,22 +980,29 @@ void rusiuotiStudentusDeque3(deque<Studentas>& studentai, string vargsiukuFailoP
 
         auto pabaigiam = chrono::steady_clock::now();
         auto skaiciuojam = chrono::duration <double> (pabaigiam - pradedam).count();
-        
+        visasLaikas += skaiciuojam;
+    }        
+
     // Tikriname, ar vargsiukai buvo perkelti
     if (!vargsiukai.empty()) {
             cout << "Vargsiukai sekmingai perkelti i atskira konteineri." << endl;
         } else {
             cout << "Nepavyko perkelti vargsiuku." << endl;
         }
+    
+    cout << "Duomenu nuskaitymo is failo laikas: " << fixed << setprecision(4) << nuskaitymoLaikas << "s" << endl;    
 
     auto did_pradedame_v = chrono::steady_clock::now();
     sort(vargsiukai.begin(), vargsiukai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
     sort(studentai.begin(), studentai.end(), palyginti_pagal_galutini_vidurki_didejimo_tvarka);
-    auto did_baigiame_d = chrono::steady_clock::now();
-    auto did_skaiciuojame_d = chrono::duration <double> (did_baigiame_d - did_pradedame_v).count();
+    auto did_baigiame_v = chrono::steady_clock::now();
+    auto did_skaiciuojame_v = chrono::duration <double> (did_baigiame_v - did_pradedame_v).count();
 
-    cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_d << "s" << endl;
-    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << skaiciuojam << "s" << endl;
+    cout << "Studentu rusiavimo didejimo tvarka laikas: " << fixed << setprecision(4) << did_skaiciuojame_v << "s" << endl;
+    cout << "Studentu rusiavimo i dvi grupes laikas: " << fixed << setprecision(4) << visasLaikas << "s" << endl;
+
+
+    fileName.close();
 
     // Issaugome vargsiukus atskirame faile
     failoIsvedimasDeque1(vargsiukai, vargsiukuFailoPavadinimas);
