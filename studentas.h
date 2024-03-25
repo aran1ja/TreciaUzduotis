@@ -30,10 +30,31 @@ public:
     vector<int> getPazymiai() const { return pazymiai_; }
     int getEgzaminoRezultatas() const { return egzamino_rezultatas_; }
 
-    istream& readStudent(istream& in);
+    double getGalutinis_vid() const {
+        int n = pazymiai_.size();
+        double suma = 0.0;
+        for (int pazymys : pazymiai_) {
+            suma += pazymys;
+        }
+        if (n == 0) {
+            return 0.6 * egzamino_rezultatas_;
+        } else {
+            return 0.4 * (suma / n) + 0.6 * egzamino_rezultatas_;
+        }
+    }
 
-    // Galutinio balo skaiciavimas
-    double galBalas(double (*funkcija)(vector<int>), int egzamino_rezultatas) const;
+    double getMediana() const {
+        vector<int> kopija = pazymiai_;
+        kopija.push_back(egzamino_rezultatas_);
+        size_t kiekis = kopija.size();
+        sort(kopija.begin(), kopija.end());
+
+        if (kiekis % 2 == 0) {
+            return (kopija[kiekis / 2 - 1] + kopija[kiekis / 2]) / 2.0;
+        } else {
+            return kopija[kiekis / 2];
+        }
+    }
 };
 
 #endif

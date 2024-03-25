@@ -1,4 +1,5 @@
 #include "funkcijos.h"
+#include "studentas.h"
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
@@ -7,6 +8,17 @@
 #include <chrono>
 #include <list>
 #include <deque>
+
+Studentas::Studentas(std::istream& is) : egzamino_rezultatas_(0) {
+    // Skaitykite vardą, pavardę ir egzamino rezultatą
+    is >> vardas_ >> pavarde_ >> egzamino_rezultatas_;
+    
+    // Skaitykite pažymius iki kol pasieksite pabaigą
+    int pazymys;
+    while (is >> pazymys) {
+        pazymiai_.push_back(pazymys);
+    }
+}
 
 // Mediana
 double mediana(vector<int> pazymiai, int egzamino_rezultatas) {
@@ -30,27 +42,27 @@ double vidurkis_galutinis(double suma, int n, int egzamino_rezultatas) {
 }
 // Rusiuojama pagal varda (didejimo tvarka)
 bool palyginti_pagal_varda(const Studentas &a, const Studentas &b) {
-    return a.vardas < b.vardas;
+    return a.getVardas() < b.getVardas();
 }
 // Rusiuojama pagal pavarde (didejimo tvarka)
 bool palyginti_pagal_pavarde(const Studentas &a, const Studentas &b) {
-    return a.pavarde < b.pavarde;
+    return a.getPavarde() < b.getPavarde();
 }
 // Rusiuojama pagal mediana (mazejimo tvarka)
 bool palyginti_pagal_mediana(const Studentas &a, const Studentas &b) {
-    return a.mediana > b.mediana;
+    return a.getMediana() > b.getMediana();
 }
 // Rusiuojama pagal galutini vidurki (mazejimo tvarka)
 bool palyginti_pagal_galutini_vidurki(const Studentas &a, const Studentas &b) {
-    return a.galutinis_vid > b.galutinis_vid;
+    return a.getGalutinis_vid() > b.getGalutinis_vid();
 }
 
 bool palyginti_pagal_galutini_vidurki_didejimo_tvarka(const Studentas &a, const Studentas &b) {
-    return a.galutinis_vid < b.galutinis_vid;
+    return a.getGalutinis_vid() < b.getGalutinis_vid();
 }
 
 bool ar_vargsiukas(const Studentas& student) {
-    return student.galutinis_vid < 5.0;
+    return student.getGalutinis_vid() < 5.0;
 }
 
 void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1) {
@@ -61,8 +73,8 @@ void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1
                 cout << "--------------------------------------------------" << endl;
 
                 for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.galutinis_vid << endl;
+                    cout << left << setw(15) << studentas.getVardas() << setw(15) << studentas.getPavarde() << setw(15);
+                    cout << fixed << setprecision(2) << studentas.getGalutinis_vid() << endl;
                 }
                 break;
             case 2:
@@ -70,8 +82,8 @@ void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1
                 cout << "--------------------------------------------------" << endl;
 
                 for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.mediana << endl;
+                    cout << left << setw(15) << studentas.getVardas() << setw(15) << studentas.getPavarde() << setw(15);
+                    cout << fixed << setprecision(2) << studentas.getMediana() << endl;
                 }
                 break;
             case 3:
@@ -79,9 +91,9 @@ void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1
                 cout << "-----------------------------------------------------------------" << endl;
 
                 for (const auto& studentas : studentai) {
-                    cout << left << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15);
-                    cout << fixed << setprecision(2) << studentas.galutinis_vid << setw(30);
-                    cout << fixed << setprecision(2) << studentas.mediana << endl;
+                    cout << left << setw(15) << studentas.getVardas() << setw(15) << studentas.getPavarde() << setw(15);
+                    cout << fixed << setprecision(2) << studentas.getGalutinis_vid() << setw(30);
+                    cout << fixed << setprecision(2) << studentas.getMediana() << endl;
                 }
                 break;
         } 
