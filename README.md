@@ -25,3 +25,15 @@ To compare 'struct' and 'class' implementations I did measure the time it takes 
 ![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/8169a652-b837-468b-b6ab-bbf9deddbe0a)
 
 ### Summary
+![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/91fd8e6a-b037-413f-96a1-c071f92ede8c)
+
+From this table, it is easy to notice a slight difference in the time it takes to run the program with 'struct' and 'class' types. 
+When using vector container, the _class_ type operates around 2s faster. However, while using list and deque containers it is almost the same. Although, if we would use larger files, the difference would become more apparent. For this reason I decided to check the file with 10.000.000 records and results were following.
+
+struct:
+![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/97d03e27-df48-4791-9a68-e0fc4b015c24)
+
+ class:
+![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/62fa3cc8-e0cd-4f2d-bcbc-984efe7268a8)
+
+Overall, the class type is more efficient.
