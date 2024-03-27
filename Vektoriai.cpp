@@ -10,6 +10,7 @@
 #include <vector>
 #include <fstream>
 #include <chrono>  //Laiko matavimui
+#include <random>
 #include "studentas.h"
 #include "funkcijos.h"
 
@@ -333,6 +334,9 @@ int main() {
             {
             srand(time(NULL));
 
+            random_device rd;
+            mt19937 gen(rd());
+
             vector<Studentas> studentai;
             cout << "Kiek yra studentu? ";
 
@@ -366,7 +370,7 @@ int main() {
         }
     }
 
-    int n = rand() % (MAX_ND + 1);
+    int n = uniform_int_distribution<int>(0, MAX_ND)(gen);
     
     for (int i = 0; i < m; i++) {
         Studentas naujas_studentas;                
@@ -381,11 +385,12 @@ int main() {
         naujas_studentas.setPavarde(pavarde);
 
         for (int j = 0; j < n; j++) {
-            int pazymiai = (rand() % 10) + 1;
-            naujas_studentas.addPazymys(pazymiai); // Prideda pažymį naudojant setterį
+            int pazymys = uniform_int_distribution<int>(1, 10)(gen);
+            naujas_studentas.addPazymys(pazymys);
         }
 
-        naujas_studentas.setEgzaminoRezultatas(rand() % 10 + 1);
+        int egzamino_rezultatas = uniform_int_distribution<int>(1, 10)(gen); 
+        naujas_studentas.setEgzaminoRezultatas(egzamino_rezultatas);
     
         // Skaiciuoja suma visu pazymiu 
         double suma = 0.0;
@@ -445,24 +450,28 @@ int main() {
 
             srand(time(NULL));
 
+            random_device rd;
+            mt19937 gen(rd());
+
             vector<string> vardai = {"Adriana", "Emil", "Milana", "Diana", "Andrej", "Marta", "Paulius", "Edita", "Gabriele", "Dominikas"};
             vector<string> pavardes = {"Sirokyte", "Voisvilo", "Demesko", "Pipilevic", "Machnicka", "Voitkevic", "Podgaiska", "Sakson", "Juneviciute", "Petkeviciene"};
 
             vector<Studentas> studentai;
-            int m = rand() % (MAX_STUDENTU + 1);
+            int m = uniform_int_distribution<int>(1, MAX_STUDENTU)(gen);
                     
             for (int i = 0; i < m; i++) {
                 Studentas naujas_studentas;   
-                naujas_studentas.setVardas(vardai[rand() % vardai.size()]);             
-                naujas_studentas.setPavarde(pavardes[rand() % vardai.size()]);
-                int n = rand() % (MAX_ND + 1);
+                naujas_studentas.setVardas(vardai[uniform_int_distribution<int>(0, vardai.size() - 1)(gen)]);;             
+                naujas_studentas.setPavarde(pavardes[uniform_int_distribution<int>(0, pavardes.size() - 1)(gen)]);;
+                int n = uniform_int_distribution<int>(0, MAX_ND)(gen);
 
             for (int j = 0; j < n; j++) {
-                int pazymiai = (rand() % 10) + 1;
-                naujas_studentas.addPazymys(pazymiai);
+                int pazymys = uniform_int_distribution<int>(1, 10)(gen);
+                naujas_studentas.addPazymys(pazymys);
             }
 
-                naujas_studentas.setEgzaminoRezultatas(rand() % 11);
+                int egzamino_rezultatas = uniform_int_distribution<int>(1, 10)(gen); 
+                naujas_studentas.setEgzaminoRezultatas(egzamino_rezultatas);
                 
                 // Skaiciuoja suma visu pazymiu 
                 double suma = 0.0;
