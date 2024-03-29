@@ -25,7 +25,10 @@ public:
         : pazymiai_(other.pazymiai_), vardas_(other.vardas_), pavarde_(other.pavarde_), egzamino_rezultatas_(other.egzamino_rezultatas_), 
         galutinis_vid_(other.galutinis_vid_), mediana_(other.mediana_) {}
 
-    
+    // Move constructor
+    Studentas(Studentas&& other) noexcept
+        : pazymiai_(move(other.pazymiai_)), vardas_(move(other.vardas_)), pavarde_(move(other.pavarde_)), 
+        egzamino_rezultatas_(move(other.egzamino_rezultatas_)), galutinis_vid_(move(other.galutinis_vid_)), mediana_(move(other.mediana_)) {}
 
     const vector<int>& getPazymiai() const { return pazymiai_; }
     const string& getVardas() const { return vardas_; }
