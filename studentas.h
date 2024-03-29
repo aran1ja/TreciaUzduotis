@@ -33,12 +33,28 @@ public:
     // Copy assignment
     Studentas& operator = (const Studentas& other)
     {
+        if (this != &other) {
+            pazymiai_ = other.pazymiai_;
+            vardas_ = other.vardas_;
+            pavarde_ = other.pavarde_;
+            egzamino_rezultatas_ = other.egzamino_rezultatas_;
+            galutinis_vid_ = other.galutinis_vid_;
+            mediana_ = other.mediana_;
+        }
         return *this;
     }
 
     // Move assignment
     Studentas& operator = (Studentas&& other) noexcept
     {
+        if (this != &other) {
+            pazymiai_ = move(other.pazymiai_);
+            vardas_ = move(other.vardas_);
+            pavarde_ = move(other.pavarde_);
+            egzamino_rezultatas_ = other.egzamino_rezultatas_;
+            galutinis_vid_ = other.galutinis_vid_;
+            mediana_ = other.mediana_;
+        }
         return *this;
     }
 
