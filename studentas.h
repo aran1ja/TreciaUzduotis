@@ -30,6 +30,18 @@ public:
         : pazymiai_(move(other.pazymiai_)), vardas_(move(other.vardas_)), pavarde_(move(other.pavarde_)), 
         egzamino_rezultatas_(move(other.egzamino_rezultatas_)), galutinis_vid_(move(other.galutinis_vid_)), mediana_(move(other.mediana_)) {}
 
+    // Copy assignment
+    Studentas& operator = (const Studentas& other)
+    {
+        return *this;
+    }
+
+    // Move assignment
+    Studentas& operator = (Studentas&& other) noexcept
+    {
+        return *this;
+    }
+
     const vector<int>& getPazymiai() const { return pazymiai_; }
     const string& getVardas() const { return vardas_; }
     const string& getPavarde() const { return pavarde_; }
