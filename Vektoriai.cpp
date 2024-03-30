@@ -37,14 +37,15 @@ int main() {
         cout << "3. Visa informacija yra programos generuojama." << endl;
         cout << "4. Nuskaityti duomenis is failo. " << endl;
         cout << "5. Generuoti failus ir surusiuoti duomenis." << endl;
-        cout << "6. Baigti darba." << endl;
+        cout << "6. Tikrinti ar veikia 5 metodai is 'Rules of five'." << endl;
+        cout << "7. Baigti darba." << endl;
         cout << "Jusu pasirinkimas: "; 
 
         try {
 
             cin >> menu;                  
         
-                if (cin.fail() || cin.peek() != '\n' || menu < 1 || menu > 6) {
+                if (cin.fail() || cin.peek() != '\n' || menu < 1 || menu > 7) {
                     cin.clear(); 
                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                     throw invalid_argument("Ivestas netinkamas simbolis.");
@@ -995,8 +996,16 @@ int main() {
                 break;
             }
 
-            // Menu 6 - darbas baigiamas
+            // Menu 6 - testavimas
             case 6:
+            {
+                cout << "Vykdomi testai." << endl;
+                testai();
+                break;
+            }
+
+            // Menu 7 - darbas baigiamas
+            case 7:
             {
                 cout << "Darbas baigtas." << endl;
                 return 0;

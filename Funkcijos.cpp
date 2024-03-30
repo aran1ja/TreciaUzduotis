@@ -7,6 +7,7 @@
 #include <chrono>
 #include <list>
 #include <deque>
+#include <cassert>
 
 // Mediana
 double mediana(vector<int> pazymiai, int egzamino_rezultatas) {
@@ -997,6 +998,7 @@ void nuskaitytiFailaList3(string failoPavadinimas, string vargsiukuFailoPavadini
 }
 
 void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadinimas) {
+
     ifstream fileName(failoPavadinimas);
 
     // Padaromi 2 nauji konteineriai
@@ -1103,4 +1105,94 @@ void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadin
 
     // Issaugome vargsiukus ir kietakius atskiruose failuose
     failoIsvedimasDeque1(vargsiukai, vargsiukuFailoPavadinimas);
+}
+
+void testai() {
+
+    // Konstruktoriu patikrinimas
+    {
+        vector<int> pazymiai = {10, 9, 8};
+        string vardas = "Jonas";
+        string pavarde = "Jonaitis";
+        int egzamino_rezultatas = 7;
+        double galutinis_vid = 9.0;
+        double mediana = 9.5;
+
+        Studentas studentas(pazymiai, vardas, pavarde, egzamino_rezultatas, galutinis_vid, mediana);
+
+        const vector<int>& gauti_pazymiai = studentas.getPazymiai();
+        const string& gauti_vardas = studentas.getVardas();
+        const string& gauti_pavarde = studentas.getPavarde();
+        int gauti_egzamino_rezultatas = studentas.getEgzaminoRezultatas();
+        double gauti_galutinis_vid = studentas.getGalutinisVid();
+        double gauti_mediana = studentas.getMediana();
+
+        // assert tikrina ar salyga yra teisinga
+        assert(gauti_pazymiai == pazymiai);
+        assert(gauti_vardas == vardas);
+        assert(gauti_pavarde == pavarde);
+        assert(gauti_egzamino_rezultatas == egzamino_rezultatas);
+        assert(gauti_galutinis_vid == galutinis_vid);
+        assert(gauti_mediana == mediana);
+    }
+
+    // Copy konstruktoriaus patikrinimas
+    {
+        vector<int> pazymiai = {10, 9, 8};
+        string vardas = "Jonas";
+        string pavarde = "Jonaitis";
+        int egzamino_rezultatas = 7;
+        double galutinis_vid = 9.0;
+        double mediana = 9.5;
+
+        Studentas zmogus(pazymiai, vardas, pavarde, egzamino_rezultatas, galutinis_vid, mediana);
+        Studentas copy(zmogus);
+
+        assert(copy.getPazymiai() == pazymiai);
+        assert(copy.getVardas() == vardas);
+        assert(copy.getPavarde() == pavarde);
+        assert(copy.getEgzaminoRezultatas() == egzamino_rezultatas);
+        assert(copy.getGalutinisVid() == galutinis_vid);
+        assert(copy.getMediana() == mediana);
+    }
+
+    // Move konstruktoriaus patikrinimas
+    {
+        vector<int> pazymiai = {10, 9, 8};
+        string vardas = "Jonas";
+        string pavarde = "Jonaitis";
+        int egzamino_rezultatas = 7;
+        double galutinis_vid = 9.0;
+        double mediana = 9.5;
+
+        Studentas zmogus(pazymiai, vardas, pavarde, egzamino_rezultatas, galutinis_vid, mediana);
+        Studentas copy(move(zmogus));
+
+        // assert tikrina ar salyga yra teisinga
+        assert(copy.getPazymiai() == pazymiai);
+        assert(copy.getVardas() == vardas);
+        assert(copy.getPavarde() == pavarde);
+        assert(copy.getEgzaminoRezultatas() == egzamino_rezultatas);
+        assert(copy.getGalutinisVid() == galutinis_vid);
+        assert(copy.getMediana() == mediana);
+    }
+
+    // Destruktoriaus patikrinimas
+    {
+    Studentas* studentas = new Studentas();
+    
+    studentas->addPazymys(10);
+    studentas->addPazymys(9);
+    studentas->addPazymys(8);
+
+    assert(!studentas->getPazymiai().empty()); 
+
+    delete studentas; 
+
+    Studentas naujas_studentas;
+    assert(naujas_studentas.getPazymiai().empty());
+    }
+
+    cout << "Visi testai sekmingi!" << endl;
+
 }

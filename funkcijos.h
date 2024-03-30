@@ -37,4 +37,6 @@ void nuskaitytiFailaVector3(string failoPavadinimas, string vargsiukuFailoPavadi
 void nuskaitytiFailaList3(string failoPavadinimas, string vargsiukuFailoPavadinimas);
 void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadinimas);
 
+void testai();
+
 #endif
