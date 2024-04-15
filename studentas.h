@@ -18,6 +18,9 @@ public:
     const string& getVardas() const { return vardas_; }
     const string& getPavarde() const { return pavarde_; }
 
+    void setVardas(const string& vardas) { vardas_ = vardas; }
+    void setPavarde(const string& pavarde) { pavarde_ = pavarde; }
+
 };
 
 class Studentas {
