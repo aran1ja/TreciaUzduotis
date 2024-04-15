@@ -34,19 +34,19 @@ private:
 public:
     Studentas() : egzamino_rezultatas_(0), galutinis_vid_(0), mediana_(0) {}
     Studentas(const vector<int>& pazymiai, const string& vardas, const string& pavarde, int egzamino_rezultatas, double galutinis_vid, double mediana) 
-        : pazymiai_(pazymiai), vardas_(vardas), pavarde_(pavarde), egzamino_rezultatas_(egzamino_rezultatas), galutinis_vid_(galutinis_vid), mediana_(mediana) {}
+        : Zmogus(vardas, pavarde), pazymiai_(pazymiai), egzamino_rezultatas_(egzamino_rezultatas), galutinis_vid_(galutinis_vid), mediana_(mediana) {}
 
     ~Studentas() {pazymiai_.clear(); vardas_.clear(), pavarde_.clear();}
 
     // Copy constructor
     Studentas(const Studentas& other)
-        : pazymiai_(other.pazymiai_), vardas_(other.vardas_), pavarde_(other.pavarde_), egzamino_rezultatas_(other.egzamino_rezultatas_), 
+        : Zmogus(other), pazymiai_(other.pazymiai_), egzamino_rezultatas_(other.egzamino_rezultatas_), 
         galutinis_vid_(other.galutinis_vid_), mediana_(other.mediana_) {}
 
     // Move constructor
     Studentas(Studentas&& other) noexcept
-        : pazymiai_(move(other.pazymiai_)), vardas_(move(other.vardas_)), pavarde_(move(other.pavarde_)), 
-        egzamino_rezultatas_(move(other.egzamino_rezultatas_)), galutinis_vid_(move(other.galutinis_vid_)), mediana_(move(other.mediana_)) {}
+        : Zmogus(move(other)), pazymiai_(move(other.pazymiai_)), egzamino_rezultatas_(move(other.egzamino_rezultatas_)), 
+        galutinis_vid_(move(other.galutinis_vid_)), mediana_(move(other.mediana_)) {}
 
     // Copy assignment
     Studentas& operator = (const Studentas& other)
