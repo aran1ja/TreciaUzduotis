@@ -15,6 +15,8 @@ public:
     Zmogus() : vardas_(""), pavarde_("") {}
     Zmogus(const string& vardas, const string& pavarde) : vardas_(vardas), pavarde_(pavarde) {}
 
+    virtual ~Zmogus() {}
+
     const string& getVardas() const { return vardas_; }
     const string& getPavarde() const { return pavarde_; }
 
@@ -23,10 +25,9 @@ public:
 
 };
 
-class Studentas {
+class Studentas : public Zmogus {
 private:
     vector<int> pazymiai_;
-    string vardas_, pavarde_;
     int egzamino_rezultatas_;
     double galutinis_vid_, mediana_;
 
