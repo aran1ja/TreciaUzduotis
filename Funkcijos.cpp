@@ -1136,6 +1136,8 @@ void testai() {
         assert(gauti_mediana == mediana);
     }
 
+    cout << "Konstruktoriaus testas sekmingas." << endl; 
+
     // Copy konstruktoriaus patikrinimas
     {
         vector<int> pazymiai = {10, 9, 8};
@@ -1155,6 +1157,8 @@ void testai() {
         assert(copy.getGalutinisVid() == galutinis_vid);
         assert(copy.getMediana() == mediana);
     }
+
+    cout << "Copy konstruktoriaus testas sekmingas." << endl; 
 
     // Move konstruktoriaus patikrinimas
     {
@@ -1177,6 +1181,8 @@ void testai() {
         assert(copy.getMediana() == mediana);
     }
 
+    cout << "Move konstruktoriaus testas sekmingas." << endl; 
+
     // Destruktoriaus patikrinimas
     {
     Studentas* studentas = new Studentas();
@@ -1193,6 +1199,7 @@ void testai() {
     assert(naujas_studentas.getPazymiai().empty());
     }
 
+    cout << "Destruktoriaus testas sekmingas." << endl; 
     cout << "Visi testai sekmingi!" << endl;
 
 }
