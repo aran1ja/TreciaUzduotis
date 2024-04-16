@@ -12,6 +12,7 @@ This program works with Rules of Five. To check that I made some tests:
 ![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/9c8607a4-c406-49b1-8eba-46af20af9829)
 
 To check input/output methods it is the best option to run 1 case, where data is entered manually.
+
 To check if I can create Zmogus object, I wrote:
 ![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/c41668b4-f5e7-4d3a-9f95-ffd940a24e84)
 
