@@ -998,11 +998,7 @@ int main() {
             // Menu 6 - testavimas
             case 6:
             {
-
-                // Irosymas, kad klases Zmogus objektu kurimas neimanomas
-                Studentas studentas;
                 //Zmogus zmogus;
-
                 cout << "Vykdomi testai." << endl;
                 testai();
                 break;

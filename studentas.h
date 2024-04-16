@@ -11,17 +11,17 @@ protected:
     string vardas_;
     string pavarde_;
 
-    Zmogus() : vardas_(""), pavarde_("") {}
+    Zmogus() = default;
     Zmogus(const string& vardas, const string& pavarde) : vardas_(vardas), pavarde_(pavarde) {}
-
-public:
     virtual ~Zmogus() {}
 
-    const string& getVardas() const { return vardas_; }
-    const string& getPavarde() const { return pavarde_; }
+public:
 
-    void setVardas(const string& vardas) { vardas_ = vardas; }
-    void setPavarde(const string& pavarde) { pavarde_ = pavarde; }
+    virtual string getVardas() const { return vardas_; }
+    virtual string getPavarde() const { return pavarde_; }
+
+    virtual void setVardas(const string& vardas) { vardas_ = vardas; }
+    virtual void setPavarde(const string& pavarde) { pavarde_ = pavarde; }
 
 };
 
