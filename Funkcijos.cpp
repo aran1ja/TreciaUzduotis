@@ -1203,3 +1203,30 @@ void testai() {
     cout << "Visi testai sekmingi!" << endl;
 
 }
+
+    void testInputOutput() {
+    
+    Studentas studentas;
+
+    cout << "Iveskite studento varda: "; cin >> studentas.vardas_;
+    cout << "Iveskite studento pavarde: "; cin >> studentas.pavarde_;
+    cout << "Iveskite studento egzamino rezultata: "; cin >> studentas.egzamino_rezultatas_;
+
+    int pazymys;
+    cout << "Iveskite studento pazymius (baigti ivedima su 0): ";
+    while (true) {
+        cin >> pazymys;
+        if (pazymys == 0) break;
+        studentas.addPazymys(pazymys);
+    }
+
+    // Rezultatas
+    cout << "Vardas: " << studentas.vardas_ << endl;
+    cout << "Pavarde: " << studentas.pavarde_ << endl;
+    cout << "Egzamino rezultatas: " << studentas.egzamino_rezultatas_ << endl;
+    cout << "Pazymiai: ";
+    for (int pazymys : studentas.pazymiai_) {
+        cout << pazymys << " ";
+    }
+    cout << endl;
+}

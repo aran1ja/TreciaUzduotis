@@ -76,6 +76,9 @@ public:
         return *this;
     }
 
+    // Input output 
+    friend void testInputOutput();
+
     const vector<int>& getPazymiai() const { return pazymiai_; }
     int getEgzaminoRezultatas() const { return egzamino_rezultatas_; }
     double getGalutinisVid() const { return galutinis_vid_; }

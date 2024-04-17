@@ -1001,6 +1001,7 @@ int main() {
                 //Zmogus zmogus;
                 cout << "Vykdomi testai." << endl;
                 testai();
+                testInputOutput();
                 break;
             }
 
