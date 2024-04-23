@@ -9,9 +9,14 @@ Also, I modified my Studentas class:
 
 This program works with Rules of Five. To check that I made some tests:
 
-![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/5bbb8d8c-f36d-4d9b-bd52-cf552958a300)
+![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/f249bf1f-d0d5-43a0-8929-d15e492109a2)
 
-To check if I can create Zmogus object, I wrote:
+#### To check Input / Output methods I used function friend:
+For input I used friend istream& operator>>(istream& is, Studentas& studentas) {...}
+
+For output I used friend ostream& operator<<(ostream& os, const Studentas& studentas) {...}
+
+To check if I can create object Zmogus, I wrote:
 ![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/c41668b4-f5e7-4d3a-9f95-ffd940a24e84)
 
 Red wave shows that there is a mistake, which means that Zmogus object creation is not possible.
