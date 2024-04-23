@@ -65,9 +65,9 @@ int main() {
 
         switch (menu) {
 
-            // Menu 1 - duomenys ivedami ranka
-            case 1:
-            {
+        // Menu 1 - duomenys ivedami ranka
+        case 1:
+        {
                 
             vector<Studentas> studentai;
 
@@ -1001,7 +1001,6 @@ int main() {
                 //Zmogus zmogus;
                 cout << "Vykdomi testai." << endl;
                 testai();
-                testInputOutput();
                 break;
             }
 

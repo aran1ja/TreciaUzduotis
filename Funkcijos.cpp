@@ -1112,28 +1112,20 @@ void testai() {
     // Konstruktoriu patikrinimas
     {
         vector<int> pazymiai = {10, 9, 8};
-        string vardas = "Jonas";
-        string pavarde = "Jonaitis";
+        string vardas = "Vardenis";
+        string pavarde = "Pavardenis";
         int egzamino_rezultatas = 7;
         double galutinis_vid = 9.0;
         double mediana = 9.5;
 
         Studentas studentas(pazymiai, vardas, pavarde, egzamino_rezultatas, galutinis_vid, mediana);
 
-        const vector<int>& gauti_pazymiai = studentas.getPazymiai();
-        const string& gauti_vardas = studentas.getVardas();
-        const string& gauti_pavarde = studentas.getPavarde();
-        int gauti_egzamino_rezultatas = studentas.getEgzaminoRezultatas();
-        double gauti_galutinis_vid = studentas.getGalutinisVid();
-        double gauti_mediana = studentas.getMediana();
-
-        // assert tikrina ar salyga yra teisinga
-        assert(gauti_pazymiai == pazymiai);
-        assert(gauti_vardas == vardas);
-        assert(gauti_pavarde == pavarde);
-        assert(gauti_egzamino_rezultatas == egzamino_rezultatas);
-        assert(gauti_galutinis_vid == galutinis_vid);
-        assert(gauti_mediana == mediana);
+        assert(studentas.getPazymiai() == pazymiai && "Testas nesekmingas: pazymiai");
+        assert(studentas.getVardas() == vardas && "Testas nesekmingas: vardas");
+        assert(studentas.getPavarde() == pavarde && "Testas nesekmingas: pavarde");
+        assert(studentas.getEgzaminoRezultatas() == egzamino_rezultatas && "Testas nesekmingas: egzamino_rezultatas");
+        assert(studentas.getGalutinisVid() == galutinis_vid && "Testas nesekmingas: galutinis_vid");
+        assert(studentas.getMediana() == mediana && "Testas nesekmingas: mediana");
     }
 
     cout << "Konstruktoriaus testas sekmingas." << endl; 
@@ -1141,8 +1133,8 @@ void testai() {
     // Copy konstruktoriaus patikrinimas
     {
         vector<int> pazymiai = {10, 9, 8};
-        string vardas = "Jonas";
-        string pavarde = "Jonaitis";
+        string vardas = "Vardas";
+        string pavarde = "Pavarde";
         int egzamino_rezultatas = 7;
         double galutinis_vid = 9.0;
         double mediana = 9.5;
@@ -1150,12 +1142,12 @@ void testai() {
         Studentas zmogus(pazymiai, vardas, pavarde, egzamino_rezultatas, galutinis_vid, mediana);
         Studentas copy(zmogus);
 
-        assert(copy.getPazymiai() == pazymiai);
-        assert(copy.getVardas() == vardas);
-        assert(copy.getPavarde() == pavarde);
-        assert(copy.getEgzaminoRezultatas() == egzamino_rezultatas);
-        assert(copy.getGalutinisVid() == galutinis_vid);
-        assert(copy.getMediana() == mediana);
+        assert(copy.getPazymiai() == pazymiai && "Copy testas nesekmingas: pazymiai");
+        assert(copy.getVardas() == vardas && "Copy testas nesekmingas: vardas");
+        assert(copy.getPavarde() == pavarde && "Copy testas nesekmingas: pavarde");
+        assert(copy.getEgzaminoRezultatas() == egzamino_rezultatas && "Copy testas nesekmingas: egzamino_rezultatas");
+        assert(copy.getGalutinisVid() == galutinis_vid && "Copy testas nesekmingas: galutinis_vid");
+        assert(copy.getMediana() == mediana && "Copy testas nesekmingas: mediana");
     }
 
     cout << "Copy konstruktoriaus testas sekmingas." << endl; 
@@ -1163,8 +1155,8 @@ void testai() {
     // Move konstruktoriaus patikrinimas
     {
         vector<int> pazymiai = {10, 9, 8};
-        string vardas = "Jonas";
-        string pavarde = "Jonaitis";
+        string vardas = "Var";
+        string pavarde = "Pav";
         int egzamino_rezultatas = 7;
         double galutinis_vid = 9.0;
         double mediana = 9.5;
@@ -1172,61 +1164,31 @@ void testai() {
         Studentas zmogus(pazymiai, vardas, pavarde, egzamino_rezultatas, galutinis_vid, mediana);
         Studentas copy(move(zmogus));
 
-        // assert tikrina ar salyga yra teisinga
-        assert(copy.getPazymiai() == pazymiai);
-        assert(copy.getVardas() == vardas);
-        assert(copy.getPavarde() == pavarde);
-        assert(copy.getEgzaminoRezultatas() == egzamino_rezultatas);
-        assert(copy.getGalutinisVid() == galutinis_vid);
-        assert(copy.getMediana() == mediana);
+        assert(copy.getPazymiai() == pazymiai && "Copy testas nesekmingas: pazymiai");
+        assert(copy.getVardas() == vardas && "Copy testas nesekmingas: vardas");
+        assert(copy.getPavarde() == pavarde && "Copy testas nesekmingas: pavarde");
+        assert(copy.getEgzaminoRezultatas() == egzamino_rezultatas && "Copy testas nesekmingas: egzamino_rezultatas");
+        assert(copy.getGalutinisVid() == galutinis_vid && "Copy testas nesekmingas: galutinis_vid");
+        assert(copy.getMediana() == mediana && "Copy testas nesekmingas: mediana");
     }
 
     cout << "Move konstruktoriaus testas sekmingas." << endl; 
 
     // Destruktoriaus patikrinimas
     {
-    Studentas* studentas = new Studentas();
+    Studentas studentas;
     
-    studentas->addPazymys(10);
-    studentas->addPazymys(9);
-    studentas->addPazymys(8);
+    studentas.addPazymys(10);
+    studentas.addPazymys(9);
+    studentas.addPazymys(8);
 
-    assert(!studentas->getPazymiai().empty()); 
-
-    delete studentas; 
+    assert(!studentas.getPazymiai().empty() && "Nesekmingas destruktoriaus testas: pazymiai"); 
 
     Studentas naujas_studentas;
-    assert(naujas_studentas.getPazymiai().empty());
+    assert(naujas_studentas.getPazymiai().empty() && "Nesekmingas destruktoriaus testas: naujo objekto pazymiai");
     }
 
     cout << "Destruktoriaus testas sekmingas." << endl; 
     cout << "Visi testai sekmingi!" << endl;
 
-}
-
-    void testInputOutput() {
-    
-    Studentas studentas;
-
-    cout << "Iveskite studento varda: "; cin >> studentas.vardas_;
-    cout << "Iveskite studento pavarde: "; cin >> studentas.pavarde_;
-    cout << "Iveskite studento egzamino rezultata: "; cin >> studentas.egzamino_rezultatas_;
-
-    int pazymys;
-    cout << "Iveskite studento pazymius (baigti ivedima su 0): ";
-    while (true) {
-        cin >> pazymys;
-        if (pazymys == 0) break;
-        studentas.addPazymys(pazymys);
-    }
-
-    // Rezultatas
-    cout << "Vardas: " << studentas.vardas_ << endl;
-    cout << "Pavarde: " << studentas.pavarde_ << endl;
-    cout << "Egzamino rezultatas: " << studentas.egzamino_rezultatas_ << endl;
-    cout << "Pazymiai: ";
-    for (int pazymys : studentas.pazymiai_) {
-        cout << pazymys << " ";
-    }
-    cout << endl;
 }

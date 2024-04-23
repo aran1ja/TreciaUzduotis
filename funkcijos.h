@@ -38,6 +38,5 @@ void nuskaitytiFailaList3(string failoPavadinimas, string vargsiukuFailoPavadini
 void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadinimas);
 
 void testai();
-void testInputOutput();
 
 #endif
