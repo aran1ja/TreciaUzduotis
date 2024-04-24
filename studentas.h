@@ -84,16 +84,16 @@ protected:
     string vardas_;
     string pavarde_;
 
+public:
+
     Zmogus() = default;
     Zmogus(const string& vardas, const string& pavarde) : vardas_(vardas), pavarde_(pavarde) {}
     virtual ~Zmogus() {}
 
-public:
-
     virtual void setVardas(const string& vardas) { vardas_ = vardas; }
     virtual void setPavarde(const string& pavarde) { pavarde_ = pavarde; }
-    virtual string getVardas() const { return vardas_; }
-    virtual string getPavarde() const { return pavarde_; }   
+    virtual string getVardas() const = 0; // { return vardas_; }
+    virtual string getPavarde() const = 0; // { return pavarde_; }   
 };
 
 class Studentas : public Zmogus {
@@ -129,7 +129,8 @@ public:
     // Move constructor
     Studentas(Studentas&& other) noexcept
         : Zmogus(move(other.vardas_), move(other.pavarde_)), pazymiai_(move(other.pazymiai_)), egzamino_rezultatas_(other.egzamino_rezultatas_), 
-        galutinis_vid_(other.galutinis_vid_), mediana_(other.mediana_) {}
+        galutinis_vid_(other.galutinis_vid_), mediana_(other.mediana_) {other.egzamino_rezultatas_ = 0; other.galutinis_vid_ = 0;
+        other.mediana_ = 0; }
 
     // Move assignment 
     Studentas& operator = (Studentas&& other) noexcept
@@ -141,6 +142,9 @@ public:
             egzamino_rezultatas_ = other.egzamino_rezultatas_;
             galutinis_vid_ = other.galutinis_vid_;
             mediana_ = other.mediana_;
+            other.egzamino_rezultatas_ = 0;
+            other.galutinis_vid_ = 0;
+            other.mediana_ = 0;
         }
         return *this;
     }
@@ -154,8 +158,8 @@ public:
     void setGalutinisVid(double galutinis_vid) { galutinis_vid_ = galutinis_vid; }
     void setMediana(double mediana) { mediana_ = mediana; }
 
-    string getVardas() const override { return Zmogus::getVardas(); }
-    string getPavarde() const override { return Zmogus::getPavarde(); }
+    string getVardas() const override { return vardas_; }
+    string getPavarde() const override { return pavarde_; }
     const vector<int>& getPazymiai() const { return pazymiai_; }
     int getEgzaminoRezultatas() const { return egzamino_rezultatas_; }
     double getGalutinisVid() const { return galutinis_vid_; }
@@ -165,45 +169,16 @@ public:
 
     // Input
     friend istream& operator>>(istream& is, Studentas& studentas) {
-        cout << "Iveskite studento varda: ";
-        is >> studentas.vardas_;
-        cout << "Iveskite studento pavarde: ";
-        is >> studentas.pavarde_;
+    
+        is >> studentas.vardas_ >> studentas.pavarde_;
 
         int pazymys;
-        double suma = 0.0;
-        int nd_skaicius = 0;
-
-        do {
-            cout << "Iveskite " << nd_skaicius + 1 << " namu darbu pazymi (norint baigti, iveskite -1): ";
-            is >> pazymys;
-
-            if (pazymys == -1)
-                break;
-
-            while (pazymys < 1 || pazymys > 10 || is.fail()) {
-                cout << "Klaida. Iveskite skaiciu nuo 1 iki 10: ";
-                is.clear();
-                is.ignore(numeric_limits<streamsize>::max(), '\n');
-                is >> pazymys;
-            }
-
-            studentas.pazymiai_.push_back(pazymys);
-            suma += pazymys;
-            nd_skaicius++;
-        } while (true);
-
-        cout << "Iveskite egzamino rezultata: ";
-        is >> studentas.egzamino_rezultatas_;
-
-        while (studentas.egzamino_rezultatas_ < 1 || studentas.egzamino_rezultatas_ > 10 || is.fail()) {
-            cout << "Klaida. Iveskite skaiciu nuo 1 iki 10: ";
-            is.clear();
-            is.ignore(numeric_limits<streamsize>::max(), '\n');
-            is >> studentas.egzamino_rezultatas_;
+        studentas.pazymiai_.clear();
+        while(is >> pazymys && pazymys > 0 && pazymys <= 10 ) {
+            studentas.addPazymys(pazymys);
         }
 
-        studentas.galutinis_vid_ = (suma / nd_skaicius) * 0.4 + studentas.egzamino_rezultatas_ * 0.6;
+        is >> studentas.egzamino_rezultatas_;
 
         return is;
     }
