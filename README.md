@@ -2,7 +2,7 @@
 For this part of project I had to implement two classes: a base abstract class to describe a person (Zmogus) and a derived class (Studentas) inheriting from it. 
 
 To do that I made a new class Zmogus:
-![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/3924bbcd-28cb-4b8f-84c7-0d6bcdbb25ff)
+![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/60dc0c5d-f61c-4a87-b6d5-e9fef6697c3e)
 
 Also, I modified my Studentas class:
 ![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/f8d725ed-893e-48ff-9ac2-954698307ee9)
