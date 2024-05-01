@@ -35,6 +35,13 @@ If base abstract class and derived class where written correctly, I couldn't cre
 This red wave shows that there is a mistake, which means that Zmogus object creation is not possible. And this shows that base and abstract class work properly.
 
 ## v2.0 release
+#### Doxyfile documentation
+To make this documentation I downloaded Doxygen. Then I pressed "Doxywizard" and there I changed some settings. I did this using the following tutorial: https://www.youtube.com/watch?v=-V_vHZPOZfY&t=283s. But in Wizard -> Mode I selected "All Entities". I did that because I wanted to see in documentation not only header files, but also source files.
+##### Results
+As a result, I got 2 folders: html and latex(TeX).
+![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/c2e22be7-f192-4498-95d6-af289b3b023b)
+
+#### Unit Tests
 
 ## Program Installation Instructions
 1. Firstly, you have to setup your GitHub account. It is easier to do that following this guide: https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account 
