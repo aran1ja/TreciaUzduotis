@@ -42,6 +42,12 @@ As a result, I got 2 folders: html and latex(TeX).
 ![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/c2e22be7-f192-4498-95d6-af289b3b023b)
 
 #### Unit Tests
+I had to make Unit Tests for my class file. To make that I chose Google Test as a framework. To make this tests I used Visual Studio 2022 and imported my 'studentas.h' header file. Then I did 4 tests to check how setVardas/getVardas, setPavarde/getPavarde, addPazymys/getPazymiai, setGalutinisVid/getGalutinisVid.
+##### Results
+All tests were correct as all of them passed successfully.
+
+![изображение](https://github.com/aran1ja/AntraUzduotis/assets/147089828/32e2f255-aebf-4a54-a305-8071b11a1de6)
+
 
 ## Program Installation Instructions
 1. Firstly, you have to setup your GitHub account. It is easier to do that following this guide: https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account 
