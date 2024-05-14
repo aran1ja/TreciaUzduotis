@@ -40,14 +40,15 @@ int main() {
         cout << "5. Generuoti failus ir surusiuoti duomenis." << endl;
         cout << "6. Tikrinti ar veikia 5 metodai is 'Rules of five'." << endl;
         cout << "7. Padaryti spartos analize: std::vector vs Vector." << endl;
-        cout << "8. Baigti darba." << endl;
+        cout << "8. Sesi testai, padaryti su Vector." << endl;
+        cout << "9. Baigti darba." << endl;
         cout << "Jusu pasirinkimas: "; 
 
         try {
 
             cin >> menu;                  
         
-                if (cin.fail() || cin.peek() != '\n' || menu < 1 || menu > 8) {
+                if (cin.fail() || cin.peek() != '\n' || menu < 1 || menu > 9) {
                     cin.clear(); 
                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                     throw invalid_argument("Ivestas netinkamas simbolis.");
@@ -1043,8 +1044,105 @@ int main() {
 
             }
 
+            // Menu 8 - sesi testai Vector
+            case 8 :
+            {
+                cout << "1. Tikriname operatorius" << endl;
+                {
+                    Vector<int> foo (3,100);   // three ints with a value of 100
+                    Vector<int> bar (2,200);   // two ints with a value of 200
+
+                    if (foo==bar) std::cout << "foo and bar are equal\n";
+                    if (foo!=bar) std::cout << "foo and bar are not equal\n";
+                    if (foo< bar) std::cout << "foo is less than bar\n";
+                    if (foo> bar) std::cout << "foo is greater than bar\n";
+                    if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+                    if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+
+                }
+
+                cout << "2. Tikriname resize()" << endl;
+                {
+                    Vector<int> myvector;
+
+                    // set some initial content:
+                    for (int i=1; i < 10; i++) myvector.push_back(i);
+
+                    myvector.resize(5);
+                    myvector.resize(8, 100);
+                    myvector.resize(12);
+
+                    cout << "myvector contains: ";
+                    for (int i = 0; i < myvector.size();i++)
+                        cout << ' ' << myvector[i];
+                    cout << '\n';
+
+                }
+
+                cout << "3. Tikriname erase()" << endl;
+                {
+                    Vector<int> myvector;
+
+                    for (int i = 1; i <= 10; i++) myvector.push_back(i);
+
+                    myvector.erase (myvector.begin() + 5);
+
+                    myvector.erase (myvector.begin(), myvector.begin() + 3);
+
+                    cout << "myvector contains:";
+                    for (unsigned i=0; i<myvector.size(); ++i)
+                        cout << ' ' << myvector[i];
+                    cout << '\n';
+
+                    }
+
+                cout << "4. Tikriname begin()" << endl;
+                {
+                    Vector<int> myvector;
+                    for (int i = 1; i <= 5; i++) myvector.push_back(i);
+
+                    cout << "myvector contains:";
+                    for (Vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
+                        cout << ' ' << *it;
+                    cout << '\n';
+
+                }
+
+                cout << "5. Tikriname shrink_to_fit()" << endl;
+                {
+                    Vector<int> myvector (100);
+                    cout << "1. capacity of myvector: " << myvector.capacity() << '\n';
+
+                    myvector.resize(10);
+                    cout << "2. capacity of myvector: " << myvector.capacity() << '\n';
+
+                    myvector.shrink_to_fit();
+                    cout << "3. capacity of myvector: " << myvector.capacity() << '\n';
+
+                }
+
+                cout << "6. Tikriname pop_back()" << endl;
+                {
+                    Vector<int> myvector;
+                    int sum (0);
+                    myvector.push_back (100);
+                    myvector.push_back (200);
+                    myvector.push_back (300);
+
+                    while (!myvector.empty())
+                    {
+                        sum += myvector.back();
+                        myvector.pop_back();
+                    }
+
+                    cout << "The elements of myvector add up to " << sum << '\n';
+
+                }
+                break;
+            }
+
             // Menu 8 - darbas baigiamas
-            case 8:
+            case 9:
             {
                 cout << "Darbas baigtas." << endl;
                 return 0;
