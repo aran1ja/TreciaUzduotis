@@ -1008,7 +1008,25 @@ int main() {
             // Menu 7 - spartos analize
             case 7:
             {
+                auto start_pildyti = chrono::steady_clock::now();
+                unsigned int sz = 100000000;  // 100000, 1000000, 10000000, 100000000
+                std::vector<int> v1;
+                for (int i = 1; i <= sz; ++i) {
+                    v1.push_back(i);
+                }
+                auto end_pildyti = chrono::steady_clock::now();
+                auto skirtumas_pildyti = chrono::duration<double> (end_pildyti - start_pildyti).count();   
+                cout << "Tusciu vektoriu uzpildymas su " << sz << " eilutemis uzeme: " << skirtumas_pildyti << "s" << endl; 
 
+/*
+                auto start_pildyti_Vector = chrono::steady_clock::now();
+                Vector<int> v2;
+                for (int i = 1; i <= sz; ++i)
+                v2.push_back(i);
+                auto end_pildyti_Vector = chrono::steady_clock::now();
+                auto skirtumas_pildyti_Vector = chrono::duration<double> (end_pildyti_Vector - start_pildyti_Vector).count();   
+                cout << "Tusciu vektoriu uzpildymas su " << sz << " eilutemis uzeme: " << skirtumas_pildyti_Vector << "s" << endl; 
+*/
             }
 
             // Menu 7 - darbas baigiamas
