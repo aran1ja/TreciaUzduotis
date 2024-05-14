@@ -1,5 +1,125 @@
 # TreciaUzduotis
-##  5 functions
+
+## Checking 6 Vector functions
+This is made to check whether Vector works same as std::vector.
+To do this, I took a look on https://cplusplus.com/reference/vector/vector/ website. In this website there are functions made with std::vector. I made similar functions using my Vector container and then compared my output and the output from given site.
+### Rational operators
+#### The code
+    {
+      Vector<int> foo (3,100);   // three ints with a value of 100
+      Vector<int> bar (2,200);   // two ints with a value of 200
+    
+      if (foo == bar) std::cout << "foo and bar are equal\n";
+      if (foo != bar) std::cout << "foo and bar are not equal\n";
+      if (foo <  bar) std::cout << "foo is less than bar\n";
+      if (foo >  bar) std::cout << "foo is greater than bar\n";
+      if (foo <= bar) std::cout << "foo is less than or equal to bar\n";
+      if (foo >= bar) std::cout << "foo is greater than or equal to bar\n";
+    }
+#### Expected result
+      foo and bar are not equal
+      foo is less than bar
+      foo is less than or equal to bar
+#### Result
+      foo and bar are not equal
+      foo is less than bar
+      foo is less than or equal to bar
+### resize()
+#### The code
+    {
+      Vector<int> myvector;
+
+      for (int i=1; i < 10; i++) myvector.push_back(i);
+
+     myvector.resize(5);
+     myvector.resize(8, 100) 
+     myvector.resize(12);
+
+      cout << "myvector contains: ";
+      for (int i = 0; i < myvector.size();i++)
+         cout << ' ' << myvector[i];
+      cout << '\n';
+    }
+#### Expected result
+      myvector contains: 1 2 3 4 5 100 100 100 0 0 0 0
+#### Result
+      myvector contains: 1 2 3 4 5 100 100 100 0 0 0 0
+### erase()
+#### The code
+    {
+      Vector<int> myvector;
+      for (int i = 1; i <= 10; i++) myvector.push_back(i);
+      
+      myvector.erase (myvector.begin() + 5);
+      myvector.erase (myvector.begin(), myvector.begin() + 3);
+      cout << "myvector contains:";
+      for (unsigned i = 0; i < myvector.size(); ++i)
+        cout << ' ' << myvector[i];
+      cout << '\n';
+    }
+#### Expected result
+      myvector contains: 4 5 7 8 9 10
+#### Result
+      myvector contains: 4 5 7 8 9 10
+### begin()
+#### The code
+    {
+      Vector<int> myvector;
+      for (int i = 1; i <= 5; i++) myvector.push_back(i);
+    
+      cout << "myvector contains:";
+      for (Vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
+        cout << ' ' << *it;
+      cout << '\n';
+    }
+#### Expected result
+      myvector contains: 1 2 3 4 5
+#### Result
+      myvector contains: 1 2 3 4 5
+### shrink_to_fit()
+#### The code
+    {
+      Vector<int> myvector (100);
+      cout << "1. capacity of myvector: " << myvector.capacity() << '\n';
+    
+      myvector.resize(10);
+      cout << "2. capacity of myvector: " << myvector.capacity() << '\n';
+    
+      myvector.shrink_to_fit();
+      cout << "3. capacity of myvector: " << myvector.capacity() << '\n';
+    }
+#### Expected result
+      1. capacity of myvector: 100
+      2. capacity of myvector: 100
+      3. capacity of myvector: 10
+#### Result
+      1. capacity of myvector: 100
+      2. capacity of myvector: 100
+      3. capacity of myvector: 10
+### pop_back()
+#### The code
+    {
+      Vector<int> myvector;
+      int sum (0);
+      myvector.push_back (100);
+      myvector.push_back (200);
+      myvector.push_back (300);
+    
+      while (!myvector.empty())
+      {
+        sum += myvector.back();
+        myvector.pop_back();
+      }
+    
+      cout << "The elements of myvector add up to " << sum << '\n';
+    }
+#### Expected result
+      The elements of myvector add up to 600
+#### Result
+      The elements of myvector add up to 600
+      
+#### Expected results and my results are same. This means that my Vector container works as same as std::vector.
+
 ## std::vector and Vector efficiency/speed analysis
 Using push_back() function I have to check how much time it will take both std::vector and Vector containers to be filled with 10.000, 100.000, 1.000.000, 10.000.000 and 100.000.000 elements. 
 To check that I used chrono function and the code, given below.
