@@ -22,12 +22,6 @@ double suma, vidurkis;
 int MAX_ND = 30;
 int MAX_STUDENTU = 30;
 string raide;
-
-/**
- * @brief Pagrindinė programa.
- *
- * Programa, kurioje nauodojas pasirenka ..
- */
              
 int main() {
 
@@ -44,7 +38,8 @@ int main() {
         cout << "4. Nuskaityti duomenis is failo. " << endl;
         cout << "5. Generuoti failus ir surusiuoti duomenis." << endl;
         cout << "6. Tikrinti ar veikia 5 metodai is 'Rules of five'." << endl;
-        cout << "7. Baigti darba." << endl;
+        cout << "7. Padaryti spartos analize: std::vector vs Vector." << endl;
+        cout << "8. Baigti darba." << endl;
         cout << "Jusu pasirinkimas: "; 
 
         try {
@@ -1010,8 +1005,14 @@ int main() {
                 break;
             }
 
-            // Menu 7 - darbas baigiamas
+            // Menu 7 - spartos analize
             case 7:
+            {
+
+            }
+
+            // Menu 7 - darbas baigiamas
+            case 8:
             {
                 cout << "Darbas baigtas." << endl;
                 return 0;
