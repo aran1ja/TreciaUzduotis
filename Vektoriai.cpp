@@ -13,6 +13,7 @@
 #include <random>
 #include "studentas.h"
 #include "funkcijos.h"
+#include "vector.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ string raide;
              
 int main() {
 
-    vector<Studentas> studentai;
+    Vector<Studentas> studentai;
 
     while (true) {
 
@@ -46,7 +47,7 @@ int main() {
 
             cin >> menu;                  
         
-                if (cin.fail() || cin.peek() != '\n' || menu < 1 || menu > 7) {
+                if (cin.fail() || cin.peek() != '\n' || menu < 1 || menu > 8) {
                     cin.clear(); 
                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                     throw invalid_argument("Ivestas netinkamas simbolis.");
@@ -70,7 +71,7 @@ int main() {
             case 1:
             {
                 
-            vector<Studentas> studentai;
+            Vector<Studentas> studentai;
 
     int m = 0;
     int variantas_studentas = 1;
@@ -214,7 +215,7 @@ int main() {
             }
 
                 naujas_studentas.setGalutinisVid(vidurkis_galutinis(suma, n, naujas_studentas.getEgzaminoRezultatas()));
-                naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+                //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
             } while (ivestis_variantas_nd != 0);
 
@@ -259,7 +260,7 @@ int main() {
             }
 
             naujas_studentas.setGalutinisVid(vidurkis_galutinis(suma, n, naujas_studentas.getEgzaminoRezultatas()));
-            naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+            //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
             studentai.push_back(naujas_studentas);
 
@@ -339,7 +340,7 @@ int main() {
             random_device rd;
             mt19937 gen(rd());
 
-            vector<Studentas> studentai;
+            Vector<Studentas> studentai;
             cout << "Kiek yra studentu? ";
 
             int m;
@@ -402,7 +403,7 @@ int main() {
 
         // Galutinio vidurkio ir medianos skaiciavimai
         naujas_studentas.setGalutinisVid(vidurkis_galutinis(suma, n, naujas_studentas.getEgzaminoRezultatas()));
-        naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+        //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
         studentai.push_back(naujas_studentas);
     
@@ -455,10 +456,10 @@ int main() {
             random_device rd;
             mt19937 gen(rd());
 
-            vector<string> vardai = {"Adriana", "Emil", "Milana", "Diana", "Andrej", "Marta", "Paulius", "Edita", "Gabriele", "Dominikas"};
-            vector<string> pavardes = {"Sirokyte", "Voisvilo", "Demesko", "Pipilevic", "Machnicka", "Voitkevic", "Podgaiska", "Sakson", "Juneviciute", "Petkeviciene"};
+            Vector<string> vardai = {"Adriana", "Emil", "Milana", "Diana", "Andrej", "Marta", "Paulius", "Edita", "Gabriele", "Dominikas"};
+            Vector<string> pavardes = {"Sirokyte", "Voisvilo", "Demesko", "Pipilevic", "Machnicka", "Voitkevic", "Podgaiska", "Sakson", "Juneviciute", "Petkeviciene"};
 
-            vector<Studentas> studentai;
+            Vector<Studentas> studentai;
             int m = uniform_int_distribution<int>(1, MAX_STUDENTU)(gen);
                     
             for (int i = 0; i < m; i++) {
@@ -485,7 +486,7 @@ int main() {
                 naujas_studentas.setGalutinisVid(vidurkis_galutinis(suma, n, naujas_studentas.getEgzaminoRezultatas()));
 
                 // Mediana
-                naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+                //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
                 studentai.push_back(naujas_studentas);
             }
@@ -535,7 +536,7 @@ int main() {
             {
             
             string failas;                
-            vector<double> laikai;
+            Vector<double> laikai;
             int pasirinkimas2 = 0;
 
         do {
@@ -561,7 +562,7 @@ int main() {
                 break;
             }
 
-            vector<Studentas> studentai;
+            Vector<Studentas> studentai;
             ifstream fileName(failas);
             string eilute;
 
@@ -601,7 +602,7 @@ int main() {
                 }
                 // Galutinio vidurkio ir medianos skaiciavimai
                 naujas_studentas.setGalutinisVid((1.00 * pazymiu_suma / skaicius_pazymiu) * 0.4 + naujas_studentas.getEgzaminoRezultatas() * 0.6);
-                naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+                //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
                 // Pridedamas studentas
                 studentai.push_back(naujas_studentas);
@@ -672,8 +673,6 @@ int main() {
             {
 
             int pasirinkimas4;
-
-
 
             while (true) {
 
@@ -1009,27 +1008,31 @@ int main() {
             case 7:
             {
                 auto start_pildyti = chrono::steady_clock::now();
-                unsigned int sz = 100000000;  // 100000, 1000000, 10000000, 100000000
+                unsigned int sz = 10000;  // 10000, 100000, 1000000, 10000000, 100000000
                 std::vector<int> v1;
                 for (int i = 1; i <= sz; ++i) {
                     v1.push_back(i);
                 }
                 auto end_pildyti = chrono::steady_clock::now();
                 auto skirtumas_pildyti = chrono::duration<double> (end_pildyti - start_pildyti).count();   
-                cout << "Tusciu vektoriu uzpildymas su " << sz << " eilutemis uzeme: " << skirtumas_pildyti << "s" << endl; 
+                cout << "Tusciu vektoriu su std::vector uzpildymas su " << sz << " eilutemis uzeme: " << setprecision(8) 
+                << skirtumas_pildyti << "s" << endl; 
 
-/*
+
                 auto start_pildyti_Vector = chrono::steady_clock::now();
                 Vector<int> v2;
                 for (int i = 1; i <= sz; ++i)
                 v2.push_back(i);
                 auto end_pildyti_Vector = chrono::steady_clock::now();
                 auto skirtumas_pildyti_Vector = chrono::duration<double> (end_pildyti_Vector - start_pildyti_Vector).count();   
-                cout << "Tusciu vektoriu uzpildymas su " << sz << " eilutemis uzeme: " << skirtumas_pildyti_Vector << "s" << endl; 
-*/
+                cout << "Tusciu vektoriu su Vector uzpildymas su " << sz << " eilutemis uzeme: " << setprecision(8) 
+                << skirtumas_pildyti_Vector << "s" << endl; 
+
+            break;
+
             }
 
-            // Menu 7 - darbas baigiamas
+            // Menu 8 - darbas baigiamas
             case 8:
             {
                 cout << "Darbas baigtas." << endl;
