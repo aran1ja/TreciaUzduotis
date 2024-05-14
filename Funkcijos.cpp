@@ -1,4 +1,5 @@
 #include "funkcijos.h"
+#include "vector.h"
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
@@ -10,7 +11,7 @@
 #include <cassert>
 
 // Mediana
-double mediana(vector<int> pazymiai, int egzamino_rezultatas) {
+double mediana(Vector<int> pazymiai, int egzamino_rezultatas) {
     pazymiai.push_back(egzamino_rezultatas);
     size_t kiekis = pazymiai.size();
     sort(pazymiai.begin(), pazymiai.end());
@@ -54,7 +55,7 @@ bool ar_vargsiukas(const Studentas& student) {
     return student.getGalutinisVid() < 5.0;
 }
 
-void RezultatuVaizdavimas (const vector<Studentas>& studentai, int pasirinkimas1) {
+void RezultatuVaizdavimas (const Vector<Studentas>& studentai, int pasirinkimas1) {
     switch (pasirinkimas1) {
         case 1:
             cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde " << setw(15) << "Galutinis (Vid.)" << endl;
@@ -128,7 +129,7 @@ void generuotiFaila(string failoPavadinimas, int ndSkaicius, int studentuSkaiciu
 
 //// 1 strategija
 
-void failoIsvedimasVector1(const vector<Studentas>& studentai, string failoPavadinimas) {
+void failoIsvedimasVector1(const Vector<Studentas>& studentai, string failoPavadinimas) {
     ofstream file(failoPavadinimas);
     
     if (!file.is_open()) {
@@ -149,8 +150,8 @@ void nuskaitytiFailaVector1(string failoPavadinimas, string vargsiukuFailoPavadi
     ifstream fileName(failoPavadinimas);
 
     // Padaromi 2 nauji konteineriai
-    vector<Studentas> vargsiukai;
-    vector<Studentas> kietiakai;
+    Vector<Studentas> vargsiukai;
+    Vector<Studentas> kietiakai;
 
     string eilute;
 
@@ -469,8 +470,8 @@ void nuskaitytiFailaVector2(string failoPavadinimas, string vargsiukuFailoPavadi
     ifstream fileName(failoPavadinimas);
 
     // Padaromi 2 nauji konteineriai
-    vector<Studentas> studentai;
-    vector<Studentas> vargsiukai;
+    Vector<Studentas> studentai;
+    Vector<Studentas> vargsiukai;
 
     string eilute;
 
@@ -781,8 +782,8 @@ void nuskaitytiFailaVector3(string failoPavadinimas, string vargsiukuFailoPavadi
     ifstream fileName(failoPavadinimas);
 
     // Padaromi 2 nauji konteineriai
-    vector<Studentas> studentai;
-    vector<Studentas> vargsiukai;
+    Vector<Studentas> studentai;
+    Vector<Studentas> vargsiukai;
 
     string eilute;
 
