@@ -191,7 +191,7 @@ void nuskaitytiFailaVector1(string failoPavadinimas, string vargsiukuFailoPavadi
         ss >> welp;
         naujas_studentas.setPavarde(welp);
 
-        vector<int> nauji_pazymiai;
+        Vector<int> nauji_pazymiai;
         for (int i = 0; i < skaicius; i++) {
             ss >> skai;
             nauji_pazymiai.push_back(skai);
@@ -303,7 +303,7 @@ void nuskaitytiFailaList1(string failoPavadinimas, string vargsiukuFailoPavadini
         ss >> welp;
         naujas_studentas.setPavarde(welp);
 
-        vector<int> nauji_pazymiai;
+        Vector<int> nauji_pazymiai;
         for (int i = 0; i < skaicius; i++) {
             ss >> skai;
             nauji_pazymiai.push_back(skai);
@@ -415,7 +415,7 @@ void nuskaitytiFailaDeque1(string failoPavadinimas, string vargsiukuFailoPavadin
         ss >> welp;
         naujas_studentas.setPavarde(welp);
 
-        vector<int> nauji_pazymiai;
+        Vector<int> nauji_pazymiai;
         for (int i = 0; i < skaicius; i++) {
             ss >> skai;
             nauji_pazymiai.push_back(skai);
@@ -511,7 +511,7 @@ void nuskaitytiFailaVector2(string failoPavadinimas, string vargsiukuFailoPavadi
         ss >> welp;
         naujas_studentas.setPavarde(welp);
 
-        vector<int> nauji_pazymiai;
+        Vector<int> nauji_pazymiai;
         for (int i = 0; i < skaicius; i++) {
             ss >> skai;
             nauji_pazymiai.push_back(skai);
@@ -615,7 +615,7 @@ void nuskaitytiFailaList2(string failoPavadinimas, string vargsiukuFailoPavadini
         ss >> welp;
         naujas_studentas.setPavarde(welp);
 
-        vector<int> nauji_pazymiai;
+        Vector<int> nauji_pazymiai;
         for (int i = 0; i < skaicius; i++) {
             ss >> skai;
             nauji_pazymiai.push_back(skai);
@@ -719,7 +719,7 @@ void nuskaitytiFailaDeque2(string failoPavadinimas, string vargsiukuFailoPavadin
         ss >> welp;
         naujas_studentas.setPavarde(welp);
 
-        vector<int> nauji_pazymiai;
+        Vector<int> nauji_pazymiai;
         for (int i = 0; i < skaicius; i++) {
             ss >> skai;
             nauji_pazymiai.push_back(skai);
@@ -823,7 +823,7 @@ void nuskaitytiFailaVector3(string failoPavadinimas, string vargsiukuFailoPavadi
         ss >> welp;
         naujas_studentas.setPavarde(welp);
 
-        vector<int> nauji_pazymiai;
+        Vector<int> nauji_pazymiai;
         for (int i = 0; i < skaicius; i++) {
             ss >> skai;
             nauji_pazymiai.push_back(skai);
@@ -933,7 +933,7 @@ void nuskaitytiFailaList3(string failoPavadinimas, string vargsiukuFailoPavadini
         ss >> welp;
         naujas_studentas.setPavarde(welp);
 
-        vector<int> nauji_pazymiai;
+        Vector<int> nauji_pazymiai;
         for (int i = 0; i < skaicius; i++) {
             ss >> skai;
             nauji_pazymiai.push_back(skai);
@@ -1044,7 +1044,7 @@ void nuskaitytiFailaDeque3(string failoPavadinimas, string vargsiukuFailoPavadin
         ss >> welp;
         naujas_studentas.setPavarde(welp);
 
-        vector<int> nauji_pazymiai;
+        Vector<int> nauji_pazymiai;
         for (int i = 0; i < skaicius; i++) {
             ss >> skai;
             nauji_pazymiai.push_back(skai);
@@ -1112,7 +1112,7 @@ void testai() {
 
     // Konstruktoriu patikrinimas
     {
-        vector<int> pazymiai = {10, 9, 8};
+        Vector<int> pazymiai = {10, 9, 8};
         string vardas = "Vardenis";
         string pavarde = "Pavardenis";
         int egzamino_rezultatas = 7;
@@ -1133,7 +1133,7 @@ void testai() {
 
     // Copy konstruktoriaus patikrinimas
     {
-        vector<int> pazymiai = {10, 9, 8};
+        Vector<int> pazymiai = {10, 9, 8};
         string vardas = "Vardas";
         string pavarde = "Pavarde";
         int egzamino_rezultatas = 7;
@@ -1155,7 +1155,7 @@ void testai() {
 
     // Move konstruktoriaus patikrinimas
     {
-        vector<int> pazymiai = {10, 9, 8};
+        Vector<int> pazymiai = {10, 9, 8};
         string vardas = "Var";
         string pavarde = "Pav";
         int egzamino_rezultatas = 7;

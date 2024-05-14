@@ -1,9 +1,8 @@
 #ifndef STUDENTAS_H
 #define STUDENTAS_H
 
-#include <vector>
+#include "vector.h"
 #include <string>
-#include <limits>
 #include <iostream>
 
 using namespace std;
@@ -27,13 +26,13 @@ public:
 
 class Studentas : public Zmogus {
 private:
-    vector<int> pazymiai_;
+    Vector<int> pazymiai_;
     int egzamino_rezultatas_;
     double galutinis_vid_, mediana_;
 
 public:
     Studentas() : egzamino_rezultatas_(0), galutinis_vid_(0), mediana_(0) {}
-    Studentas(const vector<int>& pazymiai, const string& vardas, const string& pavarde, int egzamino_rezultatas, double galutinis_vid, double mediana) 
+    Studentas(const Vector<int>& pazymiai, const string& vardas, const string& pavarde, int egzamino_rezultatas, double galutinis_vid, double mediana) 
         : Zmogus(vardas, pavarde), pazymiai_(pazymiai), egzamino_rezultatas_(egzamino_rezultatas), galutinis_vid_(galutinis_vid), mediana_(mediana) {}
 
     // Copy constructor
@@ -82,14 +81,14 @@ public:
 
     void setVardas(const string& vardas) override { Zmogus::setVardas(vardas); }
     void setPavarde(const string& pavarde) override { Zmogus::setPavarde(pavarde); }
-    void setPazymiai(const vector<int>& pazymiai) { pazymiai_ = pazymiai; }
+    void setPazymiai(const Vector<int>& pazymiai) { pazymiai_ = pazymiai; }
     void setEgzaminoRezultatas(int egzamino_rezultatas) { egzamino_rezultatas_ = egzamino_rezultatas; }
     void setGalutinisVid(double galutinis_vid) { galutinis_vid_ = galutinis_vid; }
     void setMediana(double mediana) { mediana_ = mediana; }
 
     string getVardas() const override { return vardas_; }
     string getPavarde() const override { return pavarde_; }
-    const vector<int>& getPazymiai() const { return pazymiai_; }
+    const Vector<int>& getPazymiai() const { return pazymiai_; }
     int getEgzaminoRezultatas() const { return egzamino_rezultatas_; }
     double getGalutinisVid() const { return galutinis_vid_; }
     double getMediana() const { return mediana_; }

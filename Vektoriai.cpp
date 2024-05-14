@@ -215,7 +215,7 @@ int main() {
             }
 
                 naujas_studentas.setGalutinisVid(vidurkis_galutinis(suma, n, naujas_studentas.getEgzaminoRezultatas()));
-                //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+                naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
             } while (ivestis_variantas_nd != 0);
 
@@ -260,7 +260,7 @@ int main() {
             }
 
             naujas_studentas.setGalutinisVid(vidurkis_galutinis(suma, n, naujas_studentas.getEgzaminoRezultatas()));
-            //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+            naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
             studentai.push_back(naujas_studentas);
 
@@ -403,7 +403,7 @@ int main() {
 
         // Galutinio vidurkio ir medianos skaiciavimai
         naujas_studentas.setGalutinisVid(vidurkis_galutinis(suma, n, naujas_studentas.getEgzaminoRezultatas()));
-        //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+        naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
         studentai.push_back(naujas_studentas);
     
@@ -486,7 +486,7 @@ int main() {
                 naujas_studentas.setGalutinisVid(vidurkis_galutinis(suma, n, naujas_studentas.getEgzaminoRezultatas()));
 
                 // Mediana
-                //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+                naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
                 studentai.push_back(naujas_studentas);
             }
@@ -602,7 +602,7 @@ int main() {
                 }
                 // Galutinio vidurkio ir medianos skaiciavimai
                 naujas_studentas.setGalutinisVid((1.00 * pazymiu_suma / skaicius_pazymiu) * 0.4 + naujas_studentas.getEgzaminoRezultatas() * 0.6);
-                //naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
+                naujas_studentas.setMediana(mediana(naujas_studentas.getPazymiai(), naujas_studentas.getEgzaminoRezultatas()));
 
                 // Pridedamas studentas
                 studentai.push_back(naujas_studentas);
@@ -697,7 +697,7 @@ int main() {
                     generuotiFaila("studentu100000.txt", 7, 100000);
                     generuotiFaila("studentu1000000.txt", 3, 1000000);
                     generuotiFaila("studentu10000000.txt", 1, 10000000);
-                    break; // Nutraukti ciklą, jei pavyko sugeneruoti failus be klaidų.
+                    break; 
                 } catch (const invalid_argument& pasirinkimo_klaida) {
                     cout << pasirinkimo_klaida.what() << endl;
                 }
