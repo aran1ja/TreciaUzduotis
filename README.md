@@ -205,3 +205,34 @@ There is a mistake 'std:bad_alloc' with both std::vector and Vector containers.
 #### Results
 The results are very similar. The difference is only in milliseconds.
 
+## GoogleTests
+To check whether my vector.h works properly, I did 14 tests to check functions, operators.
+Example code:
+
+        TEST(VectorTest, MoveKonstruktorius) {
+            Vector<int> v1(5, 10);
+            Vector<int> v2(std::move(v1));
+            EXPECT_EQ(v1.size(), 0);
+            EXPECT_EQ(v1.capacity(), 0);
+            EXPECT_TRUE(v1.empty());
+            EXPECT_EQ(v2.size(), 5);
+            EXPECT_EQ(v2.capacity(), 5);
+            for (int i = 0; i < 5; ++i) {
+                EXPECT_EQ(v2[i], 10);
+            }
+        }
+        
+        TEST(VectorTest, FrontFunkcija) {
+            Vector<int> v = { 1, 2, 3, 4, 5 };
+            EXPECT_EQ(v.front(), 1);
+        }
+        
+        TEST(VectorTest, BackFunkcija) {
+            Vector<int> v = { 1, 2, 3, 4, 5 };
+            EXPECT_EQ(v.back(), 5);
+        }
+
+## Setup.exe file
+I created Setup.exe file using Inno Setup Compiler from https://inno-setup-compiler.en.lo4d.com/windows. It helped me to create a .iss script. 
+Setup.exe file is installed into C:/Program files/VU/Vardenis-Pavardenis folder and Administrator rights are given.
+
